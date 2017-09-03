@@ -83,8 +83,20 @@
     </header>
     -->
 
+    @if (Session::has('success'))
+    <div class="container">
+      <div class="row">
+        <div class="alert alert-success">{{ Session::get('success') }}</div>
+      </div>
+    </div>
+    @endif
+
     <!-- Page Content -->
-    @yield('content')
+    <div class="container">
+      <div class="row">
+        @yield('content')
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Game;
+use App\Rating;
+use App\System;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -24,7 +27,11 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('game.create');
+        $categories = Category::all()->pluck('name', 'id');
+        $ratings    = Rating::all()->pluck('name', 'id');
+        $systems    = System::all()->pluck('name', 'id');
+
+        return view('game.form', ['categories' => $categories, 'ratings' => $ratings, 'systems' => $systems]);
     }
 
     /**
@@ -35,7 +42,11 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        $game = new Game;
+        $game = Game::create($request->all());
+
+        $request->session()->flash('success', 'Task was successful!');
+
+        return redirect()->route('game.create');
     }
 
     /**
