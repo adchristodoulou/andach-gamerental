@@ -42,7 +42,15 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'system_id' => 'required',
+        ]);
+
         $game = Game::create($request->all());
+
+        $game->picture_url = $request->picture->store('games_boxes');
+        $game->save();
 
         $request->session()->flash('success', 'Task was successful!');
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-	protected $guarded = array();
+	protected $fillable = ['name', 'system_id', 'rating_id', 'category_id', 'description', 'release_date', 'is_premium'];
     protected $table   = 'games';
 
     public function category()

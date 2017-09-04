@@ -2,9 +2,9 @@
 
 @section('content')
 	@if (isset($game))
-		{!! Form::model($game, ['route' => ['game.update', $user]]) !!}
+		{!! Form::model($game, ['route' => ['game.update', $game->id], 'files' => true]) !!}
 	@else
-		{!! Form::open(['route' => ['game.store']]) !!}
+		{!! Form::open(['route' => 'game.store', 'files' => true]) !!}
 	@endif
 
 	<h1>Create or Edit a Game</h1>
@@ -55,6 +55,13 @@
 		{!! Form::label('description', 'Description:', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
 	    	{!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
+	<div class="row">
+		{!! Form::label('picture', 'Upload Picture:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::file('picture', ['class' => 'form-control']) !!}
 		</div>
 	</div>
 
