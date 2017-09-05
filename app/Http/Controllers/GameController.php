@@ -7,6 +7,8 @@ use App\Game;
 use App\Rating;
 use App\System;
 use Illuminate\Http\Request;
+use Image;
+use Storage;
 
 class GameController extends Controller
 {
@@ -17,7 +19,9 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        $games = Game::paginate(20);
+
+        return view('game.index', ['games' => $games]);
     }
 
     /**
@@ -49,7 +53,8 @@ class GameController extends Controller
 
         $game = Game::create($request->all());
 
-        $game->picture_url = $request->picture->store('games_boxes');
+        $game->picture_url = $request->picture->store('games_boxes', 'public');
+        $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         $game->save();
 
         $request->session()->flash('success', 'Task was successful!');
