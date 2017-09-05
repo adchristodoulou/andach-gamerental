@@ -20,3 +20,8 @@ Route::resource('game', 'GameController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemsearch');
+
+Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');

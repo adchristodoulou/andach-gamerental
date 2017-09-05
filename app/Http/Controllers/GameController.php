@@ -106,4 +106,20 @@ class GameController extends Controller
     {
         //
     }
+
+    public function search($system, $category = null)
+    {
+        $system = System::where('url', $system)->first();
+
+        if ($category)
+        {
+            $category = Category::where('url', $category)->first();
+
+            $games = Game::where('system_id', $system->id)->where('category_id', $category->id)->paginate(20);
+        } else {
+            $games = Game::where('system_id', $system->id)->paginate(20);
+        }
+
+        return view('game.index', ['games' => $games]);
+    }
 }
