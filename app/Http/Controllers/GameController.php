@@ -57,7 +57,7 @@ class GameController extends Controller
         $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         $game->save();
 
-        $request->session()->flash('success', 'Task was successful!');
+        $request->session()->flash('success', 'The game has successfully been added!');
 
         return redirect()->route('game.create');
     }
@@ -81,7 +81,13 @@ class GameController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all()->pluck('name', 'id');
+        $ratings    = Rating::all()->pluck('name', 'id');
+        $systems    = System::all()->pluck('name', 'id');
+        $game       = Game::find($id);
+
+        return view('game.form', ['game' => $game, 'categories' => $categories, 'ratings' => $ratings, 'systems' => $systems]);
+
     }
 
     /**
@@ -93,7 +99,21 @@ class GameController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $game = Game::find($id);
+
+        $game->update($request->all());
+
+        if(isset($request->picture))
+        {
+            $game->picture_url = $request->picture->store('games_boxes', 'public');
+            $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
+        }
+
+        $game->save();
+
+        $request->session()->flash('success', 'The game has successfully been edited!');
+
+        return redirect()->route('game.edit', $id);
     }
 
     /**
