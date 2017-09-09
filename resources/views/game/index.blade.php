@@ -15,7 +15,7 @@
 		<div class="col-lg-3">
 
 			<img src="/storage/{{ $game->thumb_url }}" height="200" width="150"> <br />
-			<b>{{$i}}/{{$i%4}}<br/>{{ $game->name }}</b>
+			<b>{{$i}}/{{$i%4}}<br/><a href="{{ route('game.show', $game->id) }}">{{ $game->name }}</a></b>
 		</div>
 
 		@if ($i % 4 == 0)

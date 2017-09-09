@@ -19,9 +19,18 @@ class AddGamesTable extends Migration
             $table->integer('system_id');
             $table->integer('rating_id')->nullable();
             $table->integer('category_id')->nullable();
+            $table->integer('developer_id')->nullable();
+            $table->integer('publisher_id')->nullable();
             $table->text('description')->nullable();
+            $table->string('trailer_url')->nullable();
             $table->date('release_date')->nullable();
             $table->boolean('is_premium')->nullable();
+            $table->integer('min_players')->nullable();
+            $table->integer('max_players')->nullable();
+            //An integer here shows that this is local co-op for x or more players. 
+            $table->integer('is_local_coop')->nullable();
+            //An integer here shows that this is online co-op for x or more players. 
+            $table->integer('is_online_coop')->nullable();
             $table->string('picture_url')->nullable();
             $table->string('thumb_url')->nullable();
             $table->softDeletes();
