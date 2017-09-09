@@ -29,6 +29,6 @@ class AddGameRatings extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categratingsories');
+        Schema::dropIfExists('ratings');
     }
 }
