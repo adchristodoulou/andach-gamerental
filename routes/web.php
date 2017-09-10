@@ -25,3 +25,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemsearch');
 
 Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');
+
+Route::get('login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');

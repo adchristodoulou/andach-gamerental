@@ -35,4 +35,33 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Socialite Services
+    |--------------------------------------------------------------------------
+    |
+    | Here, provide all the necessary authentication details for the Socialite
+    | plugin. All of these, of course, should pull directly from the .env file.
+    |
+    */
+
+
+    'facebook' => [
+        'client_id'     => env('SOCIALITE_FB_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_FB_CLIENT_SECRET'),
+        'redirect'      => env('SOCIALITE_FB_URL'),
+    ],
+
+    'twitter' => [
+        'client_id'     => env('SOCIALITE_TWITTER_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_TWITTER_CLIENT_SECRET'),
+        'redirect'      => env('SOCIALITE_TWITTER_URL'),
+    ],
+
+    'github' => [
+        'client_id'     => env('SOCIALITE_GITHUB_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_GITHUB_CLIENT_SECRET'),
+        'redirect'      => env('SOCIALITE_GITHUB_URL'),
+    ],
+
 ];

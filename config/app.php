@@ -182,6 +182,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Nathanmac\Utilities\Parser\ParserServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Parser' => Nathanmac\Utilities\Parser\Facades\Parser::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
