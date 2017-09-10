@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::resource('game', 'GameController');
 
 Auth::routes();
+Route::get('log-out', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

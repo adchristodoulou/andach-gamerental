@@ -46,6 +46,17 @@
             <li class="nav-item">
               <a class="nav-link" href="/open-source">Open Source</a>
             </li>
+            @if (Auth::check())
+              <li class="nav-item">
+                <a class="nav-link" href="/log-out">Log Out</a>
+            @else
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+              </li>
+            @endif
           </ul>
         </div>
       </div>
