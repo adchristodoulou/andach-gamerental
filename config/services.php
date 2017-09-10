@@ -64,4 +64,10 @@ return [
         'redirect'      => env('SOCIALITE_GITHUB_URL'),
     ],
 
+    'google' => [
+        'client_id'     => env('SOCIALITE_GOOGLE_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('SOCIALITE_GOOGLE_URL'),
+    ],
+
 ];
