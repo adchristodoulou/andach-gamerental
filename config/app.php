@@ -179,7 +179,9 @@ return [
 
         //Other providers. 
         Collective\Html\HtmlServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Nathanmac\Utilities\Parser\ParserServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
 
     ],
 
@@ -230,9 +232,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Parser' => Nathanmac\Utilities\Parser\Facades\Parser::class,
 
     ],
 

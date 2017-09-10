@@ -15,12 +15,12 @@ class AddGamesTable extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('system_id');
+            $table->string('name')->nullable();
+            $table->integer('system_id')->nullable();
             $table->integer('rating_id')->nullable();
             $table->integer('category_id')->nullable();
-            $table->integer('developer_id')->nullable();
-            $table->integer('publisher_id')->nullable();
+            $table->string('developer')->nullable();
+            $table->string('publisher')->nullable();
             $table->text('description')->nullable();
             $table->string('trailer_url')->nullable();
             $table->date('release_date')->nullable();

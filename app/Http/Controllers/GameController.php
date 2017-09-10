@@ -46,16 +46,15 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'system_id' => 'required',
-        ]);
-
         $game = Game::create($request->all());
 
-        $game->picture_url = $request->picture->store('games_boxes', 'public');
-        $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
+        if(isset($request->picture))
+        {
+            $game->picture_url = $request->picture->store('games_boxes', 'public');
+            $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
+        }
         $game->save();
+        $game->refreshGameDBInfo();
 
         $request->session()->flash('success', 'The game has successfully been added!');
 
@@ -112,6 +111,7 @@ class GameController extends Controller
         }
 
         $game->save();
+        $game->refreshGameDBInfo();
 
         $request->session()->flash('success', 'The game has successfully been edited!');
 

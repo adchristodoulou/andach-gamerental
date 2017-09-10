@@ -23,6 +23,13 @@
 	</div>
 
 	<div class="row">
+		{!! Form::label('gamesdb_id', 'ID from The Games DB:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::text('gamesdb_id', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
+	<div class="row">
 		{!! Form::label('rating_id', 'Rating:', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
 	    	{!! Form::select('rating_id', $ratings, null, ['class' => 'form-control', 'placeholder' => '(please select a rating)']) !!}

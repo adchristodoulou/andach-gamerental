@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPublishers extends Migration
+class AddGamesdbToGames extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class AddPublishers extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('games', function (Blueprint $table) {
+            $table->integer('gamesdb_id')->after('system_id')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class AddPublishers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publishers');
+        Schema::table('games', function (Blueprint $table) {
+            $table->dropColumn('gamesdb_id');
+        });
     }
 }
