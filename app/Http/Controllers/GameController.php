@@ -129,6 +129,18 @@ class GameController extends Controller
         //
     }
 
+    public function addToWishlist(Request $request)
+    {
+        Auth::user()->addToWishlist($request->id);
+    }
+
+    public function homepage()
+    {
+        $xboxone = Game::where('system_id', 4920)->get()->random(4);
+        $ps4     = Game::where('system_id', 4919)->get()->random(4);
+        return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
+    }
+
     public function search($system, $category = null)
     {
         $system = System::where('url', $system)->first();

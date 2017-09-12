@@ -21,6 +21,15 @@ class Game extends Model
     	return $this->belongsTo('App\Category', 'category_id');
     }
 
+    public function getBoxAttribute()
+    {
+        return '<div class="col-lg-3">
+
+            <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
+            <a href="'.route('game.show', $this->id).'">'.$this->name.'</a></b>
+        </div>';
+    }
+
     public function rating()
     {
     	return $this->belongsTo('App\Rating', 'rating_id');

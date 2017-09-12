@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
+Route::get('/', 'GameController@homepage');
 
 Route::resource('game', 'GameController');
+Route::post('game/{id}/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');

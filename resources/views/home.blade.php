@@ -3,6 +3,19 @@
 @section('content')
     <div class="container">
 
+      <h2>Rent Xbox One Games</h2>
+      <div class="row">
+        @foreach ($xboxone as $game)
+          {!! $game->box !!}
+        @endforeach
+      </div>
+      <h2>Rent PS4 Games</h2>
+      <div class="row">
+        @foreach ($ps4 as $game)
+          {!! $game->box !!}
+        @endforeach
+      </div>
+
       <div class="row">
         <div class="col-sm-8">
           <h2 class="mt-4">What We Do</h2>
@@ -32,24 +45,29 @@
       </div>
       <!-- /.row -->
 
+      <h2>How This Works</h2>
       <div class="row">
-        <div class="col-sm-4 my-4">
+        <div class="col-sm-3">
           <div class="card">
             <img class="card-img-top" src="http://placehold.it/300x200" alt="">
             <div class="card-body">
-              <h4 class="card-title">Free Postage</h4>
-              <p class="card-text">We offer free first-class postage both ways. </p>
+              <h4 class="card-title">Add Games to Your List</h4>
+              <p class="card-text">Sign up for an account and add games to your wishlist. </p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
+              @if (Auth::check())
+                <a href="/register" class="btn btn-primary">Register Now!</a>
+              @else 
+                <a href="/user/wishlist" class="btn btn-primary">Check your Wishlist</a>
+              @endif
             </div>
           </div>
         </div>
-        <div class="col-sm-4 my-4">
+        <div class="col-sm-3">
           <div class="card">
             <img class="card-img-top" src="http://placehold.it/300x200" alt="">
             <div class="card-body">
-              <h4 class="card-title">Card title</h4>
+              <h4 class="card-title">Get them through the post</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
             </div>
             <div class="card-footer">
@@ -57,11 +75,23 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4 my-4">
+        <div class="col-sm-3">
           <div class="card">
             <img class="card-img-top" src="http://placehold.it/300x200" alt="">
             <div class="card-body">
-              <h4 class="card-title">Card title</h4>
+              <h4 class="card-title">Play as long as you want</h4>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Find Out More!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card">
+            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Send it back and get another</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
             </div>
             <div class="card-footer">
@@ -73,6 +103,7 @@
       </div>
       <!-- /.row -->
 
+      <h2>Our reviews...</h2>
       <div class="row">
         <div class="col-sm-12">
           <blockquote class="quote-card blue-card">

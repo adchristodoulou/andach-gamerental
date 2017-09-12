@@ -15,6 +15,11 @@
 			@endif
 			<hr />
 			{{ $game->description }}
+
+			{!! Form::open(['route' => 'game.addtowishlist', 'method' => 'POST']) !!}
+			{{ Form::hidden('id', $game->id) }}
+			{{ Form::submit('Add to Wishlist', ['class' => 'form-control']) }}
+			{!! Form::close() !!}
 		</div>
 	</div>
 @endsection
