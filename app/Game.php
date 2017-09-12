@@ -88,4 +88,9 @@ class Game extends Model
     {
     	return $this->belongsTo('App\System', 'system_id');
     }
+
+    public function wishlists()
+    {
+        return $this->hasMany('App\Wishlist', 'game_id');
+    }
 }

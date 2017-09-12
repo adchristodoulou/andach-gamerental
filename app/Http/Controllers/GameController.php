@@ -6,6 +6,7 @@ use App\Category;
 use App\Game;
 use App\Rating;
 use App\System;
+use Auth;
 use Illuminate\Http\Request;
 use Image;
 use Storage;

@@ -31,4 +31,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\LinkedSocialAccount');
     }
+
+    public function addToWishlist($gameID)
+    {
+        
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany('App\Wishlist', 'user_id');
+    }
 }
