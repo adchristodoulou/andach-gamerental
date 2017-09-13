@@ -12,7 +12,7 @@
 			<div class="row">
 		@endif
 
-		{{ $game->box }}
+		{!! $game->box !!}
 
 		@if ($i % 4 == 0)
 			</div>

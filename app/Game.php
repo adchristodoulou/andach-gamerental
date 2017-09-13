@@ -5,6 +5,7 @@ namespace App;
 use App\Category;
 use App\Rating;
 use App\System;
+use Auth;
 use Curl;
 use File;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,14 @@ class Game extends Model
             <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
             <a href="'.route('game.show', $this->id).'">'.$this->name.'</a></b>
         </div>';
+    }
+
+    //Returns true if there is a user logged in and the game is on their wishlist. False otherwise. 
+    public function onWishlist()
+    {
+        if (!Auth::check()) return false;
+
+        return count($this->wishlists()->where('user_id', Auth::id())->get());
     }
 
     public function rating()

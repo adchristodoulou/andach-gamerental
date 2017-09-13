@@ -16,10 +16,17 @@
 			<hr />
 			{{ $game->description }}
 
-			{!! Form::open(['route' => 'game.addtowishlist', 'method' => 'POST']) !!}
-			{{ Form::hidden('id', $game->id) }}
-			{{ Form::submit('Add to Wishlist', ['class' => 'form-control']) }}
-			{!! Form::close() !!}
+			@if ($game->onWishlist())
+				{!! Form::open(['route' => 'game.deletefromwishlist', 'method' => 'POST']) !!}
+				{{ Form::hidden('id', $game->id) }}
+				{{ Form::submit('Remove Game from Wishlist', ['class' => 'form-control']) }}
+				{!! Form::close() !!}
+			@else
+				{!! Form::open(['route' => 'game.addtowishlist', 'method' => 'POST']) !!}
+				{{ Form::hidden('id', $game->id) }}
+				{{ Form::submit('Add to Wishlist', ['class' => 'form-control']) }}
+				{!! Form::close() !!}
+			@endif
 		</div>
 	</div>
 @endsection

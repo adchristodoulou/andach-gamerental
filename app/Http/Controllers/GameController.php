@@ -132,7 +132,28 @@ class GameController extends Controller
 
     public function addToWishlist(Request $request)
     {
-        Auth::user()->addToWishlist($request->id);
+        if(Auth::check())
+        {
+            Auth::user()->addToWishlist($request->id);
+        } else {
+            $request->session()->flash('success', 'You need to login to add a game to your wishlist!');
+            return redirect()->route('login');
+        }
+
+        return redirect()->route('game.show', $request->id);
+    }
+
+    public function deleteFromWishlist(Request $request)
+    {
+        if(Auth::check())
+        {
+            Auth::user()->deleteFromWishlist($request->id);
+        } else {
+            $request->session()->flash('success', 'You are not logged in.');
+            return redirect()->route('login');
+        }
+
+        return redirect()->route('game.show', $request->id);
     }
 
     public function homepage()

@@ -15,12 +15,11 @@
 Route::get('/', 'GameController@homepage');
 
 Route::resource('game', 'GameController');
-Route::post('game/{id}/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
+Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
+Route::post('game/dletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemsearch');
