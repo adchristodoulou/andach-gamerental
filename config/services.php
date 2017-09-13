@@ -70,4 +70,10 @@ return [
         'redirect'      => env('SOCIALITE_GOOGLE_URL'),
     ],
 
+    'linkedin' => [
+        'client_id'     => env('SOCIALITE_LINKEDIN_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_LINKEDIN_CLIENT_SECRET'),
+        'redirect'      => env('SOCIALITE_LINKEDIN_URL'),
+    ],
+
 ];
