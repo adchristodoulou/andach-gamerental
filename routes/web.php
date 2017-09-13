@@ -18,12 +18,13 @@ Route::resource('game', 'GameController');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 Route::post('game/dletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
+Route::resource('user', 'UserController');
+
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');
 
 
 Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemsearch');
-
 Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');
 
 Route::get('login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
