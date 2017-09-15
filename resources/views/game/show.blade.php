@@ -7,6 +7,10 @@
 		</div>
 		<div class="col-lg-8">
 			<h2>Rent {{ $game->name }}</h2>
+			@if(Auth::id() == 1)
+				<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
+			@endif
+
 			@if ($game->publisher)
 				<p>Publisher: {{ $game->publisher }}</p>
 			@endif

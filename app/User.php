@@ -58,6 +58,11 @@ class User extends Authenticatable
         }
     }
 
+    public function wishlistGames()
+    {
+        return $this->belongsToMany('App\Game', 'wishlist', 'user_id', 'game_id');
+    }
+
     public function wishlists()
     {
         return $this->hasMany('App\Wishlist', 'user_id');

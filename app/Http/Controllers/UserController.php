@@ -95,4 +95,16 @@ class UserController extends Controller
     {
         //
     }
+
+    public function account()
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        }
+
+        $user = Auth::user();
+
+        return view('user.account', ['user' => $user]);
+    }
 }
