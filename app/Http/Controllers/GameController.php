@@ -112,7 +112,14 @@ class GameController extends Controller
         }
 
         $game->save();
-        $game->refreshGameDBInfo();
+        $errors = $game->refreshGameDBInfo();
+
+        if (count($errors))
+        {
+            $request->session()->flash('success', implode($errors, "\n"));
+
+            return redirect()->route('game.edit', $id);
+        }
 
         $request->session()->flash('success', 'The game has successfully been edited!');
 

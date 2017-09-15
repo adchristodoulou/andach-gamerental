@@ -8,6 +8,7 @@ use App\System;
 use Auth;
 use Curl;
 use File;
+use IGDB;
 use Illuminate\Database\Eloquent\Model;
 use Parser;
 use Storage;
@@ -46,32 +47,26 @@ class Game extends Model
 
     public function refreshGameDBInfo()
     {
-        if (!$this->gamesdb_id) return false;
-
-        $xml = file_get_contents('http://thegamesdb.net/api/GetGame.php?id='.$this->gamesdb_id);
-        $parser = Parser::xml($xml);
-
-        $array['name'] = 'GameTitle';
-        $array['system_id'] = 'PlatformId';
-        $array['developer'] = 'Developer';
-        $array['publisher'] = 'Publisher';
-        $array['description'] = 'Overview';
-        $array['trailer_url'] = 'YouTube';
-        $array['release_date'] = 'ReleaseDate';
-
-        foreach ($array as $key => $gameKey)
+        if (!$this->gamesdb_id)
         {
-            if (isset($parser['Game'][$gameKey]))
+            //Then we need to show to the user the list of IDs. 
+            $api = IGDB::searchGames($this->name);
+            foreach ($api as $game)
             {
-                $updateArray[$key] = $parser['Game'][$gameKey];
+                $errors[] = $game->id.' - '.$game->name;
             }
+
+            return $errors;
         }
 
-        if(isset($parser['Game']['Images']['boxart']['@thumb']))
-        {
-            $url = $parser['baseImgUrl'].$parser['Game']['Images']['boxart']['@thumb'];
-            $this->updateImage($url);
-        }
+        $api = IGDB::getGame($this->gamesdb_id);
+        $updateArray['name'] = $api->name;
+        $updateArray['description'] = $api->summary;
+        $image = 'http:'.str_replace('t_thumb', 't_cover_big', $api->cover->url);
+        
+        //dd($api);
+
+        $this->updateImage($image);
 
         $this->update($updateArray);
 

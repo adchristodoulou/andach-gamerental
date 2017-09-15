@@ -76,4 +76,18 @@ return [
         'redirect'      => env('SOCIALITE_LINKEDIN_URL'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | IGDB Services
+    |--------------------------------------------------------------------------
+    |
+    | Key and URL for the IGDB service.
+    |
+    */
+
+    'igdb' => [
+        'key' => env('IGDB_KEY'),
+        'url' => env('IGDB_URL')
+    ]
+
 ];

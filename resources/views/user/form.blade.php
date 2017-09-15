@@ -126,7 +126,7 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			{{ Form::submit('Add this Game', ['class' => 'form-control btn btn-primary']) }}
+			{{ Form::submit('Update User Details', ['class' => 'form-control btn btn-primary']) }}
 		</div>
 	</div>
 

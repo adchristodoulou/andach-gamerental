@@ -183,6 +183,7 @@ return [
         Nathanmac\Utilities\Parser\ParserServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Messerli90\IGDB\IGDBServiceProvider::class,
 
     ],
 
@@ -236,6 +237,7 @@ return [
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'IGDB' => \Messerli90\IGDB\Facades\IGDB::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Parser' => Nathanmac\Utilities\Parser\Facades\Parser::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
