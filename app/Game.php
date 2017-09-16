@@ -60,6 +60,7 @@ class Game extends Model
         }
 
         $api = IGDB::getGame($this->gamesdb_id);
+        dd($api);
         $updateArray['name'] = $api->name;
         $updateArray['description'] = $api->summary;
         $image = 'http:'.str_replace('t_thumb', 't_cover_big', $api->cover->url);
