@@ -36,6 +36,7 @@ class AddIgdbTables extends Migration
 
         Schema::create('screenshots', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('game_id');
             $table->string('url')->nullable();
             $table->integer('height')->nullable();
             $table->integer('width')->nullable();
@@ -44,6 +45,7 @@ class AddIgdbTables extends Migration
 
         Schema::create('videos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('game_id');
             $table->string('name')->nullable();
             $table->string('youtube_id')->nullable();
             $table->timestamps();
@@ -51,6 +53,7 @@ class AddIgdbTables extends Migration
 
         Schema::create('websites', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('game_id');
             $table->string('url')->nullable();
             $table->string('category_id')->nullable();
             $table->timestamps();
@@ -70,18 +73,6 @@ class AddIgdbTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('link_games_screenshots', function (Blueprint $table) {
-            $table->integer('game_id')->nullable();
-            $table->integer('screenshot_id')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('link_games_videos', function (Blueprint $table) {
-            $table->integer('game_id')->nullable();
-            $table->integer('video_id')->nullable();
-            $table->timestamps();
-        });
-
         Schema::create('link_games_modes', function (Blueprint $table) {
             $table->integer('game_id')->nullable();
             $table->integer('mode_id')->nullable();
@@ -93,14 +84,6 @@ class AddIgdbTables extends Migration
             $table->integer('genre_id')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('link_games_websites', function (Blueprint $table) {
-            $table->integer('game_id')->nullable();
-            $table->integer('website_id')->nullable();
-            $table->timestamps();
-        });
-
-
     }
 
     /**
