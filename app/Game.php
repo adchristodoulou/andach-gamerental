@@ -61,6 +61,15 @@ class Game extends Model
         }
     }
 
+    //This is the HTML to show the box for the wishlist itself. 
+    public function getWishlistAttribute()
+    {
+        return '<div class="col-lg-12">
+            <h2>'.$this->name.'</h2>
+        <input type="hidden" name="order[]" value="'.$this->id.'">
+        </div>';
+    }
+
     public function modes()
     {
         return $this->belongsToMany('App\Mode', 'link_games_modes', 'game_id', 'mode_id');

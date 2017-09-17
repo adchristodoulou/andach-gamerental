@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
@@ -114,11 +115,43 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/esm/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
 
     @yield('javascript')
       
+
+  <script>
+    dragula([document.getElementById('left-defaults')]);
+
+    drake.on('drop', (el, target, source, sibling) => {
+        const newColumnIndex = parseInt(get(target, 'id'));
+        const previousColumnIndex = parseInt(get(source, 'id'));
+        const belowId = get(sibling, 'id');
+        const itemId = get(el, 'id');
+
+        let columns = this.state.columns;
+        if (belowId === undefined) {
+          const newItemIndex = columns[newColumnIndex].items.length;
+          columns[previousColumnIndex].items.splice(columns[previousColumnIndex].items.indexOf(itemId), 1);
+          columns[newColumnIndex].items.splice(newItemIndex, 0, itemId);
+          this.setState({columns});
+        }
+        else {
+          const newItemIndex = columns[newColumnIndex].items.indexOf(belowId);
+          columns[previousColumnIndex].items.splice(columns[previousColumnIndex].items.indexOf(itemId), 1);
+          columns[newColumnIndex].items.splice(newItemIndex, 0, itemId);
+          this.setState({columns});
+        }
+
+        if (this.props.onDrag !== undefined) {
+          this.props.onDrag(columns);
+        }
+      });
+    
+  </script>
+
   </body>
 
 </html>
