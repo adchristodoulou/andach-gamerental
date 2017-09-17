@@ -121,3 +121,7 @@ h1 {
 .quote-card.purple-card:before, .quote-card.purple-card:after {
   color: #8a8da2;
 }
+
+.owl-carousel .item-video{
+  height:300px
+}

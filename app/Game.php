@@ -52,6 +52,15 @@ class Game extends Model
         </div>';
     }
 
+    public function getEsrbPictureAttribute()
+    {
+        switch ($this->esrb_rating)
+        {
+            case 1: return '/images/esrb/ratinpending.svg';
+            case 5: return '/images/esrb/teen.svg';
+        }
+    }
+
     public function modes()
     {
         return $this->belongsToMany('App\Mode', 'link_games_modes', 'game_id', 'mode_id');
