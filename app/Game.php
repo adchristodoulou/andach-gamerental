@@ -32,6 +32,16 @@ class Game extends Model
         </div>';
     }
 
+    //This is the HTML to show the box for the wishlist itself. 
+    public function getWishlistAttribute()
+    {
+        return '<div class="col-lg-12">
+
+            <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
+            <a href="'.route('game.show', $this->id).'">'.$this->name.'</a></b>
+        </div>';
+    }
+
     //Returns true if there is a user logged in and the game is on their wishlist. False otherwise. 
     public function onWishlist()
     {

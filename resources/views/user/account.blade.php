@@ -4,7 +4,7 @@
 
 	<h2>My Current Wishlist</h2>
 	@foreach ($user->wishlistGames as $game)
-		{{$game->id}}
+		{!! $game->wishlist !!}
 	@endforeach
 
 @endsection
