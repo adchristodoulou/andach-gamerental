@@ -56,9 +56,8 @@ class Game extends Model
     public function getWishlistAttribute()
     {
         return '<div class="col-lg-12">
-
-            <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
-            <a href="'.route('game.show', $this->id).'">'.$this->name.'</a></b>
+            <h2>'.$this->name.'</h2>
+        <input type="hidden" name="order[]" value="'.$this->id.'">
         </div>';
     }
 

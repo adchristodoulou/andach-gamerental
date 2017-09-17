@@ -105,6 +105,24 @@ class UserController extends Controller
 
         $user = Auth::user();
 
+
         return view('user.account', ['user' => $user]);
+    }
+
+    public function accountUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $order = array_flip($request->order);
+
+        foreach ($user->wishlists as $wish)
+        {
+            $wish->order = $order[$wish->game_id];
+            $wish->save();
+        }
+
+        $request->session()->flash('success', 'Your wishlist has been updated!');
+
+        return redirect()->route('user.account');
     }
 }

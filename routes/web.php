@@ -19,7 +19,8 @@ Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.ad
 Route::post('game/dletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Route::resource('user', 'UserController');
-Route::get('account', 'UserController@account');
+Route::get('account', 'UserController@account')->name('user.account');
+Route::post('accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');

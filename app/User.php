@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function wishlistGames()
     {
-        return $this->belongsToMany('App\Game', 'wishlist', 'user_id', 'game_id');
+        return $this->belongsToMany('App\Game', 'wishlist', 'user_id', 'game_id')->orderBy('order');
     }
 
     public function wishlists()

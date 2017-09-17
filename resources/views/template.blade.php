@@ -116,6 +116,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
+
+  <script>
+    dragula([document.getElementById('left-defaults')]);
+
+    drake.on('drop', (el, target, source, sibling) => {
+        const newColumnIndex = parseInt(get(target, 'id'));
+        const previousColumnIndex = parseInt(get(source, 'id'));
+        const belowId = get(sibling, 'id');
+        const itemId = get(el, 'id');
+
+        let columns = this.state.columns;
+        if (belowId === undefined) {
+          const newItemIndex = columns[newColumnIndex].items.length;
+          columns[previousColumnIndex].items.splice(columns[previousColumnIndex].items.indexOf(itemId), 1);
+          columns[newColumnIndex].items.splice(newItemIndex, 0, itemId);
+          this.setState({columns});
+        }
+        else {
+          const newItemIndex = columns[newColumnIndex].items.indexOf(belowId);
+          columns[previousColumnIndex].items.splice(columns[previousColumnIndex].items.indexOf(itemId), 1);
+          columns[newColumnIndex].items.splice(newItemIndex, 0, itemId);
+          this.setState({columns});
+        }
+
+        if (this.props.onDrag !== undefined) {
+          this.props.onDrag(columns);
+        }
+      });
+    
+  </script>
+
   </body>
 
 </html>
