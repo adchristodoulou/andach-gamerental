@@ -56,6 +56,10 @@
             @if (Auth::check())
               <li class="nav-item">
                 <a class="nav-link" href="/log-out">Log Out</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/account">My Account</a>
+              </li>
             @else
               <li class="nav-item">
                 <a class="nav-link" href="/login">Log In</a>
@@ -100,7 +104,7 @@
     @endif
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" id="contentcontainer">
       @yield('content')
     </div>
 

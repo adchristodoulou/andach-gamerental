@@ -2,18 +2,18 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-4 text-center">
 			<img src="/storage/{{ $game->thumb_url }}" />
 			<br />
 			@if ($game->onWishlist())
 				{!! Form::open(['route' => 'game.deletefromwishlist', 'method' => 'POST']) !!}
 				{{ Form::hidden('id', $game->id) }}
-				{{ Form::submit('Remove Game from Wishlist', ['class' => 'form-control warning']) }}
+				{{ Form::submit('Remove Game from Wishlist', ['class' => 'form-control btn btn-danger']) }}
 				{!! Form::close() !!}
 			@else
 				{!! Form::open(['route' => 'game.addtowishlist', 'method' => 'POST']) !!}
 				{{ Form::hidden('id', $game->id) }}
-				{{ Form::submit('Add to Wishlist', ['class' => 'form-control success']) }}
+				{{ Form::submit('Add to Wishlist', ['class' => 'form-control btn btn-success']) }}
 				{!! Form::close() !!}
 			@endif
 		</div>

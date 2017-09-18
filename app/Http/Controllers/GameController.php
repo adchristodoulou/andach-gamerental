@@ -143,7 +143,7 @@ class GameController extends Controller
         {
             Auth::user()->addToWishlist($request->id);
         } else {
-            $request->session()->flash('success', 'You need to login to add a game to your wishlist!');
+            $request->session()->flash('danger', 'You need to login to add a game to your wishlist!');
             return redirect()->route('login');
         }
 

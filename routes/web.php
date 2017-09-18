@@ -14,13 +14,16 @@
 
 Route::get('/', 'GameController@homepage');
 
+Route::get('/about-us', function () { return view('pages.about-us'); });
+
 Route::resource('game', 'GameController');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
-Route::post('game/dletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
+Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Route::resource('user', 'UserController');
 Route::get('account', 'UserController@account')->name('user.account');
 Route::post('accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
+Route::get('history', 'UserController@history')->name('user.history');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');
