@@ -56,8 +56,25 @@ class Game extends Model
     {
         switch ($this->esrb_rating)
         {
-            case 1: return '/images/esrb/ratinpending.svg';
+            case 1: return '/images/esrb/ratingpending.svg';
+            case 2: return '/images/esrb/earlychildhood.svg';
+            case 3: return '/images/esrb/everyone.svg';
+            case 4: return '/images/esrb/everyone10plus.svg';
             case 5: return '/images/esrb/teen.svg';
+            case 6: return '/images/esrb/mature.svg';
+            case 7: return '/images/esrb/adultsonly.svg';
+        }
+    }
+
+    public function getPegiPictureAttribute()
+    {
+        switch ($this->pegi_rating)
+        {
+            case 1: return '/images/pegi/3.svg';
+            case 2: return '/images/pegi/7.svg';
+            case 3: return '/images/pegi/12.svg';
+            case 4: return '/images/pegi/16.svg';
+            case 5: return '/images/pegi/18.svg';
         }
     }
 
@@ -123,8 +140,8 @@ class Game extends Model
         $updateArray['timetobeat_quick'] = $api->time_to_beat->hastly ?? 0;
         $updateArray['rating'] = $api->aggregated_rating ?? 0;
         $updateArray['rating_count'] = $api->aggregated_rating_count ?? 0;
-        $updateArray['release_date'] = date('Y-m-d', (int) $api->first_release_date ?? 0);
-        $image = 'http:'.str_replace('t_thumb', 't_cover_big', $api->cover->url);
+        $releaseDate = $api->first_release_date ?? 0;
+        $updateArray['release_date'] = date('Y-m-d', (int) $releaseDate);
         
         $this->genres()->sync($api->genres ?? array());
         $this->modes()->sync($api->game_modes ?? array());
@@ -153,8 +170,12 @@ class Game extends Model
             }
         }
 
-        $this->updateImage($image);
-
+        if (isset($api->cover))
+        {
+            $image = 'http:'.str_replace('t_thumb', 't_cover_big', $api->cover->url);
+            $this->updateImage($image);
+        }
+        
         $this->update($updateArray);
 
         $this->save();

@@ -8,12 +8,12 @@
 			@if ($game->onWishlist())
 				{!! Form::open(['route' => 'game.deletefromwishlist', 'method' => 'POST']) !!}
 				{{ Form::hidden('id', $game->id) }}
-				{{ Form::submit('Remove Game from Wishlist', ['class' => 'form-control']) }}
+				{{ Form::submit('Remove Game from Wishlist', ['class' => 'form-control warning']) }}
 				{!! Form::close() !!}
 			@else
 				{!! Form::open(['route' => 'game.addtowishlist', 'method' => 'POST']) !!}
 				{{ Form::hidden('id', $game->id) }}
-				{{ Form::submit('Add to Wishlist', ['class' => 'form-control']) }}
+				{{ Form::submit('Add to Wishlist', ['class' => 'form-control success']) }}
 				{!! Form::close() !!}
 			@endif
 		</div>
@@ -39,6 +39,9 @@
 			<h2>Rating</h2>
 			<p>{{ $game->rating }} / 100</p>
 			<p>Using {{ $game->rating_count }} reviews</p>
+
+			<p><img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /></p>
+			<p><img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/></p>
 		</div>
 	</div>
 
@@ -57,7 +60,7 @@
 			</div>
 		</div>
 	</div>
-
+<!--
 	<div class="row">
 		<h2>Game Ratings</h2>
 		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -71,7 +74,7 @@
 			  </div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 @endsection
 
 @section('javascript')
