@@ -28,9 +28,12 @@ Route::get('history', 'UserController@history')->name('user.history');
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');
 
-
 Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemcategorysearch');
 Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');
 
 Route::get('login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
+
+Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
+Route::get('/admin/stock', 'AdminController@stock')->name('admin.stock');
+Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');

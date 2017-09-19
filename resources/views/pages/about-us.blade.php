@@ -12,10 +12,12 @@
 	<h2>Our Roadmap</h2>
 	<ol>
 		<li><del>Link games to the <a href="https://www.igdb.com/">International Games Database</a>.</del></li>
+		<li>Get the daily assignment script working.</li>
+		<li>Book games as received back from people.</li>
 		<li>See your game rental history.</li>
+		<li>See how many games you currently have available on your wishlist.</li>
 		<li>Add and remove stock from the website.</li>
 		<li>Show the available stock on each game page.</li>
-		<li>Get the daily assignment script working.</li>
 		<li>Link your Xbox or Playstation account to your profile.</li>
 		<li>Link achievements to each game, show your current achievements and progress.</li>
 	</ol>
