@@ -184,6 +184,7 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Messerli90\IGDB\IGDBServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class
 
     ],
 

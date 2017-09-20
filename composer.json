@@ -14,12 +14,13 @@
         "fideloper/proxy": "~3.3",
         "intervention/image": "^2.4",
         "ixudra/curl": "6.*",
+        "laravel/cashier-braintree": "~2.0",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.5.*",
-        "nathanmac/Parser": "^4.3",
-        "messerli90/igdb": "~1.0"
+        "messerli90/igdb": "~1.0",
+        "nathanmac/Parser": "^4.3"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

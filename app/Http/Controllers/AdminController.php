@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function sendGames()
     {
-
+        return view('admin.sendgames');
     }
 
     public function stock()

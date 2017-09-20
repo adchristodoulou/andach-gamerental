@@ -12,6 +12,7 @@
 	<h2>Our Roadmap</h2>
 	<ol>
 		<li><del>Link games to the <a href="https://www.igdb.com/">International Games Database</a>.</del></li>
+		<li>Allow people to buy games and subscript for packages.</li>
 		<li>Get the daily assignment script working.</li>
 		<li>Book games as received back from people.</li>
 		<li>See your game rental history.</li>

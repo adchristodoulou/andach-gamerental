@@ -21,9 +21,10 @@ Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.ad
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Route::resource('user', 'UserController');
-Route::get('account', 'UserController@account')->name('user.account');
-Route::post('accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
-Route::get('history', 'UserController@history')->name('user.history');
+Route::get('user/account', 'UserController@account')->name('user.account');
+Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
+Route::get('user/history', 'UserController@history')->name('user.history');
+Route::get('user/subscription', 'UserController@subscription')->name('user.subscription');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');
@@ -37,3 +38,8 @@ Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProv
 Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
 Route::get('/admin/stock', 'AdminController@stock')->name('admin.stock');
 Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
+
+Route::post(
+    'braintree/webhook',
+    '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
+);

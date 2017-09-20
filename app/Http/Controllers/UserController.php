@@ -125,4 +125,11 @@ class UserController extends Controller
 
         return redirect()->route('user.account');
     }
+
+    public function subscription()
+    {
+        $user = User::find(1);
+
+        $user->newSubscription('main', 'premium')->create($stripeToken);
+    }
 }
