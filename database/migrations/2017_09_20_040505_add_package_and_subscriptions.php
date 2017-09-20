@@ -33,12 +33,16 @@ class AddPackageAndSubscriptions extends Migration
             $table->timestamps();
         });
 
-        Schema::create('packages', function ($table) {
+        Schema::create('plans', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('max_games_simultaneously');
             $table->boolean('is_premium')->nullable();
             $table->boolean('is_priority')->nullable();
+            $table->string('slug')->unique(); //name used to identify plan in the URL
+            $table->string('braintree_plan');
+            $table->float('cost');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -51,7 +55,7 @@ class AddPackageAndSubscriptions extends Migration
     public function down()
     {
         Schema::dropIfExists('subscriptions');
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('plans');
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('braintree_id');
