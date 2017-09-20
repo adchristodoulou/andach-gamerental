@@ -21,7 +21,8 @@ Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.ad
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Route::get('/plan', 'PlanController@index');
-Route::get('/plan/{slug}', 'PlanController@show');
+Route::post('/subscribe', 'PlanController@store')->name('plan.subscribe');
+Route::get('/plan/{id}', 'PlanController@show');
 
 Route::resource('user', 'UserController');
 Route::get('user/account', 'UserController@account')->name('user.account');

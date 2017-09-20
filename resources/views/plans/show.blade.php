@@ -7,10 +7,11 @@
       <div class="panel panel-default">
         <div class="panel-heading">{{ $plan->name }}</div>
         <div class="panel-body">
-          <form>
+          <form action="{{ route('plan.subscribe') }}" method="post">
             <div id="dropin-container"></div>
+            <input type="hidden" name="plan" value="{{ $plan->id }}">
+            {{ csrf_field() }}
             <hr>
-
             <button id="payment-button" class="btn btn-primary btn-flat invisible" type="submit">Pay now</button>
           </form>
         </div>
