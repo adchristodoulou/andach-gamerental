@@ -20,6 +20,9 @@ Route::resource('game', 'GameController');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
+Route::get('/plan', 'PlanController@index');
+Route::get('/plan/{slug}', 'PlanController@show');
+
 Route::resource('user', 'UserController');
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
@@ -39,6 +42,7 @@ Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendga
 Route::get('/admin/stock', 'AdminController@stock')->name('admin.stock');
 Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
 
+Route::get('/braintree/token', 'BraintreeTokenController@token');
 Route::post(
     'braintree/webhook',
     '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
