@@ -24,11 +24,11 @@ Route::get('/plan', 'PlanController@index');
 Route::post('/subscribe', 'PlanController@store')->name('plan.subscribe');
 Route::get('/plan/{id}', 'PlanController@show');
 
-Route::resource('user', 'UserController');
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
 Route::get('user/history', 'UserController@history')->name('user.history');
 Route::get('user/subscription', 'UserController@subscription')->name('user.subscription');
+Route::resource('user', 'UserController');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout');

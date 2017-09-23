@@ -48,6 +48,11 @@ class User extends Authenticatable
         }
     }
 
+    public function currentSubscription()
+    {
+        return $this->hasMany('App\Subscription', 'user_id')->where('ends_at', NULL);
+    }
+
     public function deleteFromWishlist($gameID)
     {
         if(count($this->wishlist()->where('game_id', $gameID)->get()))

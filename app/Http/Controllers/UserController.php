@@ -105,7 +105,6 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-
         return view('user.account', ['user' => $user]);
     }
 
@@ -124,12 +123,5 @@ class UserController extends Controller
         $request->session()->flash('success', 'Your wishlist has been updated!');
 
         return redirect()->route('user.account');
-    }
-
-    public function subscription()
-    {
-        $user = User::find(1);
-
-        $user->newSubscription('main', 'premium')->create($stripeToken);
     }
 }
