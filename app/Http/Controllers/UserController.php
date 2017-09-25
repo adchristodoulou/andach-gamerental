@@ -124,4 +124,16 @@ class UserController extends Controller
 
         return redirect()->route('user.account');
     }
+
+    public function subscription()
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        }
+
+        $user = Auth::user();
+
+        return view('user.subscription', ['user' => $user]);
+    }
 }

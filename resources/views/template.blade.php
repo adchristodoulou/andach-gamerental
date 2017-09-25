@@ -55,17 +55,17 @@
             </li>
             @if (Auth::check())
               <li class="nav-item">
-                <a class="nav-link" href="/log-out">Log Out</a>
+                <a class="nav-link" href="{{ route('log-out') }}">Log Out</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/account">My Account</a>
+                <a class="nav-link" href="{{ route('user.account') }}">My Account</a>
               </li>
             @else
               <li class="nav-item">
-                <a class="nav-link" href="/login">Log In</a>
+                <a class="nav-link" href="{{ route('login') }}">Log In</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
+                <a class="nav-link" href="{{ route('register') }}">Register</a>
               </li>
             @endif
           </ul>

@@ -15,7 +15,7 @@ class PlanController extends Controller
     public function show($id)
     {
     	$plan = Plan::find($id);
-        return view('plans.show')->with(['plan' => $plan]);
+      return view('plans.show')->with(['plan' => $plan]);
     }
 
     public function store(Request $request)
@@ -24,9 +24,17 @@ class PlanController extends Controller
           $plan = Plan::findOrFail($request->plan);
 
           // subscribe the user
-          $request->user()->newSubscription('main', $plan->braintree_plan)->create($request->payment_method_nonce);
+          if (!$request->user()->subscribed('main')) {
+            $request->user()->newSubscription('main', $plan->braintree_plan)->create($request->payment_method_nonce);
+
+            $request->session()->flash('success', 'You have successfully subscribed to the plan <strong>"'.$plan->name.'"</strong>');
+          } else {
+
+            $request->session()->flash('success', 'You have changed to the plan <strong>"'.$plan->name.'"</strong>');
+            $request->user()->subscription('main')->swap($plan->braintree_plan);
+          }
 
           // redirect to home after a successful subscription
-          return redirect('user.subscription');
+          return redirect('user/subscription');
     }
 }

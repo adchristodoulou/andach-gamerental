@@ -21,8 +21,8 @@ Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.ad
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Route::get('/plan', 'PlanController@index');
-Route::post('/subscribe', 'PlanController@store')->name('plan.subscribe');
-Route::get('/plan/{id}', 'PlanController@show');
+Route::post('/plan-store', 'PlanController@store')->name('plan.store');
+Route::get('/plan/{id}', 'PlanController@show')->name('plan.show');
 
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
@@ -31,7 +31,7 @@ Route::get('user/subscription', 'UserController@subscription')->name('user.subsc
 Route::resource('user', 'UserController');
 
 Auth::routes();
-Route::get('log-out', 'Auth\LoginController@logout');
+Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
 
 Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemcategorysearch');
 Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');
