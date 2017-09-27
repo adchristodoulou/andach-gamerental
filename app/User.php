@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function currentSubscription()
     {
-        return $this->hasMany('App\Subscription', 'user_id')->where('ends_at', NULL);
+        return $this->hasMany('App\Subscription', 'user_id');
     }
 
     public function deleteFromWishlist($gameID)

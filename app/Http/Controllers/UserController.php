@@ -125,6 +125,32 @@ class UserController extends Controller
         return redirect()->route('user.account');
     }
 
+    public function cancelSubscription(Request $request)
+    {
+        if($request->confirm)
+        {
+            Auth::user()->subscription('main')->cancel();
+            $request->session()->flash('success', 'You have cancelled your subscription.');
+
+            $user = Auth::user();
+
+            return view('user.subscription', ['user' => $user]);
+        }
+
+        return view('user.cancelsubscription');
+    }
+
+    public function resumeSubscription(Request $request)
+    {
+        Auth::user()->subscription('main')->resume();
+
+        $request->session()->flash('success', 'Your subscription has been set to resume.');
+
+        $user = Auth::user();
+
+        return view('user.subscription', ['user' => $user]);
+    }
+
     public function subscription()
     {
         if(!Auth::check())
