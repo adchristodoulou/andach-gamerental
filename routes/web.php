@@ -42,7 +42,7 @@ Route::get('login/{provider}',          'Auth\SocialAccountController@redirectTo
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
 
 Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
-Route::get('/admin/stock', 'AdminController@stock')->name('admin.stock');
+Route::get('/admin/stock/{id}', 'AdminController@stock')->name('admin.stock');
 Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
 
 Route::get('/braintree/token', 'BraintreeTokenController@token');

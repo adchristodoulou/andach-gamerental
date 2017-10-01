@@ -87,6 +87,12 @@ class Game extends Model
         </div>';
     }
 
+    public function incrementStock($amount)
+    {
+        $this->num_in_stock = $this->num_in_stock + $amount;
+        $this->save();
+    }
+
     public function modes()
     {
         return $this->belongsToMany('App\Mode', 'link_games_modes', 'game_id', 'mode_id');
@@ -184,6 +190,11 @@ class Game extends Model
     public function screenshots()
     {
         return $this->hasMany('App\Screenshot', 'game_id');
+    }
+
+    public function stock()
+    {
+        return $this->hasMany('App\Stock', 'game_id');
     }
 
     public function system()

@@ -37,11 +37,12 @@ class CreateAssignmentsAndOthers extends Migration
         });
 
         Schema::table('stock', function (Blueprint $table) {
-            $table->date('date_purchased')->after('game_id')->nulllable();
-            $table->date('date_retired')->after('date_purchased')->nulllable();
+            $table->date('date_purchased')->after('game_id');
+            $table->date('date_retired')->after('date_purchased')->nullable();
             $table->integer('retired_reason_id')->after('date_retired')->nullable();
             $table->boolean('currently_in_stock')->after('retired_reason_id')->nullable();
             $table->integer('times_rented')->after('currently_in_stock')->nullable();
+            $table->integer('purchase_price')->after('times_rented')->nullable();
             $table->dropColumn('stock_movement');
         });
 
@@ -72,6 +73,7 @@ class CreateAssignmentsAndOthers extends Migration
             $table->dropColumn('retired_reason_id');
             $table->dropColumn('currently_in_stock');
             $table->dropColumn('times_rented');
+            $table->dropColumn('purchase_price');
             $table->integer('stock_movement')->after('game_id');
         });
 
