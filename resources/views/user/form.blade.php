@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('user.menu')
 	@if (isset($user))
 		{!! Form::model($user, ['route' => ['user.update', $user->id], 'files' => true, 'method' => 'PUT']) !!}
 	@else

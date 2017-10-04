@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('admin.menu')
 
 	{!! Form::open(['route' => 'admin.users', 'method' => 'POST']) !!}
 	<div class="row">
