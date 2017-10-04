@@ -7,7 +7,7 @@
 		{!! Form::open(['route' => 'game.store', 'files' => true]) !!}
 	@endif
 
-	<h1>Create or Edit a Game</h1>
+	<h2>Create or Edit Game</h2>
 	<div class="row">
 		{!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
@@ -79,5 +79,12 @@
 	</div>
 
 	{!! Form::close() !!}
+
+	@if (isset($game))
+		<h2>Stock Information</h2>
+		<p>There are <b>{{ $game->num_in_stock }}</b> copies of this game in stock, of which <b>{{ $game->num_on_rental }}</b> are on rental, leaving <b>{{ $game->num_available }}</b> available. </p>
+
+		<p><a href="{{ route('admin.stock', $game->id) }}">Update Stock for this Game</a></p>
+	@endif
 
 @endsection

@@ -44,6 +44,7 @@ Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProv
 Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
 Route::get('/admin/stock/{id}', 'AdminController@stock')->name('admin.stock');
 Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
+Route::any('/admin/users', 'AdminController@users')->name('admin.users');
 
 Route::get('/braintree/token', 'BraintreeTokenController@token');
 Route::post(

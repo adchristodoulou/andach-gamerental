@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Game;
 use App\RetirementReason;
 use App\Stock;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -43,5 +44,23 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.stock', $returnID);
+    }
+
+    public function users(Request $request)
+    {
+        if ($request->name) $where[] = ['name', 'LIKE', '%'.$request->name.'%'];
+        if ($request->email) $where[] = ['email', 'LIKE', '%'.$request->email.'%'];
+        if ($request->billing_postcode) $where[] = ['billing_postcode', 'LIKE', '%'.$request->billing_postcode.'%'];
+        if ($request->shipping_postcode) $where[] = ['shipping_postcode', 'LIKE', '%'.$request->shipping_postcode.'%'];
+
+        if (isset($where))
+        {
+            $users = User::where($where)->paginate(20);
+        } else {
+            $users = User::paginate(20);
+        }
+        
+
+        return view('admin.users', ['users' => $users]);
     }
 }

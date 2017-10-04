@@ -66,6 +66,11 @@ class Game extends Model
         }
     }
 
+    public function getNumOnRentalAttribute()
+    {
+        return $this->num_in_stock - $this->num_available;
+    }
+
     public function getPegiPictureAttribute()
     {
         switch ($this->pegi_rating)
