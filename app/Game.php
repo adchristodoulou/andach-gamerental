@@ -8,6 +8,7 @@ use App\System;
 use Auth;
 use Curl;
 use File;
+use IGAD;
 use IGDB;
 use Illuminate\Database\Eloquent\Model;
 use Parser;
@@ -190,6 +191,13 @@ class Game extends Model
         $this->update($updateArray);
 
         $this->save();
+    }
+
+    public function refreshIGADInfo()
+    {
+        if (!$this->xbox_game_id) return false;
+
+        
     }
 
     public function screenshots()

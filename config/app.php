@@ -184,7 +184,8 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Messerli90\IGDB\IGDBServiceProvider::class,
-        Laravel\Cashier\CashierServiceProvider::class
+        Laravel\Cashier\CashierServiceProvider::class,
+        Andach\IGAD\IGADServiceProvider::class,
 
     ],
 
@@ -238,6 +239,7 @@ return [
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'IGAD' => \Andach\IGAD\Facades\IGAD::class,
         'IGDB' => \Messerli90\IGDB\Facades\IGDB::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Parser' => Nathanmac\Utilities\Parser\Facades\Parser::class,

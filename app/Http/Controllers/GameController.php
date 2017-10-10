@@ -112,6 +112,7 @@ class GameController extends Controller
         }
 
         $game->save();
+        $game->refreshIGADInfo();
         $errors = $game->refreshGameDBInfo();
 
         if (count($errors))
