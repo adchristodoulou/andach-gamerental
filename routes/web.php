@@ -41,6 +41,8 @@ Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemse
 Route::get('login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
 
+Route::post('/admin/assignment-run', 'AdminController@assignmentRun')->name('admin.assignmentrun');
+Route::post('/admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
 Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
 Route::get('/admin/stock/{id}', 'AdminController@stock')->name('admin.stock');
 Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');

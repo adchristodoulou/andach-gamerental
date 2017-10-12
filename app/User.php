@@ -48,6 +48,22 @@ class User extends Authenticatable
         }
     }
 
+    public function assignmentRuns()
+    {
+        return $this->hasMany('App\AssignmentRun', 'user_id');
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany('App\Assignment', 'user_id');
+    }
+
+    //TODO: Write this.
+    public function currentMaxGames()
+    {
+        return 1;
+    }
+
     public function currentSubscription()
     {
         return $this->hasMany('App\Subscription', 'user_id');

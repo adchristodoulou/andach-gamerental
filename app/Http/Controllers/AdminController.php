@@ -2,17 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\AssignmentRun;
 use App\Game;
 use App\RetirementReason;
 use App\Stock;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function assignmentRun(Request $request)
+    {
+        $run = new AssignmentRun;
+        $run->user_id = Auth::id();
+        $run->date_of_run = date('Y-m-d');
+        $run->save();
+
+        $run->makeAssignments();
+
+        return redirect()->route('admin.sendgames');
+    }
+
+    public function confirmAssignments(Request $request)
+    {
+        dd($request);
+    }
+
     public function sendGames()
     {
-        return view('admin.sendgames');
+        $runs = AssignmentRun::where('date_of_run', date('Y-m-d'))->get();
+
+        return view('admin.sendgames', ['runs' => $runs]);
     }
 
     public function stock($id)
