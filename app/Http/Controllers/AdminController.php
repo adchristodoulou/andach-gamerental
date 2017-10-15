@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\AssignmentRun;
 use App\Game;
+use App\Rental;
 use App\RetirementReason;
 use App\Stock;
 use App\User;
@@ -37,6 +38,27 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.sendgames');
+    }
+
+    public function rentals()
+    {
+        $rentals = Rental::whereNull('date_of_return')->get();
+
+        return view('admin.rentals', ['rentals' => $rentals]);
+    }
+
+    public function rentalsUpdate(Request $request)
+    {
+        if (count($request->rentals))
+        {
+            foreach ($request->rentals as $rentalID)
+            {
+                $rental = Rental::find($rentalID);
+                $rental->markAsPosted();
+            }
+        }
+
+        return redirect()->route('admin.rentals');
     }
 
     public function sendGames()

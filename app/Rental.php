@@ -13,6 +13,12 @@ class Rental extends Model
     	return $this->belongsTo('App\Game', 'game_id');
     }
 
+    public function markAsPosted()
+    {
+        $this->date_of_delivery = date('Y-m-d');
+        $this->save();
+    }
+
     public function stock()
     {
     	return $this->belongsTo('App\Stock', 'stock_id');

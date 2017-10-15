@@ -27,6 +27,12 @@ class Assignment extends Model
 
     public function makeIntoRental()
     {
+        $stock = Stock::find($this->stock_id);
+        if ($stock->currently_in_stock < 1) return false;
+        $stock->currently_in_stock = $stock->currently_in_stock - 1;
+        $stock->save();
+
+
         $rental = new Rental;
         $rental->user_id  = $this->user_id;
         $rental->game_id  = $this->game_id;
@@ -34,12 +40,13 @@ class Assignment extends Model
         $rental->date_of_assignment = date('Y-m-d', strtotime($this->created_at));
         $rental->save();
 
-        $stock = Stock::find($this->stock_id);
-        $stock->currently_in_stock = $stock->currently_in_stock - 1;
-        $stock->save();
-
         $this->rental_id = $rental->id;
         $this->save();
+
+        //Finally remove it from the wishlist
+        $wishlistRows = Wishlist::where('user_id', $this->user_id)->where('game_id', $this->game_id)->delete();
+
+        return true;
     }
 
     public function stock()
