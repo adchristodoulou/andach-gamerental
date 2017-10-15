@@ -5,5 +5,7 @@ This is a PHP application to run a website that will let you rent video games ou
 ##Installation Instructions
 1. Clone the repo.
 2. Run "composer install". 
+3. Chmod the /storage folder to 777 or change user groups appropriately
+3. Run php artisan cache:clear
 3. Copy the .env.example file to .env and change necessary mySQL connection creditials.
 4. Run "php artisan key:generate"

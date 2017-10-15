@@ -205,6 +205,11 @@ class Game extends Model
         
     }
 
+    public function rentals()
+    {
+        return $this->hasMany('App\Rental', 'game_id');
+    }
+
     public function screenshots()
     {
         return $this->hasMany('App\Screenshot', 'game_id');

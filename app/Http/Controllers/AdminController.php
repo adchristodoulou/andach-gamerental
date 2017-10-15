@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\AssignmentRun;
 use App\Game;
 use App\RetirementReason;
@@ -26,7 +27,16 @@ class AdminController extends Controller
 
     public function confirmAssignments(Request $request)
     {
-        dd($request);
+        if (count($request->assign))
+        {
+            foreach ($request->assign as $assign)
+            {
+                $assignment = Assignment::find($assign);
+                $assignment->makeIntoRental();
+            }
+        }
+
+        return redirect()->route('admin.sendgames');
     }
 
     public function sendGames()

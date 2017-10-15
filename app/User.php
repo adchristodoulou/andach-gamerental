@@ -81,6 +81,11 @@ class User extends Authenticatable
         }
     }
 
+    public function rentals()
+    {
+        return $this->hasMany('App\Rental', 'user_id');
+    }
+
     public function wishlistGames()
     {
         return $this->belongsToMany('App\Game', 'wishlist', 'user_id', 'game_id')->orderBy('order');

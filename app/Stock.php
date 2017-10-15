@@ -24,6 +24,11 @@ class Stock extends Model
         return '&pound;'.number_format($this->purchase_price / 100, 2);
     }
 
+    public function rentals()
+    {
+        return $this->hasMany('App\Rental', 'stock_id');
+    }
+
     public function retire($reasonID)
     {
         if ($this->date_retired) return;

@@ -16,7 +16,11 @@
 				@foreach ($run->assignments as $assignment)
 
 				<div class="row">
-					<div class="col-2">{!! Form::checkbox('assign[]', $assignment->id) !!}</div>
+					<div class="col-2">
+						@if (!$assignment->rental_id)
+							{!! Form::checkbox('assign[]', $assignment->id) !!}
+						@endif
+					</div>
 					<div class="col-5">{{ $assignment->user->name }}</div>
 					<div class="col-5">{{ $assignment->game->name }}</div>
 				</div>
