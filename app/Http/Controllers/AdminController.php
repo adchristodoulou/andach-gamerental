@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function admin()
+    {
+        return view('admin.admin');
+    }
+
     public function assignmentRun(Request $request)
     {
         $run = new AssignmentRun;
@@ -75,6 +80,13 @@ class AdminController extends Controller
         $reasons = RetirementReason::all()->pluck('name', 'id');
     
     	return view('admin.stock', ['game' => $game, 'reasons' => $reasons]);
+    }
+
+    public function stockIndex()
+    {
+        $stocks = Stock::all();
+
+        return view('admin.stockindex', ['stocks' => $stocks]);
     }
 
     public function stockUpdate(Request $request)
