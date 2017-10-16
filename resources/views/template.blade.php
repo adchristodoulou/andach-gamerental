@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <div>
-          <a class="navbar-brand" href="#">Andach Game Rentals</a><br />
+          <a class="navbar-brand" href="/">Andach Game Rentals</a><br />
           <h1>@yield('h1', 'Xbox, Playstation and retro game rentals!')</h1>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
