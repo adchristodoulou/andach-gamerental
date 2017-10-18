@@ -51,11 +51,12 @@ class GameController extends Controller
 
         if(isset($request->picture))
         {
+            dd($request->picture);
             $game->picture_url = $request->picture->store('games_boxes', 'public');
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
         $game->save();
-        $game->refreshGameDBInfo();
+        $game->refreshInfo();
 
         $request->session()->flash('success', 'The game has successfully been added!');
 
@@ -112,8 +113,7 @@ class GameController extends Controller
         }
 
         $game->save();
-        $game->refreshIGADInfo();
-        $errors = $game->refreshGameDBInfo();
+        $errors = $game->refreshInfo();
 
         if (count($errors))
         {
