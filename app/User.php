@@ -48,6 +48,22 @@ class User extends Authenticatable
         }
     }
 
+    public function assignmentRuns()
+    {
+        return $this->hasMany('App\AssignmentRun', 'user_id');
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany('App\Assignment', 'user_id');
+    }
+
+    //TODO: Write this.
+    public function currentMaxGames()
+    {
+        return 1;
+    }
+
     public function currentSubscription()
     {
         return $this->hasMany('App\Subscription', 'user_id');
@@ -63,6 +79,11 @@ class User extends Authenticatable
         } else {
             session()->flash('success', 'This game wasn\'t on your wishlist in the first place. What do you want us to do, purge it from existance? No, other people might want to rent it.');
         }
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany('App\Rental', 'user_id');
     }
 
     public function wishlistGames()

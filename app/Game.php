@@ -19,6 +19,11 @@ class Game extends Model
 	protected $fillable = ['name', 'system_id', 'gamesdb_id', 'rating_id', 'category_id', 'developer', 'publisher', 'description', 'trailer_url', 'release_date', 'is_premium', 'min_players', 'max_players', 'is_local_coop', 'is_online_coop', 'slug', 'collection_id', 'franchise_id', 'publisher_id', 'developer_id', 'esrb_rating', 'esrb_synopsis', 'pegi_rating', 'pegi_synopsis', 'timetobeat_quick', 'timetobeat_normal', 'timetobeat_slow', 'rating', 'rating_count', 'max_gamerscore', 'xbox_id', 'playstation_id'];
     protected $table   = 'games';
 
+    public function assignments()
+    {
+        return $this->hasMany('App\Assignment', 'game_id');
+    }
+
     public function category()
     {
     	return $this->belongsTo('App\Category', 'category_id');
@@ -208,6 +213,11 @@ class Game extends Model
     {
         $this->refreshAchievementInfo();
         return $this->refreshGameDBInfo();
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany('App\Rental', 'game_id');
     }
 
     public function screenshots()

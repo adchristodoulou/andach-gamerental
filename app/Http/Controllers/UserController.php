@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rental;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -138,6 +139,13 @@ class UserController extends Controller
         }
 
         return view('user.cancelsubscription');
+    }
+
+    public function history()
+    {
+        $rentals = Rental::where('user_id', Auth::id())->whereNotNull('date_of_delivery')->get();
+
+        return view('user.history', ['rentals' => $rentals]);
     }
 
     public function resumeSubscription(Request $request)

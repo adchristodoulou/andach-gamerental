@@ -62,6 +62,7 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
+			{{ Form::hidden('currently_in_stock', 1) }}
 	    	{!! Form::submit('Log Game Purchase') !!}
 		</div>
 	</div>

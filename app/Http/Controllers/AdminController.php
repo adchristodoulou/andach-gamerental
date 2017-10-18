@@ -2,17 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
+use App\AssignmentRun;
 use App\Game;
+use App\Rental;
 use App\RetirementReason;
 use App\Stock;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function admin()
+    {
+        return view('admin.admin');
+    }
+
+    public function assignmentRun(Request $request)
+    {
+        $run = new AssignmentRun;
+        $run->user_id = Auth::id();
+        $run->date_of_run = date('Y-m-d');
+        $run->save();
+
+        $run->makeAssignments();
+
+        return redirect()->route('admin.sendgames');
+    }
+
+    public function confirmAssignments(Request $request)
+    {
+        if (count($request->assign))
+        {
+            foreach ($request->assign as $assign)
+            {
+                $assignment = Assignment::find($assign);
+                $assignment->makeIntoRental();
+            }
+        }
+
+        return redirect()->route('admin.sendgames');
+    }
+
+    public function rentals()
+    {
+        $rentals = Rental::whereNull('date_of_return')->get();
+
+        return view('admin.rentals', ['rentals' => $rentals]);
+    }
+
+    public function rentalsUpdate(Request $request)
+    {
+        if (count($request->rentals))
+        {
+            foreach ($request->rentals as $rentalID)
+            {
+                $rental = Rental::find($rentalID);
+                $rental->markAsPosted();
+            }
+        }
+
+        return redirect()->route('admin.rentals');
+    }
+
     public function sendGames()
     {
-        return view('admin.sendgames');
+        $runs = AssignmentRun::where('date_of_run', date('Y-m-d'))->get();
+
+        return view('admin.sendgames', ['runs' => $runs]);
     }
 
     public function stock($id)
@@ -22,6 +80,13 @@ class AdminController extends Controller
         $reasons = RetirementReason::all()->pluck('name', 'id');
     
     	return view('admin.stock', ['game' => $game, 'reasons' => $reasons]);
+    }
+
+    public function stockIndex()
+    {
+        $stocks = Stock::all();
+
+        return view('admin.stockindex', ['stocks' => $stocks]);
     }
 
     public function stockUpdate(Request $request)

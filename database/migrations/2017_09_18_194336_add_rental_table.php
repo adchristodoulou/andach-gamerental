@@ -17,7 +17,7 @@ class AddRentalTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('game_id');
-            $table->date('date_of_delivery');
+            $table->date('date_of_delivery')->nullable();
             $table->date('date_of_return')->nullable();
             $table->boolean('returned_ok')->nullable();
             $table->integer('length_of_rental')->nullable();
