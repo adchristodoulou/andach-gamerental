@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -12,7 +13,7 @@
 */
 
 
-Route::get('/', 'GameController@homepage');
+Route::get('/', 'GameController@homepage')->name('home');
 
 Route::get('/about-us', function () { return view('pages.about-us'); });
 

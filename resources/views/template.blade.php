@@ -60,6 +60,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.account') }}">My Account</a>
               </li>
+              @if (Auth::user()->isAdmin())
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.admin') }}">Admin</a>
+                </li>
+              @endif
             @else
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Log In</a>

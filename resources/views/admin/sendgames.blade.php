@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('admin.menu')
 	<h2>Games on Most Recent Assignment Run</h2>
 
 	@if (count($runs) == 0)

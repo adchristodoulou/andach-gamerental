@@ -81,6 +81,11 @@ class User extends Authenticatable
         }
     }
 
+    public function isAdmin()
+    {
+        return $this->id === 1;
+    }
+
     public function rentals()
     {
         return $this->hasMany('App\Rental', 'user_id');
