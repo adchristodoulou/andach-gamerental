@@ -1,7 +1,6 @@
 @extends('template')
 
 @section('content')
-    <div class="container">
 
       <h2>Rent Xbox One Games</h2>
       <div class="row">
@@ -101,35 +100,4 @@
         </div>
 
       </div>
-      <!-- /.row -->
-
-      <h2>Our reviews...</h2>
-      <div class="row">
-        <div class="col-sm-12">
-          <blockquote class="quote-card blue-card">
-            <p>I've saved a ridiculous amount of money. I can play triple-A games really quickly and return them when I want.</p>
-            <cite>James, Hastings</cite>
-          </blockquote>
-        </div>
-        <div class="col-sm-12">
-          <blockquote class="quote-card green-card">
-            <p>I like that it's so convenient. There's a game on my doormat when I get home from work, and I just pop it in the postbox when I'm finished.</p>
-            <cite>Sarah, Derby</cite>
-          </blockquote>
-        </div>
-        <div class="col-sm-12">
-          <blockquote class="quote-card red-card">
-            <p>The customer support is fantastic. I don't think I've ever had an email that took more than a day to answer. Often it's within an hour!</p>
-            <cite>Ashish, Leicestershire</cite>
-          </blockquote>
-        </div>
-        <div class="col-sm-12">
-          <blockquote class="quote-card purple-card">
-            <p>There's basically never a late fee. I've kept a game I loved for a couple of months before with no problems. Because I was on the three-games-at-once option, I could still keep changing them up as I wanted.</p>
-            <cite>Ian, Newcastle</cite>
-          </blockquote>
-        </div>
-      </div>
-
-    </div>
-    <!-- /.container -->
+@endsection
