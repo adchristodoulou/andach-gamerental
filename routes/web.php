@@ -39,7 +39,7 @@ Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
 Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemcategorysearch');
 Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');
 
-Route::get('login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
+Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
 
 Route::get('/admin/', 'AdminController@admin')->name('admin.admin');
