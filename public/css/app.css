@@ -32,6 +32,14 @@ h1 {
   padding-bottom: 0px;
 }
 
+.navbar-gamebar {
+  margin: auto;
+}
+
+#navbar-title {
+  white-space: nowrap;
+}
+
 #contentcontainer {
   padding-top: 10px;
   padding-bottom: 10px;

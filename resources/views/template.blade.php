@@ -29,7 +29,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <div>
+        <div id="navbar-title">
           <a class="navbar-brand" href="/">Andach Game Rentals</a><br />
           <h1>@yield('h1', 'Xbox, Playstation and retro game rentals!')</h1>
         </div>
@@ -43,9 +43,6 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about-us">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/contact-us">Contact</a>
@@ -81,12 +78,11 @@
     <!-- Game Menu -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#">Systems</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ml-auto navbar-gamebar">
             @foreach ($gamemenu as $system)
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -110,7 +106,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <div class="alert alert-success"><b>Success:</b> {{ Session::get('success') }}</div>
+          <div class="alert alert-success"><b>Success:</b> {!! Session::get('success') !!}</div>
         </div>
       </div>
     </div>
@@ -120,7 +116,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <div class="alert alert-danger"><b>Error:</b> {{ Session::get('danger') }}</div>
+          <div class="alert alert-danger"><b>Error:</b> {!! Session::get('danger') !!}</div>
         </div>
       </div>
     </div>

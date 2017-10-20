@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('h1')
+Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
+@endsection
+
 @section('content')
 	<div class="row">
 		<div class="col-lg-4 text-center">
@@ -19,8 +23,10 @@
 		</div>
 		<div class="col-lg-6">
 			<h2>Rent {{ $game->name }}</h2>
-			@if(Auth::id() == 1)
-				<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
+			@if (Auth::check())
+				@if (Auth::user()->isAdmin())
+					<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
+				@endif
 			@endif
 
 			@if ($game->publisher)
@@ -60,21 +66,6 @@
 			</div>
 		</div>
 	</div>
-<!--
-	<div class="row">
-		<h2>Game Ratings</h2>
-		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-		    Button with data-target
-		  </button>
-		<div class="collapse" id="collapseExample">
-			<img src="{{ $game->esrb_picture }}" height="64px" />
-			<div >
-			  <div class="card card-block">
-			    {{ $game->esrb_synopsis }}
-			  </div>
-			</div>
-		</div>
-	</div>-->
 @endsection
 
 @section('javascript')

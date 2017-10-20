@@ -56,9 +56,10 @@ class GameController extends Controller
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
         $game->save();
+        $game->slug = str_slug($game->name.' '.$game->system->name, '-');
         $game->refreshInfo();
 
-        $request->session()->flash('success', 'The game has successfully been added!');
+        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->id).'">click here to see it</a>!');
 
         return redirect()->route('game.create');
     }
@@ -71,6 +72,7 @@ class GameController extends Controller
      */
     public function show($id)
     {
+
         $game = Game::find($id);
 
         return view('game.show', ['game' => $game]);
@@ -122,7 +124,7 @@ class GameController extends Controller
             return redirect()->route('game.edit', $id);
         }
 
-        $request->session()->flash('success', 'The game has successfully been edited!');
+        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->id).'">click here to see it</a>!');
 
         return redirect()->route('game.edit', $id);
     }
@@ -168,7 +170,7 @@ class GameController extends Controller
     {
         $xboxone = Game::where('system_id', 4920)->get()->random(4);
         $ps4     = Game::where('system_id', 4919)->get()->random(4);
-        
+
         return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
     }
 

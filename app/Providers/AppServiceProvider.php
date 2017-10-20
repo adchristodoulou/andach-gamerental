@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         //Share the systems for the drop-down menu on every page. 
         $systems  = Game::all()->pluck('system_id')->toArray();
-        $systems  = array_flip(array_flip($systems));
+        $systems  = array_flip(array_flip(array_filter($systems)));
         $gamemenu = System::whereIn('id', $systems)->get();
 
         $categories = Category::all();
