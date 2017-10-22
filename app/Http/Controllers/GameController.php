@@ -174,19 +174,112 @@ class GameController extends Controller
         return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
     }
 
-    public function search($system, $category = null)
+    public function search(Request $request)
     {
-        $system = System::where('url', $system)->first();
+        $getString = str_replace('/rent-games/', '', $request->getPathInfo());
+        $getString = str_replace('/rent-games', '', $request->getPathInfo());
 
-        if ($category)
+        $getArray = explode('~~', $getString);
+        $getArray = array_filter($getArray);
+
+        $where = array();
+
+        foreach ($getArray as $line)
         {
-            $category = Category::where('url', $category)->first();
+            $keypair = explode('~', $line);
 
-            $games = Game::where('system_id', $system->id)->where('category_id', $category->id)->paginate(20);
-        } else {
-            $games = Game::where('system_id', $system->id)->paginate(20);
+            $key   = $keypair[0];
+            $value = $keypair[1];
+
+            if ($key == 'rating_id')
+            {
+                $sqlvalue = implode(',', Rating::whereIn('name', explode(',', $value))->pluck('id')->toArray());
+
+                $where[] = [$key, 'in', explode(',', $sqlvalue)];
+            } else if ($key == 'num_available') {
+                $where = ['num_available', '>', 0];
+            } else if ($key == 'name') {
+                $where[] = ['name', 'like', '%'.$value.'%'];
+            } else {
+                switch($key)
+                {
+                    case 'system_id':
+                        $sqlvalue = System::where('url', $value)->first()->id;
+
+                        $where[] = [$key, '=', $sqlvalue];
+                    break;
+
+                    case 'is_premium':
+                        if ($value == 'yes')
+                        {
+                            $sqlvalue = 1;
+                        } else {
+                            $sqlvalue = 0;
+                        }
+
+                        $where[] = [$key, '=', $sqlvalue];
+                    break;
+
+                    case 'category_id':
+                        $sqlvalue = Category::where('url', $value)->first()->id;
+
+                        $where[] = [$key, '=', $sqlvalue];
+                    break;
+                }
+            }
         }
 
-        return view('game.index', ['games' => $games]);
+        $games = Game::where($where)->paginate(20);
+
+        $systems = System::all()->pluck('name', 'url');
+        $categories = Category::all()->pluck('name', 'url');
+        $rating = Rating::all()->pluck('name', 'name');
+        $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
+
+        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
+    }
+
+    //Accepts an array of GET variables and returns the SEO friendly searchSEO string, of the form
+    // /rent-games/search/category|xbox360||
+    public function searchPost(Request $request)
+    {
+        $vars = array();
+        if (isset($request->name))
+        {
+            $vars[] = 'name~'.str_slug($request->name);
+        }
+
+        if (isset($request->system_id))
+        {
+            $vars[] = 'system_id~'.str_slug($request->system_id);
+        }
+
+        if (isset($request->is_available))
+        {
+            $vars[] = 'is_available~'.str_slug($request->is_available);
+        }
+
+        if (isset($request->is_premium))
+        {
+            $vars[] = 'is_premium~'.str_slug($request->is_premium);
+        }
+
+        if (isset($request->category_id))
+        {
+            $vars[] = 'category_id~'.str_slug($request->category_id);
+        }
+
+        if (isset($request->rating_id))
+        {
+            $ratingsArray = array_filter($request->rating_id);
+            if (count($ratingsArray) > 0)
+            {
+                $vars[] = 'rating_id~'.implode(',', $ratingsArray);
+            }
+        }
+        
+        $getString = implode('~~', $vars);
+
+        return redirect()->route('game.search', $getString);
     }
 }

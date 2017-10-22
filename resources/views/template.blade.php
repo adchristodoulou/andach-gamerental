@@ -89,10 +89,10 @@
                   {{ $system->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="{{ route('game.systemsearch', $system->url) }}">All Games</a>
+                  <a class="dropdown-item" href="{{ route('game.searchpost', ['system_id' => $system->url]) }}">All Games</a>
                   <div class="dropdown-divider"></div>
                   @foreach ($gamecategories as $category)
-                  <a class="dropdown-item" href="{{ route('game.systemcategorysearch', ['system' => $system->url, 'category' => $category->url]) }}">{{ $category->name }}</a> 
+                  <a class="dropdown-item" href="{{ route('game.searchpost', ['system_id' => $system->url, 'category_id' => $category->url]) }}">{{ $category->name }}</a> 
                   @endforeach
                 </div>
               </li>

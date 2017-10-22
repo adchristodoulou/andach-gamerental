@@ -30,8 +30,10 @@ Route::delete('game/{game}', 'GameController@destroy')->name('game.destroy');
 Route::get('game/{game}/edit', 'GameController@edit')->name('game.edit');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
-Route::get('rent-games/{system}/{category}', 'GameController@search')->name('game.systemcategorysearch');
-Route::get('rent-games/{system}', 'GameController@search')->name('game.systemsearch');
+
+Route::any('rent-games/searchpost/', 'GameController@searchPost')->name('game.searchpost');
+Route::get('rent-games', 'GameController@search')->name('game.search');
+Route::get('rent-games/{querystring}', 'GameController@search')->name('game.search');
 
 /********************
 * ROUTES - PLAN
