@@ -52,9 +52,10 @@ class Game extends Model
     public function getBoxAttribute()
     {
         return '<div class="col-lg-3">
-
-            <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
-            <a href="'.route('game.show', $this->id).'">'.$this->name.'</a></b>
+            <a href="'.route('game.show', $this->id).'">
+                <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
+                '.$this->name.'</a><br />
+            '.$this->num_in_stock_format.' in stock, '.$this->num_available_format.' available
         </div>';
     }
 
@@ -70,6 +71,16 @@ class Game extends Model
             case 6: return '/images/esrb/mature.svg';
             case 7: return '/images/esrb/adultsonly.svg';
         }
+    }
+
+    public function getNumAvailableFormatAttribute()
+    {
+        return $this->num_available + 0;
+    }
+
+    public function getNumInStockFormatAttribute()
+    {
+        return $this->num_in_stock + 0;
     }
 
     public function getNumOnRentalAttribute()

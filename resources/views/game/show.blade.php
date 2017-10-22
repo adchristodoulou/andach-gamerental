@@ -9,6 +9,8 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
 		<div class="col-lg-4 text-center">
 			<img src="/storage/{{ $game->thumb_url }}" />
 			<br />
+			{{ $game->num_in_stock_format }} in stock, with {{ $game->num_available_format }} available right now.
+			<br />
 			@if ($game->onWishlist())
 				{!! Form::open(['route' => 'game.deletefromwishlist', 'method' => 'POST']) !!}
 				{{ Form::hidden('id', $game->id) }}
@@ -26,6 +28,7 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
 			@if (Auth::check())
 				@if (Auth::user()->isAdmin())
 					<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
+					<p><a href="{{ route('admin.stock', $game->id) }}">Edit Stock for this Game</a></p>
 				@endif
 			@endif
 
@@ -43,8 +46,7 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
 		</div>
 		<div class="col-lg-2">
 			<h2>Rating</h2>
-			<p>{{ $game->rating }} / 100</p>
-			<p>Using {{ $game->rating_count }} reviews</p>
+			<div id="gauge"></div>
 
 			<p><img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /></p>
 			<p><img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/></p>
@@ -69,25 +71,37 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
 @endsection
 
 @section('javascript')
-<script>
-  $(document).ready(function() {
-  $('.owl-carousel').owlCarousel({
-    items: 1,
-    //merge: true,
-    loop: true,
-    margin: 10,
-    video: true,
-    lazyLoad: true,
-    center: true,
-    responsive: {
-      480: {
-        items: 2
-      },
-      600: {
-        items: 4
-      }
-    }
-  })
-})
-</script>
+	<script>
+	  $(document).ready(function() {
+	  $('.owl-carousel').owlCarousel({
+	    items: 1,
+	    //merge: true,
+	    loop: true,
+	    margin: 10,
+	    video: true,
+	    lazyLoad: true,
+	    center: true,
+	    responsive: {
+	      480: {
+	        items: 2
+	      },
+	      600: {
+	        items: 4
+	      }
+	    }
+	  })
+	})
+
+	var g = new JustGage({
+		id: "gauge",
+		value : {{ $game->rating }},
+		min: 0,
+		max: 100,
+		levelColors: ["#CE1B21", "#D0532A", "#FFC414", "#00FF00"],
+		counter: true,
+    	label: "from {{ $game->rating_count }} reviews"
+	});
+	</script>
+
+
 @endsection
