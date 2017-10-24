@@ -15,9 +15,9 @@ class Assignment extends Model
     	return $this->belongsTo('App\AssignmentRun', 'run_id');
     }
 
-    public function confirm()
+    public function deliver()
     {
-        dd('need to write this');
+        $this->rental->markAsPosted();
     }
 
     public function game()
@@ -47,6 +47,11 @@ class Assignment extends Model
         $wishlistRows = Wishlist::where('user_id', $this->user_id)->where('game_id', $this->game_id)->delete();
 
         return true;
+    }
+
+    public function rental()
+    {
+        return $this->belongsTo('App\Rental', 'rental_id');
     }
 
     public function stock()

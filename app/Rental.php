@@ -2,8 +2,9 @@
 
 namespace App;
 
+use App\Mail\GameDelivered;
 use Illuminate\Database\Eloquent\Model;
-
+use Mail;
 class Rental extends Model
 {
     protected $table = 'rentals';
@@ -18,8 +19,10 @@ class Rental extends Model
         $this->date_of_delivery = date('Y-m-d');
         $this->save();
 
-        $this->game->times_rented = $this->game->times_rented + 1;
-        $this->game->save();
+        $this->stock->times_rented = $this->game->times_rented + 1;
+        $this->stock->save();
+
+        Mail::to($this->user)->send(new GameDelivered($this));
     }
 
     public function stock()

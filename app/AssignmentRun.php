@@ -25,36 +25,40 @@ class AssignmentRun extends Model
 
     public function makeAssignments()
     {
-    	//Firstly take all the users with priority subscriptionss. 
-    	$plans = Plan::where('is_priority', 1)->pluck('braintree_plan');
-    	$subscriptions = Subscription::whereIn('braintree_plan', $plans)->pluck('user_id');
-    	$users = User::whereIn('id', $subscriptions)->with(['wishlistGames.stock' => function ($query) {
-			    $query->where('currently_in_stock', 1);
-			}])->get();
+        foreach (array(1, 0) as $priority)
+        {
+            //Firstly take all the users with priority subscriptions. 
+            $plans = Plan::where('is_priority', $priority)->pluck('braintree_plan');
+            $subscriptions = Subscription::whereIn('braintree_plan', $plans)->pluck('user_id');
+            $users = User::whereIn('id', $subscriptions)->with(['wishlistGames.stock' => function ($query) {
+                    $query->where('currently_in_stock', 1);
+                }])->get();
 
-    	$numAssignments = 0;
-    	$assignToUser = true;
+            $numAssignments = 0;
+            $assignToUser = true;
+            
+            foreach ($users as $user)
+            {
+                if ($user->num_games_on_rental < $user->currentMaxGames())
+
+                $assignToUser = true;
+                foreach ($user->wishlistGames as $game)
+                {
+                    foreach ($game->stock as $stock)
+                    {
+                        if ($assignToUser)
+                        {
+                            if ($this->assign($stock, $user))
+                            {
+                                $numAssignments++;
+                                $assignToUser = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     	
-    	foreach ($users as $user)
-    	{
-    		if ($user->num_games_on_rental < $user->currentMaxGames())
-
-    		$assignToUser = true;
-    		foreach ($user->wishlistGames as $game)
-    		{
-    			foreach ($game->stock as $stock)
-    			{
-    				if ($assignToUser)
-    				{
-    					if ($this->assign($stock, $user))
-	    				{
-	    					$numAssignments++;
-	    					$assignToUser = false;
-	    				}
-    				}
-    			}
-    		}
-    	}
 
     	return $numAssignments;
     }

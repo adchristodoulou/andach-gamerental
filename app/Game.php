@@ -112,6 +112,7 @@ class Game extends Model
     public function incrementStock($amount)
     {
         $this->num_in_stock = $this->num_in_stock + $amount;
+        $this->num_available = $this->num_available + $amount;
         $this->save();
     }
 

@@ -47,7 +47,23 @@ class AdminController extends Controller
             }
         }
 
+        if (count($request->deliver))
+        {
+            foreach ($request->deliver as $delivery)
+            {
+                $assignment = Assignment::find($delivery);
+                $assignment->deliver();
+            }
+        }
+
         return redirect()->route('admin.sendgames');
+    }
+
+    public function printDeliveryNote($assignmentID)
+    {
+        $assignment = Assignment::find($assignmentID);
+
+        return view('admin.printdeliverynote', ['assignment' => $assignment]);
     }
 
     public function rentals()

@@ -14,6 +14,14 @@
 			@if (count($run->assignments) == 0)
 				<p><i>There were no assignments</i></p>
 			@else
+				<div class="row">
+					<div class="col-2">Checkbox</div>
+					<div class="col-3">User</div>
+					<div class="col-3">Game</div>
+					<div class="col-2">Delivery Date</div>
+					<div class="col-2">Print Delivery Note</div>
+				</div>
+
 				@foreach ($run->assignments as $assignment)
 
 				<div class="row">
@@ -22,8 +30,22 @@
 							{!! Form::checkbox('assign[]', $assignment->id) !!}
 						@endif
 					</div>
-					<div class="col-5">{{ $assignment->user->name }}</div>
-					<div class="col-5">{{ $assignment->game->name }}</div>
+					<div class="col-3">{{ $assignment->user->name }}</div>
+					<div class="col-3"><a href="{{ route('game.show', $assignment->game->id) }}">{{ $assignment->game->name }}</a></div>
+					<div class="col-2">
+						@if ($assignment->rental_id)
+							@if ($assignment->rental->date_of_delivery)
+								{{ $assignment->rental->date_of_delivery }}
+							@else 
+								{!! Form::checkbox('deliver[]', $assignment->id) !!}
+							@endif
+						@else
+							Not yet assigned.
+						@endif
+					</div>
+					<div class="col-2">
+						<a href="{{ route('admin.printdeliverynote', $assignment->id) }}">Print</a>
+					</div>
 				</div>
 
 				@endforeach

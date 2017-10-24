@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b0605d57bc745aa87bd4d6ee8dcde8a",
+    "content-hash": "139ebec7ec35be777b3a6d00f819de64",
     "packages": [
         {
             "name": "andach/igad",

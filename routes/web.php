@@ -59,6 +59,7 @@ Route::resource('user', 'UserController');
 Route::get('admin/', 'AdminController@admin')->name('admin.admin');
 Route::post('admin/assignment-run', 'AdminController@assignmentRun')->name('admin.assignmentrun');
 Route::post('admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
+Route::get('admin/printdeliverynote/{id}', 'AdminController@printDeliveryNote')->name('admin.printdeliverynote');
 Route::get('admin/rentals', 'AdminController@rentals')->name('admin.rentals');
 Route::post('admin/rentals-update', 'AdminController@rentalsUpdate')->name('admin.rentalsupdate');
 Route::get('admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
