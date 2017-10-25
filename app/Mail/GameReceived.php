@@ -8,10 +8,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GameDelivered extends Mailable
+class GameReceived extends Mailable
 {
     use Queueable, SerializesModels;
-    public $rental;
 
     /**
      * Create a new message instance.
@@ -31,6 +30,6 @@ class GameDelivered extends Mailable
     public function build()
     {
         return $this->from('example@useaquestion.co.uk')
-                ->view('email.gamedelivered');
+                ->view('email.gamereceived');
     }
 }

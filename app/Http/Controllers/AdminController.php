@@ -80,7 +80,7 @@ class AdminController extends Controller
             foreach ($request->rentals as $rentalID)
             {
                 $rental = Rental::find($rentalID);
-                $rental->markAsPosted();
+                $rental->markAsReceived();
             }
         }
 
