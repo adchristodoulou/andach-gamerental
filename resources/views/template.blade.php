@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')">
     <meta name="author" content="">
 
     <title>@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')</title>

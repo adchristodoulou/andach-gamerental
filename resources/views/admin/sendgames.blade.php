@@ -31,7 +31,7 @@
 						@endif
 					</div>
 					<div class="col-3">{{ $assignment->user->name }}</div>
-					<div class="col-3"><a href="{{ route('game.show', $assignment->game->id) }}">{{ $assignment->game->name }}</a></div>
+					<div class="col-3"><a href="{{ route('game.show', $assignment->game->slug) }}">{{ $assignment->game->name }}</a></div>
 					<div class="col-2">
 						@if ($assignment->rental_id)
 							@if ($assignment->rental->date_of_delivery)

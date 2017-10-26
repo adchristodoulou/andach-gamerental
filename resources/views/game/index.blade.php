@@ -45,8 +45,10 @@
 	@endforeach
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-12">
+			<div class="text-center">
 			{{ $games->links() }}
+			</div>
 		</div>
 	</div>
 

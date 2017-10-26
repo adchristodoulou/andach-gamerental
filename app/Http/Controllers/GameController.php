@@ -20,9 +20,14 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::paginate(20);
+        $games = Game::paginate(4);
 
-        return view('game.index', ['games' => $games]);
+        $systems = System::all()->pluck('name', 'url');
+        $categories = Category::all()->pluck('name', 'url');
+        $rating = Rating::all()->pluck('name', 'name');
+        $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
+
+        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
 
     /**
@@ -55,11 +60,11 @@ class GameController extends Controller
             $game->picture_url = $request->picture->store('games_boxes', 'public');
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
-        $game->save();
         $game->slug = str_slug($game->name.' '.$game->system->name, '-');
+        $game->save();
         $game->refreshInfo();
 
-        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->id).'">click here to see it</a>!');
+        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
 
         return redirect()->route('game.create');
     }
@@ -72,8 +77,7 @@ class GameController extends Controller
      */
     public function show($id)
     {
-
-        $game = Game::find($id);
+        $game = Game::where('slug', $id)->first();
 
         return view('game.show', ['game' => $game]);
     }
@@ -114,6 +118,7 @@ class GameController extends Controller
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
 
+        $game->slug = str_slug($game->name.' '.$game->system->name, '-');
         $game->save();
         $errors = $game->refreshInfo();
 
@@ -124,7 +129,7 @@ class GameController extends Controller
             return redirect()->route('game.edit', $id);
         }
 
-        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->id).'">click here to see it</a>!');
+        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
 
         return redirect()->route('game.edit', $id);
     }
@@ -149,8 +154,9 @@ class GameController extends Controller
             $request->session()->flash('danger', 'You need to login to add a game to your wishlist!');
             return redirect()->route('login');
         }
+        $game = Game::find($id);
 
-        return redirect()->route('game.show', $request->id);
+        return redirect()->route('game.show', $game->slug);
     }
 
     public function deleteFromWishlist(Request $request)
@@ -162,8 +168,9 @@ class GameController extends Controller
             $request->session()->flash('success', 'You are not logged in.');
             return redirect()->route('login');
         }
+        $game = Game::find($id);
 
-        return redirect()->route('game.show', $request->id);
+        return redirect()->route('game.show', $game->slug);
     }
 
     public function homepage()

@@ -52,7 +52,7 @@ class Game extends Model
     public function getBoxAttribute()
     {
         return '<div class="col-lg-3">
-            <a href="'.route('game.show', $this->id).'">
+            <a href="'.route('game.show', $this->slug).'">
                 <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
                 '.$this->name.'</a><br />
             '.$this->num_in_stock_format.' in stock, '.$this->num_available_format.' available

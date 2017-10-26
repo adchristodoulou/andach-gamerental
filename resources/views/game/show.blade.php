@@ -1,13 +1,21 @@
 @extends('template')
 
 @section('h1')
-Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
+Rent {{ $game->name }} for {{ $game->system->name }} from Online Video Game Rentals from Andah
+@endsection
+
+@section('meta-description')
+Rent {{ $game->name }} for {{ $game->system->name }} from Andach Game Rentals
+@endsection
+
+@section('title')
+Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Video Games
 @endsection
 
 @section('content')
-	<div class="row">
+	<div class="row" itemscope itemtype ="http://schema.org/Product">
 		<div class="col-lg-4 text-center">
-			<img src="/storage/{{ $game->thumb_url }}" />
+			<img itemprop="screenshot" src="/storage/{{ $game->thumb_url }}" alt="Rent {{ $game->name }} for {{ $game->system->name }}" />
 			<br />
 			{{ $game->num_in_stock_format }} in stock, with {{ $game->num_available_format }} available right now.
 			<br />
@@ -24,7 +32,7 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
 			@endif
 		</div>
 		<div class="col-lg-6">
-			<h2>Rent {{ $game->name }}</h2>
+			<h2>Rent {{ $game->name }} for <span itemprop="gamePlatform">{{ $game->system->name }}</span></h2>
 			@if (Auth::check())
 				@if (Auth::user()->isAdmin())
 					<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
@@ -39,23 +47,33 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Online Video Game Rentals
 				<p>Developer: {{ $game->developer }}</p>
 			@endif
 			<hr />
-			{!! nl2br(e($game->description)) !!}
+			<span itemprop="description">{!! nl2br(e($game->description)) !!}</span>
+			<hr />
+			Also check out <a href="https://en.wikipedia.org/wiki/{{ $game->name}}">{{ $game->name }}</a> on Wikipedia.
 
 
 
 		</div>
 		<div class="col-lg-2">
-			<h2>Rating</h2>
 			<div id="gauge"></div>
 
-			<p><img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /></p>
-			<p><img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/></p>
+			<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+			    <span itemprop="itemReviewed">{{ $game->name }}</span> is rated
+			    <span itemprop="ratingValue">{{ $game->rating }}</span> out of
+			    <span itemprop="bestRating">100</span> by
+			    <span itemprop="reviewCount">{{ $game->rating_count }}</span> user reviewers on <a href="https://www.igdb.com">IGDB</a>. 
+			</div>
+
+			<p>
+				<img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /> 
+				<img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/>
+			</p>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
-			<h2>Videos</h2>
+			<h2>Videos of {{ $game->name }}</h2>
 
 			<!-- Set up your HTML -->
 			<div class="owl-carousel owl-theme">
