@@ -55,7 +55,7 @@ class GameController extends Controller
         $request->validate([
             'system_id' => 'required',
         ]);
-        
+
         $game = Game::create($request->all());
 
         if(isset($request->picture))
@@ -190,7 +190,7 @@ class GameController extends Controller
     public function search(Request $request)
     {
         $getString = str_replace('/rent-games/', '', $request->getPathInfo());
-        $getString = str_replace('/rent-games', '', $request->getPathInfo());
+        //$getString = str_replace('/rent-games', '', $request->getPathInfo());
 
         $getArray = explode('~~', $getString);
         $getArray = array_filter($getArray);
