@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b0605d57bc745aa87bd4d6ee8dcde8a",
+    "content-hash": "139ebec7ec35be777b3a6d00f819de64",
     "packages": [
         {
             "name": "andach/igad",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/useaquestion/andach-igad.git",
-                "reference": "356221f8bb3ef1a70cc88757045adc1a0e567a78"
+                "reference": "f5e9b7d1b9ca7487d5bd7a0332289276b731cf7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/useaquestion/andach-igad/zipball/356221f8bb3ef1a70cc88757045adc1a0e567a78",
-                "reference": "356221f8bb3ef1a70cc88757045adc1a0e567a78",
+                "url": "https://api.github.com/repos/useaquestion/andach-igad/zipball/f5e9b7d1b9ca7487d5bd7a0332289276b731cf7e",
+                "reference": "f5e9b7d1b9ca7487d5bd7a0332289276b731cf7e",
                 "shasum": ""
             },
             "require": {
@@ -38,7 +38,7 @@
             "license": [
                 "GPL-3.0+"
             ],
-            "time": "2017-10-07T06:08:50+00:00"
+            "time": "2017-10-10T17:11:31+00:00"
         },
         {
             "name": "braintree/braintree_php",
@@ -4407,16 +4407,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.0",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a1bcaca096998de32c29535fdd2dea0c475e8f61"
+                "reference": "b770d8ba7e60295ee91d69d5a5e01ae833cac220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a1bcaca096998de32c29535fdd2dea0c475e8f61",
-                "reference": "a1bcaca096998de32c29535fdd2dea0c475e8f61",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b770d8ba7e60295ee91d69d5a5e01ae833cac220",
+                "reference": "b770d8ba7e60295ee91d69d5a5e01ae833cac220",
                 "shasum": ""
             },
             "require": {
@@ -4487,7 +4487,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-10-06T03:14:57+00:00"
+            "time": "2017-10-07T17:53:53+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -11,19 +12,39 @@
 |
 */
 
-
-Route::get('/', 'GameController@homepage');
-
+/********************
+* ROUTES - STATIC
+********************/
+Route::get('/', 'GameController@homepage')->name('home');
 Route::get('/about-us', function () { return view('pages.about-us'); });
 
-Route::resource('game', 'GameController');
+/********************
+* ROUTES - GAMES
+********************/
+Route::get('game', 'GameController@index')->name('game.index');
+Route::post('game', 'GameController@store')->name('game.store');
+Route::get('game/create', 'GameController@create')->name('game.create');
+Route::get('rent-game/{game}', 'GameController@show')->name('game.show');
+Route::put('game/{game}', 'GameController@update')->name('game.update');
+Route::delete('game/{game}', 'GameController@destroy')->name('game.destroy');
+Route::get('game/{game}/edit', 'GameController@edit')->name('game.edit');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
-Route::get('/plan', 'PlanController@index');
-Route::post('/plan-store', 'PlanController@store')->name('plan.store');
-Route::get('/plan/{id}', 'PlanController@show')->name('plan.show');
+Route::any('rent-games/searchpost/', 'GameController@searchPost')->name('game.searchpost');
+Route::get('rent-games', 'GameController@search')->name('game.search');
+Route::get('rent-games/{querystring}', 'GameController@search')->name('game.search');
 
+/********************
+* ROUTES - PLAN
+********************/
+Route::get('plan', 'PlanController@index');
+Route::post('plan-store', 'PlanController@store')->name('plan.store');
+Route::get('plan/{id}', 'PlanController@show')->name('plan.show');
+
+/********************
+* ROUTES - USER
+********************/
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
 Route::get('user/history', 'UserController@history')->name('user.history');
@@ -32,28 +53,32 @@ Route::post('user/subscription/cancel', 'UserController@cancelSubscription')->na
 Route::post('user/subscription/resume', 'UserController@resumeSubscription')->name('user.resumesubscription');
 Route::resource('user', 'UserController');
 
-Auth::routes();
-Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
+/********************
+* ROUTES - ADMIN
+********************/
+Route::get('admin/', 'AdminController@admin')->name('admin.admin');
+Route::post('admin/assignment-run', 'AdminController@assignmentRun')->name('admin.assignmentrun');
+Route::post('admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
+Route::get('admin/printdeliverynote/{id}', 'AdminController@printDeliveryNote')->name('admin.printdeliverynote');
+Route::get('admin/rentals', 'AdminController@rentals')->name('admin.rentals');
+Route::post('admin/rentals-update', 'AdminController@rentalsUpdate')->name('admin.rentalsupdate');
+Route::get('admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
+Route::get('admin/stock/', 'AdminController@stockIndex')->name('admin.stockindex');
+Route::get('admin/stock/{id}', 'AdminController@stock')->name('admin.stock');
+Route::post('admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
+Route::any('admin/users', 'AdminController@users')->name('admin.users');
 
-Route::get('/rent-games/{system}/{category}', 'GameController@search')->name('game.systemcategorysearch');
-Route::get('/rent-games/{system}', 'GameController@search')->name('game.systemsearch');
-
-Route::get('login/{provider}',          'Auth\SocialAccountController@redirectToProvider');
-Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
-
-Route::get('/admin/', 'AdminController@admin')->name('admin.admin');
-Route::post('/admin/assignment-run', 'AdminController@assignmentRun')->name('admin.assignmentrun');
-Route::post('/admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
-Route::get('/admin/rentals', 'AdminController@rentals')->name('admin.rentals');
-Route::post('/admin/rentals-update', 'AdminController@rentalsUpdate')->name('admin.rentalsupdate');
-Route::get('/admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');
-Route::get('/admin/stock/', 'AdminController@stockIndex')->name('admin.stockindex');
-Route::get('/admin/stock/{id}', 'AdminController@stock')->name('admin.stock');
-Route::post('/admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
-Route::any('/admin/users', 'AdminController@users')->name('admin.users');
-
-Route::get('/braintree/token', 'BraintreeTokenController@token');
+/********************
+* ROUTES - OTHER
+********************/
+Route::get('braintree/token', 'BraintreeTokenController@token');
 Route::post(
     'braintree/webhook',
     '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
 );
+
+Auth::routes();
+Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
+
+Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');

@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkadmin');
+    }
+
     public function admin()
     {
         return view('admin.admin');
@@ -42,7 +47,23 @@ class AdminController extends Controller
             }
         }
 
+        if (count($request->deliver))
+        {
+            foreach ($request->deliver as $delivery)
+            {
+                $assignment = Assignment::find($delivery);
+                $assignment->deliver();
+            }
+        }
+
         return redirect()->route('admin.sendgames');
+    }
+
+    public function printDeliveryNote($assignmentID)
+    {
+        $assignment = Assignment::find($assignmentID);
+
+        return view('admin.printdeliverynote', ['assignment' => $assignment]);
     }
 
     public function rentals()
@@ -59,7 +80,7 @@ class AdminController extends Controller
             foreach ($request->rentals as $rentalID)
             {
                 $rental = Rental::find($rentalID);
-                $rental->markAsPosted();
+                $rental->markAsReceived();
             }
         }
 

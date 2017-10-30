@@ -17,7 +17,7 @@
 	@foreach ($rentals as $rental)
 		<div class="row">
 			<div class="col-2">{{ $rental->date_of_delivery }}</div>
-			<div class="col-2"><a href="{{ route('game.show', $rental->game_id) }}">{{ $rental->game->name }}</a></div>
+			<div class="col-2"><a href="{{ route('game.show', $rental->game->slug) }}">{{ $rental->game->name }}</a></div>
 			<div class="col-2">{{ $rental->game->system->name }}</div>
 			<div class="col-2">{{ $rental->date_of_return }}</div>
 			<div class="col-2">{{ $rental->returned_ok }}</div>

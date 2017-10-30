@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Category;
+use App\Game;
+use App\System;
+use View;
+
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Cashier\Cashier;
@@ -22,6 +27,16 @@ class AppServiceProvider extends ServiceProvider
         \Braintree_Configuration::privateKey(config('services.braintree.private_key'));
 
         Cashier::useCurrency('gbp', '£');
+
+        //Share the systems for the drop-down menu on every page. 
+        $systems  = Game::all()->pluck('system_id')->toArray();
+        $systems  = array_flip(array_flip(array_filter($systems)));
+        $gamemenu = System::whereIn('id', $systems)->get();
+
+        $categories = Category::all();
+
+        View::share('gamemenu', $gamemenu);
+        View::share('gamecategories', $categories);
     }
 
     /**

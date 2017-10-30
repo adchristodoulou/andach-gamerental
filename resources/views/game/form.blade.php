@@ -50,6 +50,20 @@
 		</div>
 	</div>
 
+	<div class="row">
+		{!! Form::label('max_gamerscore', 'Max Gamerscore:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::text('max_gamerscore', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
+	<div class="row">
+		{!! Form::label('xbox_id', 'Xbox ID:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::text('xbox_id', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
 
 	<div class="row">
 		{!! Form::label('is_premium', 'Is Premium?', ['class' => 'col-lg-2 control-label']) !!}

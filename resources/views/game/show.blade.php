@@ -1,9 +1,23 @@
 @extends('template')
 
+@section('h1')
+Rent {{ $game->name }} for {{ $game->system->name }} from Online Video Game Rentals from Andah
+@endsection
+
+@section('meta-description')
+Rent {{ $game->name }} for {{ $game->system->name }} from Andach Game Rentals
+@endsection
+
+@section('title')
+Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Video Games
+@endsection
+
 @section('content')
-	<div class="row">
+	<div class="row" itemscope itemtype ="http://schema.org/Product">
 		<div class="col-lg-4 text-center">
-			<img src="/storage/{{ $game->thumb_url }}" />
+			<img itemprop="screenshot" src="/storage/{{ $game->thumb_url }}" alt="Rent {{ $game->name }} for {{ $game->system->name }}" />
+			<br />
+			{{ $game->num_in_stock_format }} in stock, with {{ $game->num_available_format }} available right now.
 			<br />
 			@if ($game->onWishlist())
 				{!! Form::open(['route' => 'game.deletefromwishlist', 'method' => 'POST']) !!}
@@ -18,9 +32,12 @@
 			@endif
 		</div>
 		<div class="col-lg-6">
-			<h2>Rent {{ $game->name }}</h2>
-			@if(Auth::id() == 1)
-				<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
+			<h2>Rent {{ $game->name }} for <span itemprop="gamePlatform">{{ $game->system->name }}</span></h2>
+			@if (Auth::check())
+				@if (Auth::user()->isAdmin())
+					<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
+					<p><a href="{{ route('admin.stock', $game->id) }}">Edit Stock for this Game</a></p>
+				@endif
 			@endif
 
 			@if ($game->publisher)
@@ -30,24 +47,33 @@
 				<p>Developer: {{ $game->developer }}</p>
 			@endif
 			<hr />
-			{!! nl2br(e($game->description)) !!}
+			<span itemprop="description">{!! nl2br(e($game->description)) !!}</span>
+			<hr />
+			Also check out <a href="https://en.wikipedia.org/wiki/{{ $game->name}}">{{ $game->name }}</a> on Wikipedia.
 
 
 
 		</div>
 		<div class="col-lg-2">
-			<h2>Rating</h2>
-			<p>{{ $game->rating }} / 100</p>
-			<p>Using {{ $game->rating_count }} reviews</p>
+			<div id="gauge"></div>
 
-			<p><img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /></p>
-			<p><img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/></p>
+			<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+			    <span itemprop="itemReviewed">{{ $game->name }}</span> is rated
+			    <span itemprop="ratingValue">{{ $game->rating }}</span> out of
+			    <span itemprop="bestRating">100</span> by
+			    <span itemprop="reviewCount">{{ $game->rating_count }}</span> user reviewers on <a href="https://www.igdb.com">IGDB</a>. 
+			</div>
+
+			<p>
+				<img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /> 
+				<img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/>
+			</p>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
-			<h2>Videos</h2>
+			<h2>Videos of {{ $game->name }}</h2>
 
 			<!-- Set up your HTML -->
 			<div class="owl-carousel owl-theme">
@@ -60,43 +86,40 @@
 			</div>
 		</div>
 	</div>
-<!--
-	<div class="row">
-		<h2>Game Ratings</h2>
-		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-		    Button with data-target
-		  </button>
-		<div class="collapse" id="collapseExample">
-			<img src="{{ $game->esrb_picture }}" height="64px" />
-			<div >
-			  <div class="card card-block">
-			    {{ $game->esrb_synopsis }}
-			  </div>
-			</div>
-		</div>
-	</div>-->
 @endsection
 
 @section('javascript')
-<script>
-  $(document).ready(function() {
-  $('.owl-carousel').owlCarousel({
-    items: 1,
-    //merge: true,
-    loop: true,
-    margin: 10,
-    video: true,
-    lazyLoad: true,
-    center: true,
-    responsive: {
-      480: {
-        items: 2
-      },
-      600: {
-        items: 4
-      }
-    }
-  })
-})
-</script>
+	<script>
+	  $(document).ready(function() {
+	  $('.owl-carousel').owlCarousel({
+	    items: 1,
+	    //merge: true,
+	    loop: true,
+	    margin: 10,
+	    video: true,
+	    lazyLoad: true,
+	    center: true,
+	    responsive: {
+	      480: {
+	        items: 2
+	      },
+	      600: {
+	        items: 4
+	      }
+	    }
+	  })
+	})
+
+	var g = new JustGage({
+		id: "gauge",
+		value : {{ $game->rating }},
+		min: 0,
+		max: 100,
+		levelColors: ["#CE1B21", "#D0532A", "#FFC414", "#00FF00"],
+		counter: true,
+    	label: "from {{ $game->rating_count }} reviews"
+	});
+	</script>
+
+
 @endsection

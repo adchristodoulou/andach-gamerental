@@ -71,14 +71,19 @@ class User extends Authenticatable
 
     public function deleteFromWishlist($gameID)
     {
-        if(count($this->wishlist()->where('game_id', $gameID)->get()))
+        if(count($this->wishlists()->where('game_id', $gameID)->get()))
         {
             session()->flash('success', 'This game has been removed from your wishlist.');
-            $this->wishlist()->where('game_id', $gameID)->delete();
+            $this->wishlists()->where('game_id', $gameID)->delete();
             return true;
         } else {
             session()->flash('success', 'This game wasn\'t on your wishlist in the first place. What do you want us to do, purge it from existance? No, other people might want to rent it.');
         }
+    }
+
+    public function isAdmin()
+    {
+        return $this->id === 1;
     }
 
     public function rentals()

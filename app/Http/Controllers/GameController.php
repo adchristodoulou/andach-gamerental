@@ -20,9 +20,14 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::paginate(20);
+        $games = Game::paginate(4);
 
-        return view('game.index', ['games' => $games]);
+        $systems = System::all()->pluck('name', 'url');
+        $categories = Category::all()->pluck('name', 'url');
+        $rating = Rating::all()->pluck('name', 'name');
+        $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
+
+        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
 
     /**
@@ -51,13 +56,15 @@ class GameController extends Controller
 
         if(isset($request->picture))
         {
+            dd($request->picture);
             $game->picture_url = $request->picture->store('games_boxes', 'public');
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
+        $game->slug = str_slug($game->name.' '.$game->system->name, '-');
         $game->save();
-        $game->refreshGameDBInfo();
+        $game->refreshInfo();
 
-        $request->session()->flash('success', 'The game has successfully been added!');
+        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
 
         return redirect()->route('game.create');
     }
@@ -70,7 +77,7 @@ class GameController extends Controller
      */
     public function show($id)
     {
-        $game = Game::find($id);
+        $game = Game::where('slug', $id)->first();
 
         return view('game.show', ['game' => $game]);
     }
@@ -111,9 +118,9 @@ class GameController extends Controller
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
 
+        $game->slug = str_slug($game->name.' '.$game->system->name, '-');
         $game->save();
-        $game->refreshIGADInfo();
-        $errors = $game->refreshGameDBInfo();
+        $errors = $game->refreshInfo();
 
         if (count($errors))
         {
@@ -122,7 +129,7 @@ class GameController extends Controller
             return redirect()->route('game.edit', $id);
         }
 
-        $request->session()->flash('success', 'The game has successfully been edited!');
+        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
 
         return redirect()->route('game.edit', $id);
     }
@@ -147,8 +154,9 @@ class GameController extends Controller
             $request->session()->flash('danger', 'You need to login to add a game to your wishlist!');
             return redirect()->route('login');
         }
+        $game = Game::find($id);
 
-        return redirect()->route('game.show', $request->id);
+        return redirect()->route('game.show', $game->slug);
     }
 
     public function deleteFromWishlist(Request $request)
@@ -160,30 +168,125 @@ class GameController extends Controller
             $request->session()->flash('success', 'You are not logged in.');
             return redirect()->route('login');
         }
+        $game = Game::find($id);
 
-        return redirect()->route('game.show', $request->id);
+        return redirect()->route('game.show', $game->slug);
     }
 
     public function homepage()
     {
         $xboxone = Game::where('system_id', 4920)->get()->random(4);
         $ps4     = Game::where('system_id', 4919)->get()->random(4);
+
         return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
     }
 
-    public function search($system, $category = null)
+    public function search(Request $request)
     {
-        $system = System::where('url', $system)->first();
+        $getString = str_replace('/rent-games/', '', $request->getPathInfo());
+        $getString = str_replace('/rent-games', '', $request->getPathInfo());
 
-        if ($category)
+        $getArray = explode('~~', $getString);
+        $getArray = array_filter($getArray);
+
+        $where = array();
+
+        foreach ($getArray as $line)
         {
-            $category = Category::where('url', $category)->first();
+            $keypair = explode('~', $line);
 
-            $games = Game::where('system_id', $system->id)->where('category_id', $category->id)->paginate(20);
-        } else {
-            $games = Game::where('system_id', $system->id)->paginate(20);
+            $key   = $keypair[0];
+            $value = $keypair[1];
+
+            if ($key == 'rating_id')
+            {
+                $sqlvalue = implode(',', Rating::whereIn('name', explode(',', $value))->pluck('id')->toArray());
+
+                $where[] = [$key, 'in', explode(',', $sqlvalue)];
+            } else if ($key == 'num_available') {
+                $where = ['num_available', '>', 0];
+            } else if ($key == 'name') {
+                $where[] = ['name', 'like', '%'.$value.'%'];
+            } else {
+                switch($key)
+                {
+                    case 'system_id':
+                        $sqlvalue = System::where('url', $value)->first()->id;
+
+                        $where[] = [$key, '=', $sqlvalue];
+                    break;
+
+                    case 'is_premium':
+                        if ($value == 'yes')
+                        {
+                            $sqlvalue = 1;
+                        } else {
+                            $sqlvalue = 0;
+                        }
+
+                        $where[] = [$key, '=', $sqlvalue];
+                    break;
+
+                    case 'category_id':
+                        $sqlvalue = Category::where('url', $value)->first()->id;
+
+                        $where[] = [$key, '=', $sqlvalue];
+                    break;
+                }
+            }
         }
 
-        return view('game.index', ['games' => $games]);
+        $games = Game::where($where)->paginate(20);
+
+        $systems = System::all()->pluck('name', 'url');
+        $categories = Category::all()->pluck('name', 'url');
+        $rating = Rating::all()->pluck('name', 'name');
+        $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
+
+        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
+    }
+
+    //Accepts an array of GET variables and returns the SEO friendly searchSEO string, of the form
+    // /rent-games/search/category|xbox360||
+    public function searchPost(Request $request)
+    {
+        $vars = array();
+        if (isset($request->name))
+        {
+            $vars[] = 'name~'.str_slug($request->name);
+        }
+
+        if (isset($request->system_id))
+        {
+            $vars[] = 'system_id~'.str_slug($request->system_id);
+        }
+
+        if (isset($request->is_available))
+        {
+            $vars[] = 'is_available~'.str_slug($request->is_available);
+        }
+
+        if (isset($request->is_premium))
+        {
+            $vars[] = 'is_premium~'.str_slug($request->is_premium);
+        }
+
+        if (isset($request->category_id))
+        {
+            $vars[] = 'category_id~'.str_slug($request->category_id);
+        }
+
+        if (isset($request->rating_id))
+        {
+            $ratingsArray = array_filter($request->rating_id);
+            if (count($ratingsArray) > 0)
+            {
+                $vars[] = 'rating_id~'.implode(',', $ratingsArray);
+            }
+        }
+        
+        $getString = implode('~~', $vars);
+
+        return redirect()->route('game.search', $getString);
     }
 }

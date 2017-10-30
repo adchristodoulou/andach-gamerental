@@ -16,7 +16,7 @@ use Storage;
 
 class Game extends Model
 {
-	protected $fillable = ['name', 'system_id', 'gamesdb_id', 'rating_id', 'category_id', 'developer', 'publisher', 'description', 'trailer_url', 'release_date', 'is_premium', 'min_players', 'max_players', 'is_local_coop', 'is_online_coop', 'slug', 'collection_id', 'franchise_id', 'publisher_id', 'developer_id', 'esrb_rating', 'esrb_synopsis', 'pegi_rating', 'pegi_synopsis', 'timetobeat_quick', 'timetobeat_normal', 'timetobeat_slow', 'rating', 'rating_count'];
+	protected $fillable = ['name', 'system_id', 'gamesdb_id', 'rating_id', 'category_id', 'developer', 'publisher', 'description', 'trailer_url', 'release_date', 'is_premium', 'min_players', 'max_players', 'is_local_coop', 'is_online_coop', 'slug', 'collection_id', 'franchise_id', 'publisher_id', 'developer_id', 'esrb_rating', 'esrb_synopsis', 'pegi_rating', 'pegi_synopsis', 'timetobeat_quick', 'timetobeat_normal', 'timetobeat_slow', 'rating', 'rating_count', 'max_gamerscore', 'xbox_id', 'playstation_id'];
     protected $table   = 'games';
 
     public function assignments()
@@ -52,9 +52,10 @@ class Game extends Model
     public function getBoxAttribute()
     {
         return '<div class="col-lg-3">
-
-            <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
-            <a href="'.route('game.show', $this->id).'">'.$this->name.'</a></b>
+            <a href="'.route('game.show', $this->slug).'">
+                <img src="/storage/'.$this->thumb_url.'" height="200" width="150"> <br />
+                '.$this->name.'</a><br />
+            '.$this->num_in_stock_format.' in stock, '.$this->num_available_format.' available
         </div>';
     }
 
@@ -70,6 +71,16 @@ class Game extends Model
             case 6: return '/images/esrb/mature.svg';
             case 7: return '/images/esrb/adultsonly.svg';
         }
+    }
+
+    public function getNumAvailableFormatAttribute()
+    {
+        return $this->num_available + 0;
+    }
+
+    public function getNumInStockFormatAttribute()
+    {
+        return $this->num_in_stock + 0;
     }
 
     public function getNumOnRentalAttribute()
@@ -101,6 +112,7 @@ class Game extends Model
     public function incrementStock($amount)
     {
         $this->num_in_stock = $this->num_in_stock + $amount;
+        $this->num_available = $this->num_available + $amount;
         $this->save();
     }
 
@@ -125,6 +137,17 @@ class Game extends Model
     public function rating()
     {
     	return $this->belongsTo('App\Rating', 'rating_id');
+    }
+
+    public function refreshAchievementInfo()
+    {
+        if (!$this->xbox_id) return false;
+
+        $achievementInfo = IGAD::getAchievements(Auth::user()->xbox_id, $this->xbox_id);
+
+        dd($achievementInfo);
+
+        dd('achievement');
     }
 
     public function refreshGameDBInfo()
@@ -198,11 +221,10 @@ class Game extends Model
         $this->save();
     }
 
-    public function refreshIGADInfo()
+    public function refreshInfo()
     {
-        if (!$this->xbox_game_id) return false;
-
-        
+        $this->refreshAchievementInfo();
+        return $this->refreshGameDBInfo();
     }
 
     public function rentals()
@@ -230,7 +252,15 @@ class Game extends Model
         $file  = md5('mainpicture'.$this->id).'.'.File::extension($url);
         $thumb = md5('thumb'.$this->id).'.'.File::extension($url);
         
-        //dd('/storage/app/public/'.$file);
+        if (!File::exists('../storage/app/public/games_boxes/'))
+        {
+            File::makeDirectory('../storage/app/public/games_boxes/', 0777, true);
+        }
+        if (!File::exists('../storage/app/public/games_thumbs/'))
+        {
+            File::makeDirectory('../storage/app/public/games_thumbs/', 0777, true);
+        }
+
         Curl::to($url)->withContentType('image/'.File::extension($url))->download('../storage/app/public/games_boxes/'.$file);
         Curl::to($url)->withContentType('image/'.File::extension($url))->download('../storage/app/public/games_thumbs/'.$thumb);
 
