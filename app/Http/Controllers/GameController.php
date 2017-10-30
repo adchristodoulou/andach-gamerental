@@ -160,7 +160,7 @@ class GameController extends Controller
             $request->session()->flash('danger', 'You need to login to add a game to your wishlist!');
             return redirect()->route('login');
         }
-        $game = Game::find($id);
+        $game = Game::find($request->id);
 
         return redirect()->route('game.show', $game->slug);
     }
@@ -174,7 +174,7 @@ class GameController extends Controller
             $request->session()->flash('success', 'You are not logged in.');
             return redirect()->route('login');
         }
-        $game = Game::find($id);
+        $game = Game::find($request->id);
 
         return redirect()->route('game.show', $game->slug);
     }
