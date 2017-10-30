@@ -52,6 +52,10 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'system_id' => 'required',
+        ]);
+        
         $game = Game::create($request->all());
 
         if(isset($request->picture))
@@ -60,7 +64,6 @@ class GameController extends Controller
             $game->picture_url = $request->picture->store('games_boxes', 'public');
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
-        $game->slug = str_slug($game->name.' '.$game->system->name, '-');
         $game->save();
         $game->refreshInfo();
 
@@ -108,6 +111,10 @@ class GameController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'system_id' => 'required',
+        ]);
+
         $game = Game::find($id);
 
         $game->update($request->all());
@@ -118,7 +125,6 @@ class GameController extends Controller
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }
 
-        $game->slug = str_slug($game->name.' '.$game->system->name, '-');
         $game->save();
         $errors = $game->refreshInfo();
 
