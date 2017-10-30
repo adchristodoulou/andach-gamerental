@@ -14,7 +14,7 @@ class AddIgdbFields extends Migration
     public function up()
     {
         Schema::table('games', function (Blueprint $table) {
-            $table->string('slug')->after('name')->nulllable();
+            $table->string('slug')->after('name')->nullable();
             $table->integer('collection_id')->after('system_id')->nullable();
             $table->integer('publisher_id')->after('collection_id')->nullable();
             $table->integer('franchise_id')->after('publisher_id')->nullable();
