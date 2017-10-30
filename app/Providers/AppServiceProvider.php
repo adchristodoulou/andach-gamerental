@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use App\Category;
 use App\Game;
 use App\System;
@@ -26,17 +27,20 @@ class AppServiceProvider extends ServiceProvider
         \Braintree_Configuration::publicKey(config('services.braintree.public_key'));
         \Braintree_Configuration::privateKey(config('services.braintree.private_key'));
 
-        Cashier::useCurrency('gbp', '£');
+        if( !App::runningInConsole() ){
+            Cashier::useCurrency('gbp', '£');
 
-        //Share the systems for the drop-down menu on every page. 
-        $systems  = Game::all()->pluck('system_id')->toArray();
-        $systems  = array_flip(array_flip(array_filter($systems)));
-        $gamemenu = System::whereIn('id', $systems)->get();
+            //Share the systems for the drop-down menu on every page. 
+            $systems  = Game::all()->pluck('system_id')->toArray();
+            $systems  = array_flip(array_flip(array_filter($systems)));
+            $gamemenu = System::whereIn('id', $systems)->get();
 
-        $categories = Category::all();
+            $categories = Category::all();
 
-        View::share('gamemenu', $gamemenu);
-        View::share('gamecategories', $categories);
+            View::share('gamemenu', $gamemenu);
+            View::share('gamecategories', $categories);
+        }
+        
     }
 
     /**
