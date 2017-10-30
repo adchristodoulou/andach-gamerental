@@ -181,7 +181,8 @@ class Game extends Model
         $updateArray['rating'] = $api->aggregated_rating ?? 0;
         $updateArray['rating_count'] = $api->aggregated_rating_count ?? 0;
         $releaseDate = $api->first_release_date ?? 0;
-        $updateArray['release_date'] = date('Y-m-d', (int) $releaseDate);
+        //TODO: Fix this.
+        //$updateArray['release_date'] = date('Y-m-d', (int) $releaseDate);
         
         $this->genres()->sync($api->genres ?? array());
         $this->modes()->sync($api->game_modes ?? array());
