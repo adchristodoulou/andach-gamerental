@@ -60,7 +60,6 @@ class GameController extends Controller
 
         if(isset($request->picture))
         {
-            dd($request->picture);
             $game->picture_url = $request->picture->store('games_boxes', 'public');
             $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
         }

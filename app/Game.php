@@ -200,6 +200,7 @@ class Game extends Model
             }
         }
 
+        $this->videos()->delete();
         $videoArray = $api->videos ?? array();
         foreach ($videoArray as $video)
         {
