@@ -14,6 +14,7 @@
     </script>
 
 
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')">
@@ -95,7 +96,7 @@
           <ul class="navbar-nav ml-auto navbar-gamebar">
             @foreach ($gamemenu as $system)
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="https://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ $system->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

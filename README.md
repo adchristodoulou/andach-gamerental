@@ -68,3 +68,15 @@ This is a PHP application to run a website that will let you rent video games ou
 2. Add a Let's Encrypt SSH certificate for Webmin - https://www.digitalocean.com/community/tutorials/how-to-install-webmin-on-ubuntu-16-04 (Step 2)
 3. How to encrypt the website?
 5. Install Zabix - https://www.zabbix.com/documentation/3.4/manual/installation/install_from_packages/debian_ubuntu
+
+##Installing an SSL Certificate
+1. Enable SSL for apache. 
+2. `$ sudo a2enmod ssl`
+3. `sudo a2ensite default-ssl.conf`
+4. `sudo nano /etc/apache2/sites-available/default-ssl.conf` and change the DocumentRoot parameter accordingly. 
+4. `sudo service apache2 restart`
+5. Clone Let's Encrypt information into your /usr/local directory `cd /usr/local
+sudo git clone https://github.com/letsencrypt/letsencrypt
+cd /usr/local/letsencrypt
+sudo ./letsencrypt-auto --apache -d andachrental.co.uk`
+6. This takes some time to load. Enter your email address, agree to the terms of service and set the entire website to force HTTPS. 

@@ -48,7 +48,7 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
             <div class="card-body">
               <h4 class="card-title">Add Games to Your List</h4>
               <p class="card-text">Sign up for an account and add games to your wishlist. </p>
@@ -64,7 +64,7 @@
         </div>
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
             <div class="card-body">
               <h4 class="card-title">Get them through the post</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
@@ -76,7 +76,7 @@
         </div>
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
             <div class="card-body">
               <h4 class="card-title">Play as long as you want</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
@@ -88,7 +88,7 @@
         </div>
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
             <div class="card-body">
               <h4 class="card-title">Send it back and get another</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
