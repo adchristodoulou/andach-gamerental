@@ -16,7 +16,16 @@
 * ROUTES - STATIC
 ********************/
 Route::get('/', 'GameController@homepage')->name('home');
-Route::get('/about-us', function () { return view('pages.about-us'); });
+
+/********************
+* ROUTES - PAGES
+********************/
+Route::get('page', 'PageController@index')->name('page.index');
+Route::post('page', 'PageController@store')->name('page.store');
+Route::get('page/create', 'PageController@create')->name('page.create');
+Route::put('page/{id}', 'PageController@update')->name('page.update');
+Route::delete('page/{id}', 'PageController@destroy')->name('page.destroy');
+Route::get('page/{slug}/edit', 'PageController@edit')->name('page.edit');
 
 /********************
 * ROUTES - GAMES
@@ -82,3 +91,5 @@ Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
 
 Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
+
+Route::get('{slug}', 'PageController@show')->name('page.show');

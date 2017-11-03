@@ -22,7 +22,8 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.5.*",
         "messerli90/igdb": "~1.0",
-        "nathanmac/Parser": "^4.3"
+        "nathanmac/Parser": "^4.3",
+        "unisharp/laravel-filemanager": "~1.8"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->id === 1;
     }
 
+    public function pages()
+    {
+        return $this->hasMany('App\Page', 'author_id');
+    }
+
     public function rentals()
     {
         return $this->hasMany('App\Rental', 'user_id');

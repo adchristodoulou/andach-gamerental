@@ -82,3 +82,6 @@ sudo ./letsencrypt-auto --apache -d andachrental.co.uk`
 6. This takes some time to load. Enter your email address, agree to the terms of service and set the entire website to force HTTPS. 
 7. Then setup the crontab `sudo crontab -e` and add the below line:
 8. `0 1 1 */2 * cd /usr/local/letsencrypt && ./letsencrypt-auto certonly --apache --renew-by-default --apache -d andachrental.co.uk >> /var/log/andachrental.co.uk-renew.log 2>&1`
+9. Then setup Webmin so that the certificate works as well. Login to webmin (which will give you the insecurity warning), and select Webmin -> Webmin Configuration, then click the "Settings" gear in the top-left. Enter `/usr/local/letsencrypt-auto` as the "Full path to Let's Encrypt client command"
+10. Then install VirtualMin. 
+11. ??
