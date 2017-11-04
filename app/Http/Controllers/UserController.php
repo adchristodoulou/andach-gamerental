@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SubscriptionCancel;
+use App\Mail\SubscriptionResume;
 use App\Rental;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Mail;
 
 class UserController extends Controller
 {
@@ -132,8 +135,8 @@ class UserController extends Controller
         {
             Auth::user()->subscription('main')->cancel();
             $request->session()->flash('success', 'You have cancelled your subscription.');
-
             $user = Auth::user();
+            Mail::to($user)->send(new SubscriptionCancel($this->subscription('main')->ends_at));
 
             return view('user.subscription', ['user' => $user]);
         }
@@ -153,8 +156,8 @@ class UserController extends Controller
         Auth::user()->subscription('main')->resume();
 
         $request->session()->flash('success', 'Your subscription has been set to resume.');
-
         $user = Auth::user();
+        Mail::to($user)->send(new SubscriptionResume());
 
         return view('user.subscription', ['user' => $user]);
     }

@@ -17,7 +17,7 @@
 	@foreach ($user->currentSubscription as $sub)
 		@if ($user->subscription('main')->onGracePeriod())
 		<div class="row">
-			<div class="col-12 alert alert-warning">You are on your grace period.</div>
+			<div class="col-12 alert alert-warning">You are on your grace period. Your subscription will end on {{ $user->subscription('main')->ends_at }}</div>
 		</div>
 		@endif
 		<div class="row">

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SubscriptionChange;
+use App\Mail\SubscriptionNew;
 use App\Plan;
 use Illuminate\Http\Request;
+use Mail;
 
 class PlanController extends Controller
 {
@@ -28,10 +31,13 @@ class PlanController extends Controller
             $request->user()->newSubscription('main', $plan->braintree_plan)->create($request->payment_method_nonce);
 
             $request->session()->flash('success', 'You have successfully subscribed to the plan <strong>"'.$plan->name.'"</strong>');
+            Mail::to($request->user)->send(new SubscriptionNew($plan));
+
           } else {
 
             $request->session()->flash('success', 'You have changed to the plan <strong>"'.$plan->name.'"</strong>');
             $request->user()->subscription('main')->swap($plan->braintree_plan);
+            Mail::to($request->user)->send(new SubscriptionChange($plan));
           }
 
           // redirect to home after a successful subscription

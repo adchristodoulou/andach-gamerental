@@ -1,0 +1,1 @@
+you have signed up to a new subscription, being {{$plan->name}}

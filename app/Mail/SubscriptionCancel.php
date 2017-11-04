@@ -2,25 +2,24 @@
 
 namespace App\Mail;
 
-use App\Rental;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GameReceived extends Mailable
+class SubscriptionCancel extends Mailable
 {
     use Queueable, SerializesModels;
-    public $rental;
+    public $endDate;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Rental $rental)
+    public function __construct($endDate)
     {
-        $this->rental = $rental;
+        $this->endDate = $endDate;
     }
 
     /**
@@ -31,6 +30,6 @@ class GameReceived extends Mailable
     public function build()
     {
         return $this->from('example@useaquestion.co.uk')
-                ->view('email.gamereceived');
+                ->view('email.subscriptioncancel');
     }
 }

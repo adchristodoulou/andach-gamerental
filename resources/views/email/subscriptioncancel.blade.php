@@ -1,0 +1,1 @@
+your subscription has been cancelled. it will end on {{ $endDate }}
