@@ -4,6 +4,9 @@
     </IfModule>
 
     RewriteEngine On
+    # Rewrite www to the domain itself. 
+    RewriteCond %{HTTP_HOST} ^www\.example\.com$
+    RewriteRule ^/?$ "http\:\/\/example\.com\/" [R=301,L]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d

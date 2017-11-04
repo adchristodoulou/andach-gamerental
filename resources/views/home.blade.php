@@ -3,7 +3,7 @@
 @section('content')
 
       <h2>Rent Xbox One Games</h2>
-      <div class="row">
+      <div class="row row-eq-height">
         @foreach ($xboxone as $game)
           {!! $game->box !!}
         @endforeach

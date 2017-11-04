@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use Auth;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -43,6 +44,7 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $page = Page::create($request->all());
+        $page->author_id = Auth::id();
         $page->save();
 
         $request->session()->flash('success', 'The page has successfully been added, <a href="'.route('page.show', $page->slug).'">click here to see it</a>!');
