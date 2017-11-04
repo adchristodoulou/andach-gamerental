@@ -85,3 +85,22 @@ sudo ./letsencrypt-auto --apache -d andachrental.co.uk`
 9. Then setup Webmin so that the certificate works as well. Login to webmin (which will give you the insecurity warning), and select Webmin -> Webmin Configuration, then click the "Settings" gear in the top-left. Enter `/usr/local/letsencrypt-auto` as the "Full path to Let's Encrypt client command"
 10. Then install VirtualMin. 
 11. ??
+
+##Add Expires Tags for Images
+1. `sudo a2enmod expires`
+2. Open the /etc/apache2/sites-available/default-ssl.conf file and paste this at the bottom:
+3. 
+`<IfModule mod_expires.c>
+ExpiresActive on
+ExpiresDefault "access plus 30 seconds"
+ExpiresByType text/html "access plus 15 days"
+ExpiresByType image/gif "access plus 1 months"
+ExpiresByType image/jpg "access plus 1 months"
+ExpiresByType image/jpeg "access plus 1 months"
+ExpiresByType image/png "access plus 1 months"
+ExpiresByType text/js "access plus 1 months"
+ExpiresByType text/javascript "access plus 1 months"
+</IfModule>`
+4. Remove the server signatures by pasting the below into the bottom of /etc/apache2/apache2.conf
+`ServerSignature Off
+ServerTokens Prod`

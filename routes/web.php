@@ -1,4 +1,3 @@
-
 <?php
 
 /*
@@ -91,5 +90,7 @@ Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
 
 Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
+
+Route::get('sitemap', 'SitemapController@index')->name('sitemap');
 
 Route::get('{slug}', 'PageController@show')->name('page.show');

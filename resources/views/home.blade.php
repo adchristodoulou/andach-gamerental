@@ -38,7 +38,7 @@
             (123) 456-7890
             <br>
             <abbr title="Email">E:</abbr>
-            <a href="mailto:#">name@example.com</a>
+            <a href="mailto:#">name (AT) example.com</a>
           </address>
         </div>
       </div>
