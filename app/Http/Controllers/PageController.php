@@ -60,6 +60,8 @@ class PageController extends Controller
     {
         $page = Page::where('slug', $id)->first();
 
+        if (!$page) abort(404, 'Page not found');
+
         return view('page.show', ['page' => $page]);
     }
 
