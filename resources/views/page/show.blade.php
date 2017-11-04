@@ -16,7 +16,7 @@
 	
 	<div class="row" itemscope itemtype ="http://schema.org/Article">
 		<div class="col-12">
-			{{ $page->body }}
+			{!! $page->body !!}
 		</div>
 	</div>
 @endsection
