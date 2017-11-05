@@ -250,48 +250,4 @@ class GameController extends Controller
 
         return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
-
-    //Accepts an array of GET variables and returns the SEO friendly searchSEO string, of the form
-    // /rent-games/search/category|xbox360||
-    public function searchPost(Request $request)
-    {
-        $vars = array();
-        if (isset($request->name))
-        {
-            $vars[] = 'name~'.str_slug($request->name);
-        }
-
-        if (isset($request->system_id))
-        {
-            $vars[] = 'system_id~'.str_slug($request->system_id);
-        }
-
-        if (isset($request->is_available))
-        {
-            $vars[] = 'is_available~'.str_slug($request->is_available);
-        }
-
-        if (isset($request->is_premium))
-        {
-            $vars[] = 'is_premium~'.str_slug($request->is_premium);
-        }
-
-        if (isset($request->category_id))
-        {
-            $vars[] = 'category_id~'.str_slug($request->category_id);
-        }
-
-        if (isset($request->rating_id))
-        {
-            $ratingsArray = array_filter($request->rating_id);
-            if (count($ratingsArray) > 0)
-            {
-                $vars[] = 'rating_id~'.implode(',', $ratingsArray);
-            }
-        }
-        
-        $getString = implode('~~', $vars);
-
-        return redirect()->route('game.search', $getString);
-    }
 }

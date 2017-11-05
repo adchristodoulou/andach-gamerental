@@ -40,7 +40,7 @@ Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.ad
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
 Route::any('rent-games/searchpost/', 'GameController@searchPost')->name('game.searchpost');
-Route::get('rent-games', 'GameController@search')->name('game.search');
+Route::get('search-games', 'GameController@search')->name('game.search');
 Route::get('rent-games/{querystring}', 'GameController@search')->name('game.search');
 
 /********************

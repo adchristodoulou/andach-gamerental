@@ -68,6 +68,7 @@ This is a PHP application to run a website that will let you rent video games ou
 2. Add a Let's Encrypt SSH certificate for Webmin - https://www.digitalocean.com/community/tutorials/how-to-install-webmin-on-ubuntu-16-04 (Step 2)
 3. How to encrypt the website?
 5. Install Zabix - https://www.zabbix.com/documentation/3.4/manual/installation/install_from_packages/debian_ubuntu
+6. Install Afick - https://ubuntuforums.org/showthread.php?t=2235300
 
 ##Installing an SSL Certificate
 1. Enable SSL for apache. 
