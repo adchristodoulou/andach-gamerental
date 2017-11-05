@@ -15,6 +15,7 @@ class WebhookController extends CashierController
      */
     public function handleWebhook(WebhookNotification $notification)
     {
-        Mail::to('andreas@useaquestion.co.uk')->send(new BraintreeDebug($notification));
+        $user = User::find(1);
+        Mail::to($user)->send(new BraintreeDebug($notification));
     }
 }
