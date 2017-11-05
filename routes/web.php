@@ -80,7 +80,7 @@ Route::any('admin/users', 'AdminController@users')->name('admin.users');
 * ROUTES - OTHER
 ********************/
 Route::get('braintree/token', 'BraintreeTokenController@token');
-Route::any(
+Route::post(
     'braintree/webhook',
     '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
 );
