@@ -1,4 +1,4 @@
 User-agent: * 
-Disallow: 
+Disallow: /search-games
 
 Sitemap: https://andachrental.co.uk/sitemap

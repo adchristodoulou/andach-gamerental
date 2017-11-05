@@ -100,10 +100,10 @@
                   {{ $system->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="{{ route('game.searchpost', ['system_id' => $system->url]) }}">All Games</a>
+                  <a class="dropdown-item" href="{{ route('game.search', ['system_id' => $system->url]) }}">All Games</a>
                   <div class="dropdown-divider"></div>
                   @foreach ($gamecategories as $category)
-                  <a class="dropdown-item" href="{{ route('game.searchpost', ['system_id' => $system->url, 'category_id' => $category->url]) }}">{{ $category->name }}</a> 
+                  <a class="dropdown-item" href="{{ route('game.search', ['system_id' =>  $system->url, 'category_id' => $category->url]) }}">{{ $category->name }}</a> 
                   @endforeach
                 </div>
               </li>
@@ -133,14 +133,16 @@
     </div>
     @endif
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
+    @if (isset($errors))
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
     @endif
 
     <!-- Page Content -->

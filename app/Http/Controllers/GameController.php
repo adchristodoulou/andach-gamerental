@@ -188,57 +188,49 @@ class GameController extends Controller
 
     public function search(Request $request)
     {
-        $getString = str_replace('/rent-games/', '', $request->getPathInfo());
-        //$getString = str_replace('/rent-games', '', $request->getPathInfo());
+        $getString = str_replace('/search-games/', '', $request->getPathInfo());
 
         $getArray = explode('~~', $getString);
         $getArray = array_filter($getArray);
 
         $where = array();
 
-        foreach ($getArray as $line)
+        if ($request->category_id)
         {
-            $keypair = explode('~', $line);
+            $sqlvalue = Category::where('url', $request->category_id)->first()->id;
+            $where[] = ['category_id', '=', $sqlvalue];
+        }
 
-            $key   = $keypair[0];
-            $value = $keypair[1];
-
-            if ($key == 'rating_id')
+        if ($request->is_premium)
+        {
+            if ($request->is_premium == 'yes')
             {
-                $sqlvalue = implode(',', Rating::whereIn('name', explode(',', $value))->pluck('id')->toArray());
-
-                $where[] = [$key, 'in', explode(',', $sqlvalue)];
-            } else if ($key == 'num_available') {
-                $where = ['num_available', '>', 0];
-            } else if ($key == 'name') {
-                $where[] = ['name', 'like', '%'.$value.'%'];
+                $where[] = ['is_premium', '=', 1];
             } else {
-                switch($key)
-                {
-                    case 'system_id':
-                        $sqlvalue = System::where('url', $value)->first()->id;
-
-                        $where[] = [$key, '=', $sqlvalue];
-                    break;
-
-                    case 'is_premium':
-                        if ($value == 'yes')
-                        {
-                            $sqlvalue = 1;
-                        } else {
-                            $sqlvalue = 0;
-                        }
-
-                        $where[] = [$key, '=', $sqlvalue];
-                    break;
-
-                    case 'category_id':
-                        $sqlvalue = Category::where('url', $value)->first()->id;
-
-                        $where[] = [$key, '=', $sqlvalue];
-                    break;
-                }
+                $where[] = ['is_premium', '=', 0];
             }
+        }
+
+        if ($request->name)
+        {
+            $where[] = ['name', 'like', '%'.$request->name.'%'];
+        }
+
+        if ($request->num_available)
+        {
+            $where[] = ['num_available', '>', 0];
+        }
+
+        if ($request->rating_id)
+        {
+            $sqlvalue = Rating::where('name', $request->rating_id)->first()->id;
+            $where[] = ['rating_id', '=', $sqlvalue];
+        }
+
+        if ($request->system_id)
+        {
+            $sqlvalue = System::where('url', $request->system_id)->first()->id;
+            $where[] = ['system_id', '=', $sqlvalue];
         }
 
         $games = Game::where($where)->paginate(20);

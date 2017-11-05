@@ -172,6 +172,10 @@ h1 {
   margin-bottom: 0.125rem;
 }
 
+.pagination {
+   justify-content: center;
+}
+
 /*********************
 * QUOTE CARDS
 *********************/

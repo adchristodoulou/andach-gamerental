@@ -39,9 +39,7 @@ Route::get('game/{game}/edit', 'GameController@edit')->name('game.edit');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
 
-Route::any('rent-games/searchpost/', 'GameController@searchPost')->name('game.searchpost');
 Route::get('search-games', 'GameController@search')->name('game.search');
-Route::get('rent-games/{querystring}', 'GameController@search')->name('game.search');
 
 /********************
 * ROUTES - PLAN
