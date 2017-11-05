@@ -13,7 +13,7 @@ class WebhookController extends CashierController
      * @param  WebhookNotification  $webhook
      * @return Response
      */
-    public function handleDisputeOpened(WebhookNotification $notification)
+    public function handleWebhook(WebhookNotification $notification)
     {
         Mail::to('andreas@useaquestion.co.uk')->send(new BraintreeDebug($notification));
     }
