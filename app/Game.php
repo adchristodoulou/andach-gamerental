@@ -103,9 +103,21 @@ class Game extends Model
     //This is the HTML to show the box for the wishlist itself. 
     public function getWishlistAttribute()
     {
-        return '<div class="col-lg-12">
-            <h2>'.$this->name.'</h2>
-        <input type="hidden" name="order[]" value="'.$this->id.'">
+        return '
+        <div class="row">
+            <div class="col-2">
+                <a href="'.route('game.show', $this->slug).'">
+                    <img src="/storage/'.$this->thumb_url.'" class="img-flex" height="120px" alt="Game Box Art for '.$this->name.'"> 
+                </a>
+            </div>
+            <div class="col-3"><b>'.$this->name.'</b><br />'.$this->system->name.'</div>
+            <div class="col-6">
+                '.$this->num_in_stock_format.' in stock, '.$this->num_available_format.' available
+                <input type="hidden" name="order[]" value="'.$this->id.'">
+            </div>
+            <div clas="col-1">
+                <input type="checkbox" name="delete[]" value="'.$this->id.'">
+            </div>
         </div>';
     }
 

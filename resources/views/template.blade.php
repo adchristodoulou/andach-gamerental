@@ -173,8 +173,9 @@
       
 
   <script>
-    dragula([document.getElementById('left-defaults')]);
+    
 
+/*
     drake.on('drop', (el, target, source, sibling) => {
         const newColumnIndex = parseInt(get(target, 'id'));
         const previousColumnIndex = parseInt(get(source, 'id'));
@@ -199,6 +200,7 @@
           this.props.onDrag(columns);
         }
       });
+    */
     
   </script>
 

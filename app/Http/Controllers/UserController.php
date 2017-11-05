@@ -6,6 +6,7 @@ use App\Mail\SubscriptionCancel;
 use App\Mail\SubscriptionResume;
 use App\Rental;
 use App\User;
+use App\Wishlist;
 use Auth;
 use Illuminate\Http\Request;
 use Mail;
@@ -122,6 +123,15 @@ class UserController extends Controller
         {
             $wish->order = $order[$wish->game_id];
             $wish->save();
+        }
+
+        if (isset($request->delete))
+        {
+            foreach ($request->delete as $gameID)
+            {
+                $wishlist = Wishlist::where('user_id', $user->id)->where('game_id', $gameID)->first();
+                $wishlist->delete();
+            }
         }
 
         $request->session()->flash('success', 'Your wishlist has been updated!');
