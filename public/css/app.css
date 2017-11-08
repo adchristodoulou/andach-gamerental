@@ -176,6 +176,10 @@ h1 {
    justify-content: center;
 }
 
+.divzebra > div:nth-of-type(odd) {
+    background: #e0e0e0;
+}
+
 /*********************
 * QUOTE CARDS
 *********************/

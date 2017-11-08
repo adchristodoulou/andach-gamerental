@@ -64,6 +64,17 @@ class User extends Authenticatable
         return 1;
     }
 
+    public function currentPlan()
+    {
+        if (!count($this->currentSubscription())) return false;
+        
+        $sub = $this->currentSubscription()->first();
+
+        $plan = Plan::where('braintree_plan', $sub->braintree_plan)->first();
+
+        return $plan;
+    }
+
     public function currentSubscription()
     {
         return $this->hasMany('App\Subscription', 'user_id');

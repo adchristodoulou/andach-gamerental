@@ -46,7 +46,7 @@ Route::get('search-games', 'GameController@search')->name('game.search');
 ********************/
 Route::get('plan', 'PlanController@index');
 Route::post('plan-store', 'PlanController@store')->name('plan.store');
-Route::get('plan/{id}', 'PlanController@show')->name('plan.show');
+Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 
 /********************
 * ROUTES - USER

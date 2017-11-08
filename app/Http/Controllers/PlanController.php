@@ -17,7 +17,7 @@ class PlanController extends Controller
 
     public function show($id)
     {
-    	$plan = Plan::find($id);
+    	$plan = Plan::where('slug', $id)->first();
       return view('plans.show')->with(['plan' => $plan]);
     }
 
