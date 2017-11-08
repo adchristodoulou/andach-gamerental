@@ -40,7 +40,7 @@ The {{ $plan->name }} game rental service.
 
 
   <h2>Please Pay Below</h2>
-  <p>You'll need to wait just a few seconds for the form below to show up.</p>
+  <p>You'll need to wait just a few seconds for the form below to show up. Please note that you need to provide your <i>billing</i> post code to the form, not your delivery post code.</p>
     <form method="post" id="payment-form" action="{{ route('plan.store') }}">
       {{ csrf_field() }}
       {{ Form::hidden('plan', $plan->id) }}
@@ -65,6 +65,7 @@ The {{ $plan->name }} game rental service.
         }).done(function (response) {
             braintree.setup(response.data.token, 'dropin', {
                 container: 'dropin-container',
+                customerId: '{{ Auth::user()->braintree_id }}',
                 onReady: function () {
                     $('#payment-button').removeClass('invisible');
                 }

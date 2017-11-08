@@ -29,15 +29,12 @@ class PlanController extends Controller
           // subscribe the user
           if (!$request->user()->subscribed('main')) {
             $request->user()->newSubscription('main', $plan->braintree_plan)->create($request->payment_method_nonce);
-
             $request->session()->flash('success', 'You have successfully subscribed to the plan <strong>"'.$plan->name.'"</strong>');
-            Mail::to($request->user)->send(new SubscriptionNew($plan));
-
+            Mail::to($request->user())->send(new SubscriptionNew($plan));
           } else {
-
             $request->session()->flash('success', 'You have changed to the plan <strong>"'.$plan->name.'"</strong>');
             $request->user()->subscription('main')->swap($plan->braintree_plan);
-            Mail::to($request->user)->send(new SubscriptionChange($plan));
+            Mail::to($request->user())->send(new SubscriptionChange($plan));
           }
 
           // redirect to home after a successful subscription
