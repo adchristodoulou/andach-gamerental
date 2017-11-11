@@ -38,13 +38,12 @@ Route::delete('game/{game}', 'GameController@destroy')->name('game.destroy');
 Route::get('game/{game}/edit', 'GameController@edit')->name('game.edit');
 Route::post('game/addtowishlist', 'GameController@addToWishlist')->name('game.addtowishlist');
 Route::post('game/deletefromwishlist', 'GameController@deleteFromWishlist')->name('game.deletefromwishlist');
-
 Route::get('search-games', 'GameController@search')->name('game.search');
 
 /********************
 * ROUTES - PLAN
 ********************/
-Route::get('plan', 'PlanController@index');
+Route::get('plan', 'PlanController@index')->name('plan.index');
 Route::post('plan-store', 'PlanController@store')->name('plan.store');
 Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 
@@ -59,6 +58,8 @@ Route::get('user/subscription', 'UserController@subscription')->name('user.subsc
 Route::post('user/subscription/cancel', 'UserController@cancelSubscription')->name('user.cancelsubscription');
 Route::post('user/subscription/resume', 'UserController@resumeSubscription')->name('user.resumesubscription');
 Route::put('user/update', 'UserController@update')->name('user.update');
+Route::post('user/register', 'UserController@registerPost')->name('user.register');
+Route::get('user/registeraddress', 'UserController@registerAddress')->name('user.registeraddress');
 
 /********************
 * ROUTES - ADMIN

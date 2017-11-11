@@ -6,6 +6,7 @@ use App;
 use App\Category;
 use App\Game;
 use App\System;
+use Auth;
 use View;
 
 use Illuminate\Support\ServiceProvider;

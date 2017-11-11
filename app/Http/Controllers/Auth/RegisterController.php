@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/user/edit';
+    protected $redirectTo = '/user/registeraddress';
 
     /**
      * Create a new controller instance.
@@ -67,5 +67,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        session()->flash('success', 'You have successfully registered. .');
     }
 }

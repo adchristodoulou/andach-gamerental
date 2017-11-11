@@ -161,6 +161,26 @@ class UserController extends Controller
         return view('user.history', ['rentals' => $rentals]);
     }
 
+    public function registerAddress()
+    {
+        $user = Auth::user();
+
+        return view('user.registeraddress', ['user' => $user]);
+    }
+
+    public function registerPost(Request $request)
+    {
+        $request->validate([
+            'shipping_address1' => 'required',
+            'shipping_postcode' => 'required',
+        ]);
+
+        $user = User::find(Auth::id());
+        $user->update($request->all());
+        $request->session()->flash('success', 'You have successfully added your address details. Now choose your plan. ');
+        return redirect()->route('plan.index');
+    }
+
     public function resumeSubscription(Request $request)
     {
         Auth::user()->subscription('main')->resume();

@@ -113,6 +113,16 @@
       </div>
     </nav>
 
+    @if (Auth::check())
+      @if (!Auth::user()->subscription('main'))
+        <div class="row">
+          <div class="col-12">
+            <div class="alert alert-danger text-center">You are not currently subscribed to any plan. Check out <b><a href="{{ route('plan.index') }}">our full range of plans</a></b>, pick one and get playing immediately!</div>
+          </div>
+        </div>
+      @endif
+    @endif
+
     @if (Session::has('success'))
     <div class="container">
       <div class="row">
@@ -170,39 +180,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
 
     @yield('javascript')
-      
-
-  <script>
-    
-
-/*
-    drake.on('drop', (el, target, source, sibling) => {
-        const newColumnIndex = parseInt(get(target, 'id'));
-        const previousColumnIndex = parseInt(get(source, 'id'));
-        const belowId = get(sibling, 'id');
-        const itemId = get(el, 'id');
-
-        let columns = this.state.columns;
-        if (belowId === undefined) {
-          const newItemIndex = columns[newColumnIndex].items.length;
-          columns[previousColumnIndex].items.splice(columns[previousColumnIndex].items.indexOf(itemId), 1);
-          columns[newColumnIndex].items.splice(newItemIndex, 0, itemId);
-          this.setState({columns});
-        }
-        else {
-          const newItemIndex = columns[newColumnIndex].items.indexOf(belowId);
-          columns[previousColumnIndex].items.splice(columns[previousColumnIndex].items.indexOf(itemId), 1);
-          columns[newColumnIndex].items.splice(newItemIndex, 0, itemId);
-          this.setState({columns});
-        }
-
-        if (this.props.onDrag !== undefined) {
-          this.props.onDrag(columns);
-        }
-      });
-    */
-    
-  </script>
 
   </body>
 
