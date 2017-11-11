@@ -1,9 +1,9 @@
-#Andach Game Rental
-##Summary
+# Andach Game Rental
+## Summary
 This is a PHP application to run a website that will let you rent video games out. 
 
-##Installation Instructions for Ubuntu 16.04.3 (x64)
-###Install Apache, mySQL, PHP, etc.
+## Installation Instructions for Ubuntu 16.04.3 (x64)
+### Install Apache, mySQL, PHP, etc.
 1. Install the PHP7.1 repo
     1. `sudo add-apt-repository -y ppa:ondrej/php`
     1. `sudo apt-get update`
@@ -26,7 +26,7 @@ This is a PHP application to run a website that will let you rent video games ou
     5. `sudo a2enmod rewrite`
     6. `sudo service apache2 restart`
 
-###Setup the MariaDB database
+### Setup the MariaDB database
 1. `mysql -u root -p` (enter the password as needed)
 2. `CREATE DATABASE gamerental;` (remember the semicolon)
 3. `CREATE USER gamerental;`
@@ -35,7 +35,7 @@ This is a PHP application to run a website that will let you rent video games ou
 6. `EXIT`
 7. You should now be back to the normal BASH shell. 
 
-###Install Andach Game Rental
+### Install Andach Game Rental
 1. `cd /var/www/html`
 2. `sudo rm index.html`
 3. Change the owner of the html folder from root to www-data.
@@ -43,7 +43,7 @@ This is a PHP application to run a website that will let you rent video games ou
 5. Set up the .env file accordingly for the usernames and passwords on your system. 
 6. At this point, check your server. It should be giving you an error 500. 
 
-###Install from Composer
+### Install from Composer
 1. If you run `composer install`, it'll tell you you don't have the necessary extensions. Also, you'll need the zip and unzip programs installed anyway to really speed up composer. 
 2. `sudo apt-get install zip unzip`
 3. `sudo apt-get install php7.1-curl php7.1-mbstring php7.1-dom php7.1-gd`
@@ -53,7 +53,7 @@ This is a PHP application to run a website that will let you rent video games ou
 7. If you load the website now it should give you some error about a table, likely the games table, not existing, so run `php artisan migrate:refresh --seed`.
 8. Run `php artisan storage:link`
 
-##Securing your Server (Assumes you did install Webmin)
+## Securing your Server (Assumes you did install Webmin)
 1. Regularly run updates to programs as needed. 
     1. `sudo apt-get update`
     1. `sudo apt-get upgrade`
@@ -70,7 +70,7 @@ This is a PHP application to run a website that will let you rent video games ou
 5. Install Zabix - https://www.zabbix.com/documentation/3.4/manual/installation/install_from_packages/debian_ubuntu
 6. Install Afick - https://ubuntuforums.org/showthread.php?t=2235300
 
-##Installing an SSL Certificate
+## Installing an SSL Certificate
 1. Enable SSL for apache. 
 2. `$ sudo a2enmod ssl`
 3. `sudo a2ensite default-ssl.conf`
@@ -87,7 +87,7 @@ sudo ./letsencrypt-auto --apache -d andachrental.co.uk`
 10. Then install VirtualMin. 
 11. ??
 
-##Add Expires Tags for Images
+## Add Expires Tags for Images
 1. `sudo a2enmod expires`
 2. Open the /etc/apache2/sites-available/default-ssl.conf file and paste this at the bottom:
 3. 
