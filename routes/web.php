@@ -53,11 +53,12 @@ Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 ********************/
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
+Route::get('user/edit', 'UserController@edit')->name('user.edit');
 Route::get('user/history', 'UserController@history')->name('user.history');
 Route::get('user/subscription', 'UserController@subscription')->name('user.subscription');
 Route::post('user/subscription/cancel', 'UserController@cancelSubscription')->name('user.cancelsubscription');
 Route::post('user/subscription/resume', 'UserController@resumeSubscription')->name('user.resumesubscription');
-Route::resource('user', 'UserController');
+Route::put('user/update', 'UserController@update')->name('user.update');
 
 /********************
 * ROUTES - ADMIN

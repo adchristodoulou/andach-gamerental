@@ -61,7 +61,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         if (!Auth::check()) {
             session()->flash('danger', 'You must be logged in to do that');
@@ -79,15 +79,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find(Auth::id());
 
         $user->update($request->all());
 
-        $request->session()->flash('success', 'The user has successfully been edited!');
+        $request->session()->flash('success', 'You have successfully changed your account details. ');
 
-        return redirect()->route('user.edit', $id);
+        return redirect()->route('user.edit');
     }
 
     /**
