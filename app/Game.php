@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Achievement;
 use App\Category;
 use App\Rating;
 use App\System;
@@ -18,6 +19,11 @@ class Game extends Model
 {
 	protected $fillable = ['name', 'system_id', 'gamesdb_id', 'rating_id', 'category_id', 'developer', 'publisher', 'description', 'trailer_url', 'release_date', 'is_premium', 'min_players', 'max_players', 'is_local_coop', 'is_online_coop', 'slug', 'collection_id', 'franchise_id', 'publisher_id', 'developer_id', 'esrb_rating', 'esrb_synopsis', 'pegi_rating', 'pegi_synopsis', 'timetobeat_quick', 'timetobeat_normal', 'timetobeat_slow', 'rating', 'rating_count', 'max_gamerscore', 'xbox_id', 'playstation_id'];
     protected $table   = 'games';
+
+    public function achievements()
+    {
+        return $this->hasMany('App\Achievement', 'game_id');
+    }
 
     public function assignments()
     {
@@ -155,11 +161,27 @@ class Game extends Model
     {
         if (!$this->xbox_id) return false;
 
-        $achievementInfo = IGAD::getAchievements(Auth::user()->xbox_id, $this->xbox_id);
+        $achievementInfo = IGAD::getAchievements($this->xbox_id, $this->system->url, Auth::user()->xbox_id);
 
-        dd($achievementInfo);
+        foreach ($achievementInfo as $line)
+        {
+            if (!count(Achievement::where('third_party_id', $line['third_party_id'])->get()))
+            {
+                //The xboxapi.com API doesn't expose the icon for xboxone games. It icludes a header image that is too large for us to store in the database. TODO: fix this.
+                if($line['type'] == 'xbox-one')
+                {
+                    $line['image'] = $line['image'].'&h=370&w=278';
+                }
 
-        dd('achievement');
+                $line['game_id'] = $this->id;
+                $line['system_id'] = $this->system_id;
+                $ach = Achievement::create($line);
+
+                $ach->updateRequirements($line);
+
+                $ach->updateUserProgress($line);
+            }
+        }
     }
 
     public function refreshGameDBInfo()
