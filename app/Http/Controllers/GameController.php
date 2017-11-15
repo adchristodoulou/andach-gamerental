@@ -150,6 +150,13 @@ class GameController extends Controller
         //
     }
 
+    public function achievements($id)
+    {
+        $game = Game::where('slug', $id)->first();
+
+        return view('game.achievements', ['game' => $game]);
+    }
+
     public function addToWishlist(Request $request)
     {
         if(Auth::check())

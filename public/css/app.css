@@ -439,3 +439,15 @@ BT HOSTED FIELDS SPECIFIC
   border-bottom: 2px solid $red;
   transition: all 200ms ease;
 }
+
+/*********************
+* ACHIEVEMENT ROWS
+*********************/
+
+.achievement-row {
+  padding: 5px;
+}
+
+.achievement-earned {
+  background: green;
+}

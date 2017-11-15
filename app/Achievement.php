@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Achievement extends Model
 {
-	protected $fillable = ['third_party_id', 'game_id', 'system_id', 'gamerscore', 'achievement_description', 'achievement_locked_description', 'trophy', 'trophy_description', 'trophy_locked_description', 'is_secret', 'is_rare', 'percentage_unlocked', 'image'];
+	protected $fillable = ['name', 'third_party_id', 'game_id', 'system_id', 'gamerscore', 'achievement_description', 'achievement_locked_description', 'trophy', 'trophy_description', 'trophy_locked_description', 'is_secret', 'is_rare', 'percentage_unlocked', 'image'];
     protected $table = 'achievements';
 
     public function earned()
@@ -16,9 +16,30 @@ class Achievement extends Model
     	return $this->hasMany('App\AchievementEarned', 'achievement_id');
     }
 
+    //Retrns the earned() row for the given userID. 
+    public function earnedBy($userID)
+    {
+        return $this->hasMany('App\AchievementEarned', 'achievement_id')->where('user_id', '=', $userID);
+    }
+
+    public function earnedByLoggedOnUser()
+    {
+        return $this->earnedBy(Auth::id());
+    }
+
     public function game()
     {
     	return $this->belongsTo('App\Game', 'game_id');
+    }
+
+    public function getEarnedDateAttribute($userID = '')
+    {
+        if (!$userID) $userID = Auth::id();
+        if ($earning = $this->earnedBy($userID)->first())
+        {
+            return $earning->date_of_earning;
+        }
+        return 0;
     }
 
     public function requirements()

@@ -33,6 +33,7 @@ Route::get('game', 'GameController@index')->name('game.index');
 Route::post('game', 'GameController@store')->name('game.store');
 Route::get('game/create', 'GameController@create')->name('game.create');
 Route::get('rent-{game}', 'GameController@show')->name('game.show');
+Route::get('achievements-{game}', 'GameController@achievements')->name('game.achievements');
 Route::put('game/{game}', 'GameController@update')->name('game.update');
 Route::delete('game/{game}', 'GameController@destroy')->name('game.destroy');
 Route::get('game/{game}/edit', 'GameController@edit')->name('game.edit');
