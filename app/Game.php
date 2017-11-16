@@ -199,7 +199,7 @@ class Game extends Model
         }
 
         $api = IGDB::getGame($this->gamesdb_id);
-        $updateArray['slug'] = str_slug($this->name.' '.$this->system->name, '-');
+        $updateArray['slug'] = str_slug($api->name.' '.$this->system->name, '-');
         $updateArray['name'] = $api->name ?? '';
         $updateArray['description'] = $api->summary ?? '';
         $updateArray['collection_id'] = $api->collection ?? 0;

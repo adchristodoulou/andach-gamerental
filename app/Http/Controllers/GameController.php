@@ -7,6 +7,7 @@ use App\Game;
 use App\Rating;
 use App\System;
 use Auth;
+use IGDB;
 use Illuminate\Http\Request;
 use Image;
 use Storage;
@@ -52,8 +53,26 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        if (!$request->gamesdb_id)
+        {
+            //Then we need to show to the user the list of IDs. 
+            $api = IGDB::searchGames($request->name);
+            foreach ($api as $game)
+            {
+                $errors[] = $game->id.' - '.$game->name;
+            }
+
+            if (count($errors))
+            {
+                $request->session()->flash('success', implode($errors, "\n"));
+
+                return redirect()->route('game.create');
+            }
+        }
+
         $request->validate([
             'system_id' => 'required',
+            'gamesdb_id' => 'required',
         ]);
 
         $game = Game::create($request->all());
