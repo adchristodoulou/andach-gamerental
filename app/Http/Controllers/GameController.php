@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Game;
+use App\Page;
 use App\Rating;
 use App\System;
 use Auth;
@@ -99,6 +100,16 @@ class GameController extends Controller
     public function show($id)
     {
         $game = Game::where('slug', $id)->first();
+
+        //Synchronise with PageController@show. TODO: This is probably dumb. Must be a better way?
+        if (!$game)
+        {
+            $page = Page::where('slug', 'rent-'.$id)->first();
+
+            if (!$page) abort(404, 'Page not found');
+
+            return view('page.show', ['page' => $page]);
+        }
 
         return view('game.show', ['game' => $game]);
     }

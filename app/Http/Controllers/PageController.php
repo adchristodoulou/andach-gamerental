@@ -60,6 +60,7 @@ class PageController extends Controller
      */
     public function show($id)
     {
+        //Synchronise with GameController@show
         $page = Page::where('slug', $id)->first();
 
         if (!$page) abort(404, 'Page not found');

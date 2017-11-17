@@ -32,6 +32,7 @@ Route::get('page/{slug}/edit', 'PageController@edit')->name('page.edit');
 Route::get('game', 'GameController@index')->name('game.index');
 Route::post('game', 'GameController@store')->name('game.store');
 Route::get('game/create', 'GameController@create')->name('game.create');
+//Because we might want to create a static page starting with "rent-", we have provision in the GameController@show method to push any unfound games to the appropriate PageController@show function. 
 Route::get('rent-{game}', 'GameController@show')->name('game.show');
 Route::get('achievements-{game}', 'GameController@achievements')->name('game.achievements');
 Route::put('game/{game}', 'GameController@update')->name('game.update');
