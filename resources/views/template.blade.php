@@ -1,4 +1,4 @@
-
+  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +32,23 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/app.css" rel="stylesheet">
+
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:title" content="@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')"/>
+    <meta property="og:site_name" content="Andach Video Game Rentals"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')" />
+    <meta property="og:image" content="@yield('image', '')" />
+
+    <meta property="twitter:card" content="product" />
+    <meta property="twitter:description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')" />
+    <meta property="twitter:title" content="@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')"/>
+    <meta property="twitter:url" content="{{ url()->current() }}"/>
+    <meta property="twitter:image" content="@yield('image', '')" />
+
+
 
   </head>
 
@@ -96,10 +113,10 @@
           <ul class="navbar-nav ml-auto navbar-gamebar">
             @foreach ($gamemenu as $system)
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="https://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="https://example.com" id="navbarDropdownMenuLink-{{ $system->url }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ $system->name }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-{{ $system->url }}">
                   <a class="dropdown-item" href="{{ route('game.search', ['system_id' => $system->url]) }}">All Games</a>
                   <div class="dropdown-divider"></div>
                   @foreach ($gamecategories as $category)
