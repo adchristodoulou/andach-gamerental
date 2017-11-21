@@ -9,7 +9,7 @@
 @endsection
 
 @section('title')
-{{ $page->title }}
+{{ $page->html_title }}
 @endsection
 
 @section('content')
