@@ -23,21 +23,21 @@ class PlanController extends Controller
 
     public function store(Request $request)
     {
-          // get the plan after submitting the form
-          $plan = Plan::findOrFail($request->plan);
+      // get the plan after submitting the form
+      $plan = Plan::find($request->plan);
 
-          // subscribe the user
-          if (!$request->user()->subscribed('main')) {
-            $request->user()->newSubscription('main', $plan->braintree_plan)->create($request->payment_method_nonce);
-            $request->session()->flash('success', 'You have successfully subscribed to the plan <strong>"'.$plan->name.'"</strong>');
-            Mail::to($request->user())->send(new SubscriptionNew($plan));
-          } else {
-            $request->session()->flash('success', 'You have changed to the plan <strong>"'.$plan->name.'"</strong>');
-            $request->user()->subscription('main')->swap($plan->braintree_plan);
-            Mail::to($request->user())->send(new SubscriptionChange($plan));
-          }
+      // subscribe the user
+      if (!$request->user()->subscribed('main')) {
+        $request->user()->newSubscription('main', $plan->braintree_plan)->create($request->payment_method_nonce);
+        $request->session()->flash('success', 'You have successfully subscribed to the plan <strong>"'.$plan->name.'"</strong>');
+        Mail::to($request->user())->send(new SubscriptionNew($plan));
+      } else {
+        $request->session()->flash('success', 'You have changed to the plan <strong>"'.$plan->name.'"</strong>');
+        $request->user()->subscription('main')->swap($plan->braintree_plan);
+        Mail::to($request->user())->send(new SubscriptionChange($plan));
+      }
 
-          // redirect to home after a successful subscription
-          return redirect('user/subscription');
+      // redirect to home after a successful subscription
+      return redirect()->route('user.subscription');
     }
 }
