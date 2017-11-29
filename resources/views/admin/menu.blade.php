@@ -4,6 +4,9 @@
       <a class="nav-link  @if(Route::is('admin.rentals')) active @endif" href="{{ route('admin.rentals') }}">Current Rentals</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link  @if(Route::is('admin.gameindex')) active @endif" href="{{ route('admin.gameindex') }}">Game Index</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  @if(Route::is('admin.sendgames')) active @endif" href="{{ route('admin.sendgames') }}">Send Games</a>
     </li>
     <li class="nav-item">

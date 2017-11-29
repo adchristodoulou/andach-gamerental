@@ -59,6 +59,30 @@ class AdminController extends Controller
         return redirect()->route('admin.sendgames');
     }
 
+    public function gameIndex()
+    {
+        $games = Game::all();
+
+        return view('admin.gameindex', ['games' => $games]);
+    }
+
+    public function gameIndexPost(Request $request)
+    {
+        if (count($request->games))
+        {
+            foreach ($request->games as $gameID)
+            {
+                $game = Game::find($gameID);
+
+                $game->refreshInfo();
+            }
+        }
+
+        $request->session()->flash('success', 'Games have been successfully updated!');
+
+        return redirect()->route('admin.gameindex');
+    }
+
     public function printDeliveryNote($assignmentID)
     {
         $assignment = Assignment::find($assignmentID);
