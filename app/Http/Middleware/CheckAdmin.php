@@ -21,6 +21,8 @@ class CheckAdmin
             session()->flash('danger', 'You must be logged in to access this page.');
             return redirect()->route('login');
         }
+
+        //Also update the ContactMiddleware middleware. 
         if (!(Auth::id() == 1))
         {
             session()->flash('danger', 'You must be logged in as an admin to access this page.');

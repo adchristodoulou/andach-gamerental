@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Assignment', 'user_id');
     }
 
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact', 'user_id');
+    }
+
     //TODO: Write this.
     public function currentMaxGames()
     {

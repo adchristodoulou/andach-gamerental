@@ -83,6 +83,15 @@ Route::post('admin/upload-stock-post', 'AdminController@uploadStockPost')->name(
 Route::any('admin/users', 'AdminController@users')->name('admin.users');
 
 /********************
+* ROUTES - CONTACT
+********************/
+Route::get('contact', 'ContactController@create')->name('contact.create');
+Route::get('contact/attachment/{slug}', 'ContactController@attachment')->name('contact.attachment');
+Route::post('contact/send', 'ContactController@store')->name('contact.store');
+Route::get('contact/show/{id}', 'ContactController@show')->name('contact.show');
+Route::post('contact/update/', 'ContactController@update')->name('contact.update');
+
+/********************
 * ROUTES - OTHER
 ********************/
 Route::get('braintree/token', 'BraintreeTokenController@token');

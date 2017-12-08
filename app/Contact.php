@@ -1,0 +1,89 @@
+<?php
+
+namespace App;
+
+use Auth;
+use Illuminate\Database\Eloquent\Model;
+
+class Contact extends Model
+{
+	protected $fillable = ['user_id', 'email', 'phone', 'category_id', 'title', 'full_text', 'closed_at'];
+    protected $table = 'contacts';
+
+    //Takes a posted file object as $request->file and uploads it. 
+    public function addAttachment($file)
+    {
+        if (!$file) return false;
+        $path = $file->store('contacts');
+
+        $attachment = new ContactAttachment;
+        $attachment->contact_id = $this->id;
+        $attachment->filename   = $file->getClientOriginalName();
+        $attachment->url        = $path;
+        $attachment->slug       = pathinfo($path, PATHINFO_FILENAME);
+        $attachment->extension  = pathinfo($path, PATHINFO_EXTENSION);
+        $attachment->user_id    = Auth::id();
+        $attachment->save();
+    }
+
+    public function attachments()
+    {
+    	return $this->hasMany('App\ContactAttachment', 'contact_id');
+    }
+
+    public function category()
+    {
+    	return $this->belongsTo('App\ContactCategory', 'category_id');
+    }
+
+    public function close()
+    {
+        $this->closed_at = date('Y-m-d h:i:s');
+        $this->closed_by = Auth::id();
+        $this->save();
+    }
+
+    public function closeUser()
+    {
+        return $this->belongsTo('App\User', 'closed_by');
+    }
+
+    public function getClosedByNameAttribute()
+    {
+        if ($this->closeUser)
+        {
+            return $this->closeUser->name;
+        }
+    }
+
+    public function getOrderedBoxes()
+    {
+        $attachments = $this->attachments;
+        $replies     = $this->replies;
+
+        $return = array();
+
+        foreach ($this->attachments as $a)
+        {
+            $return[$a->created_at->timestamp.'a'] = $a->box;
+        }
+
+        foreach ($this->replies as $r)
+        {
+            $return[$r->created_at->timestamp.'b'] = $r->box;
+        }
+        ksort($return);
+
+        return $return;
+    }
+
+    public function replies()
+    {
+    	return $this->hasMany('App\ContactReply', 'contact_id');
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo('App\User', 'user_id');
+    }
+}
