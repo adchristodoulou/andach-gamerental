@@ -10,6 +10,7 @@ use App\RetirementReason;
 use App\Stock;
 use App\User;
 use Auth;
+use Excel;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -154,6 +155,35 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.stock', $returnID);
+    }
+
+    public function uploadStock()
+    {
+        return view('admin.uploadstock');
+    }
+
+    public function uploadStockPost(Request $request)
+    {
+        $file = $request->file('csv');
+
+        $excel = Excel::load($file->path())->toArray();
+
+        $count = 0;
+        foreach ($excel as $line)
+        {
+            $game = Game::create([
+                    'gamesdb_id' => $line['gamesdb_id'],
+                    'xbox_id' => $line['xbox_id'],
+                    'system_id' => $line['system_id'],
+                ]);
+            $game->save();
+
+            $count++;
+        }
+
+        $request->session()->flash('success', $count.' games have been successfully uploaded. You might want to go to <a href="'.route('admin.gameindex').'">the game index page to update these immediately.');
+
+        return redirect()->route('admin.uploadstock');
     }
 
     public function users(Request $request)

@@ -28,7 +28,7 @@
         <div class="col-sm-4">
           <h2 class="mt-4">Contact Us</h2>
           <address>
-            <strong>Start Bootstrap</strong>
+            <strong>Andach Game Rentals</strong>
             <br>3481 Melrose Place
             <br>Beverly Hills, CA 90210
             <br>

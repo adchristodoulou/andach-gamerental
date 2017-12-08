@@ -13,6 +13,9 @@
       <a class="nav-link  @if(Route::is('admin.stock') || Route::is('admin.stockindex')) active @endif" href="{{ route('admin.stockindex') }}">Stock Index</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link  @if(Route::is('admin.uploadstock')) active @endif" href="{{ route('admin.uploadstock') }}">Upload Stock</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  @if(Route::is('admin.users')) active @endif" href="{{ route('admin.users') }}">Users</a>
     </li>
   </ul>

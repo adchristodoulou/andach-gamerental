@@ -186,6 +186,7 @@ return [
         Messerli90\IGDB\IGDBServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
         Andach\IGAD\IGADServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'IGAD' => \Andach\IGAD\Facades\IGAD::class,
