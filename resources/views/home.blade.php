@@ -48,53 +48,57 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Add Games to Your List</h4>
-              <p class="card-text">Sign up for an account and add games to your wishlist. </p>
+            <div class="card-header text-center" style="background-color: #898486">
+              <i class="fa fa-search fa-5x" style="color: #084c61" aria-hidden="true"></i>
             </div>
-            <div class="card-footer">
-              @if (Auth::check())
-                <a href="/register" class="btn btn-primary">Register Now!</a>
-              @else 
-                <a href="/user/wishlist" class="btn btn-primary">Check your Wishlist</a>
-              @endif
+            <div class="card-body">
+              <h4 class="card-title">Sign Up</h4>
+              <p class="card-text">Sign up for an account through our secure, encrypted third party payment provider. We never see and can never access your full credit card information. </p>
+            </div>
+            <div class="card-footer text-center">
+              <a href="{{ route('register') }}" class="btn btn-primary">Register Now!</a>
             </div>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
+            <div class="card-header text-center" style="background-color: #898486">
+              <i class="fa fa-list-ol fa-5x" style="color: #345995" aria-hidden="true"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Add to List</h4>
+              <p class="card-text">Browse and search for games you want, to create an ordered list of your preferenes for us to send to you. </p>
+            </div>
+            <div class="card-footer text-center">
+              <a href="{{ route('game.search') }}" class="btn btn-primary">Search our Games Database</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-header text-center" style="background-color: #898486">
+              <i class="fa fa-envelope-o fa-5x" style="color: #db3a34" aria-hidden="true"></i>
+            </div>
             <div class="card-body">
               <h4 class="card-title">Get them through the post</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
+              <p class="card-text">We run our scripts each morning, and post out games first class, so that you can play them as soon as possible. </p>
             </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
+            <div class="card-footer text-center">
+              <a href="{{ route('user.account') }}" class="btn btn-primary">Check your Wishlist</a>
             </div>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="card">
-            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
+            <div class="card-header text-center" style="background-color: #898486">
+              <i class="fa fa-gamepad fa-5x" style="color: #ffc857" aria-hidden="true"></i>
+            </div>
             <div class="card-body">
               <h4 class="card-title">Play as long as you want</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+              <p class="card-text">There's no time limit! Play for as long as you want, and put them in the prepaid envelope we'll give you to return them. </p>
             </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card">
-            <img class="card-img-top" src="https://placehold.it/300x200" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Send it back and get another</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
+            <div class="card-footer text-center">
+              <a href="{{ route('user.history') }}" class="btn btn-primary">Game Rental History</a>
             </div>
           </div>
         </div>

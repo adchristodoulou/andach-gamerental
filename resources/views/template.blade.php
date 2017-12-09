@@ -19,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')">
     <meta name="author" content="">
+    <meta name="p:domain_verify" content="e9d1312cc0534f98a43b3f786b39e93a"/>
 
     <title>@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')</title>
 
@@ -57,6 +58,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
+        <div>
+          <img src="/images/template/andach-rental-logo.png" />
+        </div>
         <div id="navbar-title">
           <a class="navbar-brand" href="/">Andach Game Rentals</a><br />
           <h1>@yield('h1', 'Xbox, Playstation and retro game rentals!')</h1>
