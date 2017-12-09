@@ -182,12 +182,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Andach Game Rentals 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+    @include('footer')
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

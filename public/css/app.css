@@ -451,3 +451,13 @@ BT HOSTED FIELDS SPECIFIC
 .achievement-earned {
   background: green;
 }
+
+/*********************
+* FOOTER
+*********************/
+
+footer p {
+  color: white;
+  padding: 0;
+  margin: 0;
+}
