@@ -1,7 +1,6 @@
 @extends('template')
 
 @section('content')
-
       <h2>Rent Xbox One Games</h2>
       <div class="row row-eq-height">
         @foreach ($xboxone as $game)
@@ -13,6 +12,56 @@
         @foreach ($ps4 as $game)
           {!! $game->box !!}
         @endforeach
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-3" style="background-color: #084c61">
+          <p class="text-center text-white">
+            <i class="fa fa-gbp fa-5x"" aria-hidden="true"></i>
+          </p>
+          <p class="text-center text-white">
+            <b>Low Prices and Lots of Choice</b>
+          </p>
+          <p class="text-center text-white">
+            Our plans start at just &pound;3.99 per month, and we have a range of options including unlimited games per month and priority plans for gamers who want to play the latest games the moment they're released. 
+          </p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3" style="background-color: #345995">
+          <p class="text-center text-white">
+            <i class="fa fa-heart fa-5x"" aria-hidden="true"></i>
+          </p>
+          <p class="text-center text-white">
+            <b>Top Games and Retro Options</b>
+          </p>
+          <p class="text-center text-white">
+            We have an excellent range of games for both the current generation of consoles as well as retro games for older consoles. <br /><br />
+            We aim to have one copy of every game released for modern consoles, and to make sure that we have multiple copies on release date for the big releases. 
+          </p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3" style="background-color: #db3a34">
+          <p class="text-center text-white">
+            <i class="fa fa-envelope-o fa-5x" aria-hidden="true"></i>
+          </p>
+          <p class="text-center text-white">
+            <b>First Class Delivery and Free Postage</b>
+          </p>
+          <p class="text-center text-white">
+            All delivery is first class to you, so you'll be playing the next day as soon as we allocate your games. <br /><br />
+            There's free postage both ways - it's all included in the cost of the subscription, and we pay for your cost of posting things back to us
+          </p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3" style="background-color: #DBA800">
+          <p class="text-center text-white">
+            <i class="fa fa-ban fa-5x" aria-hidden="true"></i>
+          </p>
+          <p class="text-center text-white">
+            <b>No Late Fees, No Contract</b>
+          </p>
+          <p class="text-center text-white">
+            We don't have late fees at all. As long as you're a member, you can keep any game for absolutely as long as you like with no restrictions. <br /><br />
+            We also don't believe in tying you into a contract - we'll keep your business by providing you with excellent customer service. There's one-click cancellation in your member's area. 
+          </p>
+        </div>
       </div>
 
       <div class="row">
@@ -46,7 +95,7 @@
 
       <h2>How This Works</h2>
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-12 col-md-6 col-lg-3">
           <div class="card">
             <div class="card-header text-center" style="background-color: #898486">
               <i class="fa fa-search fa-5x" style="color: #084c61" aria-hidden="true"></i>
@@ -60,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-12 col-md-6 col-lg-3">
           <div class="card">
             <div class="card-header text-center" style="background-color: #898486">
               <i class="fa fa-list-ol fa-5x" style="color: #345995" aria-hidden="true"></i>
@@ -74,7 +123,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-12 col-md-6 col-lg-3">
           <div class="card">
             <div class="card-header text-center" style="background-color: #898486">
               <i class="fa fa-envelope-o fa-5x" style="color: #db3a34" aria-hidden="true"></i>
@@ -88,10 +137,10 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-12 col-md-6 col-lg-3">
           <div class="card">
             <div class="card-header text-center" style="background-color: #898486">
-              <i class="fa fa-gamepad fa-5x" style="color: #ffc857" aria-hidden="true"></i>
+              <i class="fa fa-gamepad fa-5x" style="color: #DBA800" aria-hidden="true"></i>
             </div>
             <div class="card-body">
               <h4 class="card-title">Play as long as you want</h4>

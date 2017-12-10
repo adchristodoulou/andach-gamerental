@@ -17,7 +17,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')">
+    <meta name="description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')">
     <meta name="author" content="">
     <meta name="p:domain_verify" content="e9d1312cc0534f98a43b3f786b39e93a"/>
 
@@ -40,11 +40,11 @@
     <meta property="og:title" content="@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')"/>
     <meta property="og:site_name" content="Andach Video Game Rentals"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')" />
+    <meta property="og:description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')" />
     <meta property="og:image" content="@yield('image', '')" />
 
     <meta property="twitter:card" content="product" />
-    <meta property="twitter:description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound9.99 per month!')" />
+    <meta property="twitter:description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')" />
     <meta property="twitter:title" content="@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')"/>
     <meta property="twitter:url" content="{{ url()->current() }}"/>
     <meta property="twitter:image" content="@yield('image', '')" />
@@ -108,7 +108,7 @@
     </nav>
 
     <!-- Game Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 20px">
       <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
