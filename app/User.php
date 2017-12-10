@@ -63,10 +63,20 @@ class User extends Authenticatable
         return $this->hasMany('App\Contact', 'user_id');
     }
 
-    //TODO: Write this.
+    public function canReceiveGames()
+    {
+        return ($this->num_games_on_rental < $this->currentMaxGames()) && 
+            $this->games_rented_this_month < $this->currentMaxGamesPerMonth();
+    }
+
     public function currentMaxGames()
     {
-        return 1;
+        return $this->currentPlan()->max_games_simultaneously;
+    }
+
+    public function currentMaxGamesPerMonth()
+    {
+        return $this->currentPlan()->max_games_per_month;
     }
 
     public function currentPlan()
@@ -97,6 +107,22 @@ class User extends Authenticatable
         }
     }
 
+    //Returns the first Stock object on this user's wishlist. 
+    public function firstAvailableStockItem()
+    {
+        foreach ($this->wishlistGames as $game)
+        {
+            $stock = Stock::where([
+                ['game_id', $game->id],
+                ['currently_in_stock', 1]
+            ])->first();
+
+            if ($stock) return $stock;
+        }
+
+        return false;
+    }
+
     public function isAdmin()
     {
         return $this->id === 1;
@@ -105,6 +131,19 @@ class User extends Authenticatable
     public function pages()
     {
         return $this->hasMany('App\Page', 'author_id');
+    }
+
+    public function recordGamePosted()
+    {
+        $this->games_rented_this_month = $this->games_rented_this_month + 1;
+        $this->num_games_on_rental     = $this->num_games_on_rental + 1;
+        $this->save();
+    }
+
+    public function recordGameReturned()
+    {
+        $this->num_games_on_rental = $this->num_games_on_rental - 1;
+        $this->save();
     }
 
     public function rentals()

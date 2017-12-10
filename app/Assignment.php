@@ -32,7 +32,6 @@ class Assignment extends Model
         $stock->currently_in_stock = $stock->currently_in_stock - 1;
         $stock->save();
 
-
         $rental = new Rental;
         $rental->user_id  = $this->user_id;
         $rental->game_id  = $this->game_id;
@@ -42,6 +41,9 @@ class Assignment extends Model
 
         $this->rental_id = $rental->id;
         $this->save();
+
+        //We don't update the posted status here because it hasn't been confirmed. 
+        //$this->user->recordGameRented();
 
         //Finally remove it from the wishlist
         $wishlistRows = Wishlist::where('user_id', $this->user_id)->where('game_id', $this->game_id)->delete();

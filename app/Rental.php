@@ -27,6 +27,8 @@ class Rental extends Model
         $this->stock->game->num_available = $this->stock->game->num_available - 1;
         $this->stock->game->save();
 
+        $this->user->recordGamePosted();
+
         Mail::to($this->user)->send(new GameDelivered($this));
     }
 
@@ -45,6 +47,8 @@ class Rental extends Model
 
         $this->stock->game->num_available = $this->stock->game->num_available + 1;
         $this->stock->game->save();
+
+        $this->user->recordGameReturned();
 
         Mail::to($this->user)->send(new GameReceived($this));
     }
