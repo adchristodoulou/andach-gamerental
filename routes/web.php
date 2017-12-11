@@ -95,10 +95,7 @@ Route::post('contact/update/', 'ContactController@update')->name('contact.update
 * ROUTES - OTHER
 ********************/
 Route::get('braintree/token', 'BraintreeTokenController@token');
-Route::post(
-    'braintree/webhook',
-    '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
-);
+Route::post('braintree/webhook', 'WebhookController@handleWebhook');
 
 Auth::routes();
 Route::get('log-out', 'Auth\LoginController@logout')->name('log-out');
