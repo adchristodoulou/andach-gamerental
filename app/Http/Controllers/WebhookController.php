@@ -39,4 +39,10 @@ class WebhookController extends CashierController
         $user = User::find(1);
         Mail::to($user)->send(new BraintreeDebug($notification));
     }
+
+    public function handleSubscriptionWentActive(WebhookNotification $notification)
+    {
+        $user = User::find(1);
+        Mail::to($user)->send(new BraintreeDebug($notification));
+    }
 }
