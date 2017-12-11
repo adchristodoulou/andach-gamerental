@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Braintree\WebhookNotification;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
+use Mail;
 
 class WebhookController extends CashierController
 {
