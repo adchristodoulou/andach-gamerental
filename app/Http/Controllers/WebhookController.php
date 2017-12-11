@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BraintreeDebug;
 use App\User;
 use Braintree\WebhookNotification;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
