@@ -151,6 +151,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Rental', 'user_id');
     }
 
+    public function resetMonthlyRentalCount()
+    {
+        $this->games_rented_this_month = 0;
+        $this->save();
+    }
+
     public function wishlistGames()
     {
         return $this->belongsToMany('App\Game', 'wishlist', 'user_id', 'game_id')->orderBy('order');
