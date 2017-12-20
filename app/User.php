@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Assignment', 'user_id');
     }
 
+    public function cart()
+    {
+        return $this->hasMany('App\Cart', 'user_id');
+    }
+
     public function contacts()
     {
         return $this->hasMany('App\Contact', 'user_id');
@@ -107,6 +112,11 @@ class User extends Authenticatable
         }
     }
 
+    public function deliveryNotes()
+    {
+        return $this->hasMany('App\DeliveryNote', 'user_id');
+    }
+
     //Returns the first Stock object on this user's wishlist. 
     public function firstAvailableStockItem()
     {
@@ -121,6 +131,11 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Invoice', 'user_id');
     }
 
     public function isAdmin()

@@ -187,6 +187,7 @@ return [
         Laravel\Cashier\CashierServiceProvider::class,
         Andach\IGAD\IGADServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Nestable\NestableServiceProvider::class,
 
     ],
 
@@ -239,6 +240,7 @@ return [
 
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Nestable' => Nestable\Facades\NestableService::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'IGAD' => \Andach\IGAD\Facades\IGAD::class,

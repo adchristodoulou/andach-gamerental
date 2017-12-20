@@ -11,6 +11,7 @@
     "require": {
         "php": ">=7.0.0",
         "andach/igad": "dev-master",
+        "atayahmet/laravel-nestable": "^0.8.4",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "guzzlehttp/guzzle": "^6.3",
@@ -21,11 +22,11 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.5.*",
+        "maatwebsite/excel": "~2.1.0",
         "messerli90/igdb": "~1.0",
         "nathanmac/Parser": "^4.3",
         "unisharp/laravel-filemanager": "~1.8",
-        "watson/sitemap": "^2.0",
-        "maatwebsite/excel": "~2.1.0"
+        "watson/sitemap": "^2.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
