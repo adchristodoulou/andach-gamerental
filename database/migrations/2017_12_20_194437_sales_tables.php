@@ -89,6 +89,7 @@ class SalesTables extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('game_id')->nullable();
+            $table->string('slug')->nullable();
             $table->integer('price')->default(0);
             $table->string('name')->nullable();
             $table->text('snippet')->nullable();
