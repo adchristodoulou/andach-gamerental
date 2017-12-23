@@ -109,7 +109,7 @@ class SalesTables extends Migration
 
         Schema::create('products_categories_link', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id');
+            $table->integer('product_id');
             $table->integer('category_id');
             $table->timestamps();
         });

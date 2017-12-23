@@ -65,7 +65,29 @@
 		</div>
 	</div>
 
+	<div class="row">
+		{!! Form::label('add_category', 'Category:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::select('add_category', $categories, null, ['class' => 'form-control', 'placeholder' => '(please select a category)']) !!}
+		</div>
+	</div>
+
 	@if (isset($product))
+		@if (count($product->categories))
+			<h2>All Categories for this Product</h2>
+
+			<div class="row">
+			@foreach ($product->categories as $cat)
+				<div class="col-1">
+					{{ Form::checkbox('deleteCat[]', $cat->id) }}
+				</div>
+				<div class="col-11">
+					{{ $cat->name }}
+				</div>
+			@endforeach
+			</div>
+		@endif
+
 		@if (count($product->pictures))
 			<h2>All Pictures for this Product</h2>
 

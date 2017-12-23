@@ -11,6 +11,11 @@ class Product extends Model
     protected $fillable = ['game_id', 'slug', 'price', 'name', 'snippet', 'full_text', 'is_vatable', 'num_in_stock'];
     protected $table = 'products';
 
+    public function addCategory($categoryID)
+    {
+        $this->categories()->attach($categoryID);
+    }
+
     public function addPicture($requestPicture)
     {
         $array['product_id'] = $this->id;
@@ -35,6 +40,16 @@ class Product extends Model
     	return $this->hasMany('App\Cart', 'product_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\ProductCategory', 'products_categories_link', 'product_id', 'category_id');
+    } 
+
+    public function deleteCategory($categoryID)
+    {
+        $this->categories()->detach($categoryID);
+    }      
+
     public function getThumbImgAttribute()
     {
         $thumb = $this->thumbPicture();
@@ -57,10 +72,5 @@ class Product extends Model
     public function thumbPicture()
     {
         return $this->pictures->sortByDesc('is_main')->first();
-    }
-
-    public function products()
-    {
-    	return $this->belongsToMany('App\ProductCategory', 'products_categories_link', 'product_id', 'category_id');
     }
 }

@@ -6,6 +6,7 @@ use App\Assignment;
 use App\AssignmentRun;
 use App\Game;
 use App\Product;
+use App\ProductCategory;
 use App\ProductPicture;
 use App\Rental;
 use App\RetirementReason;
@@ -96,16 +97,18 @@ class AdminController extends Controller
     public function productCreate()
     {
         $games = Game::pluck('name', 'id');
+        $categories = ProductCategory::pluck('name', 'id');
 
-        return view('admin.productform', ['games' => $games]);
+        return view('admin.productform', ['games' => $games, 'categories' => $categories]);
     }
 
     public function productEdit($id)
     {
         $product = Product::find($id);
         $games = Game::pluck('name', 'id');
+        $categories = ProductCategory::pluck('name', 'id');
 
-        return view('admin.productform', ['product' => $product, 'games' => $games]);
+        return view('admin.productform', ['product' => $product, 'games' => $games, 'categories' => $categories]);
     }
 
     public function productIndex()
@@ -134,6 +137,7 @@ class AdminController extends Controller
         }
         
         $product->save();
+        $product->addCategory($request->add_category);
 
         $request->session()->flash('success', 'The product has been created.');
 
@@ -151,6 +155,7 @@ class AdminController extends Controller
         $product = Product::find($request->id);
 
         $product->update($request->all());
+        $product->addCategory($request->add_category);
 
         if (count($request->pictures))
         {
@@ -158,6 +163,14 @@ class AdminController extends Controller
             {
                 $picture = ProductPicture::find($pictureID);
                 $picture->setMain($pictureID == $request->is_main);
+            }
+        }
+
+        if (count($request->deleteCat))
+        {
+            foreach ($request->deleteCat as $catID)
+            {
+                $product->deleteCategory($catID);
             }
         }
 
