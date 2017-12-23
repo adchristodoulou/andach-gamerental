@@ -50,6 +50,12 @@ Route::post('plan-store', 'PlanController@store')->name('plan.store');
 Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 
 /********************
+* ROUTES - PRODUCTS
+********************/
+Route::get('product', 'ProductController@index')->name('product.index');
+Route::get('product/{slug}', 'ProductController@show')->name('product.show');
+
+/********************
 * ROUTES - USER
 ********************/
 Route::get('user/account', 'UserController@account')->name('user.account');
@@ -72,6 +78,11 @@ Route::post('admin/confirm-assignments', 'AdminController@confirmassignments')->
 Route::get('admin/games', 'AdminController@gameIndex')->name('admin.gameindex');
 Route::post('admin/games-post', 'AdminController@gameIndexPost')->name('admin.gameindexpost');
 Route::get('admin/printdeliverynote/{id}', 'AdminController@printDeliveryNote')->name('admin.printdeliverynote');
+Route::get('admin/product/create/', 'AdminController@productCreate')->name('admin.productcreate');
+Route::get('admin/product/edit/{id}', 'AdminController@productEdit')->name('admin.productedit');
+Route::get('admin/product/', 'AdminController@productIndex')->name('admin.productindex');
+Route::post('admin/product/', 'AdminController@productStore')->name('admin.productstore');
+Route::put('admin/product/', 'AdminController@productUpdate')->name('admin.productupdate');
 Route::get('admin/rentals', 'AdminController@rentals')->name('admin.rentals');
 Route::post('admin/rentals-update', 'AdminController@rentalsUpdate')->name('admin.rentalsupdate');
 Route::get('admin/send-games', 'AdminController@sendGames')->name('admin.sendgames');

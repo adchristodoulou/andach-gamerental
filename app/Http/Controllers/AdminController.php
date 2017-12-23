@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\AssignmentRun;
 use App\Game;
+use App\Product;
+use App\ProductPicture;
 use App\Rental;
 use App\RetirementReason;
 use App\Stock;
@@ -89,6 +91,88 @@ class AdminController extends Controller
         $assignment = Assignment::find($assignmentID);
 
         return view('admin.printdeliverynote', ['assignment' => $assignment]);
+    }
+
+    public function productCreate()
+    {
+        $games = Game::pluck('name', 'id');
+
+        return view('admin.productform', ['games' => $games]);
+    }
+
+    public function productEdit($id)
+    {
+        $product = Product::find($id);
+        $games = Game::pluck('name', 'id');
+
+        return view('admin.productform', ['product' => $product, 'games' => $games]);
+    }
+
+    public function productIndex()
+    {
+        $products = Product::all();
+
+        return view('admin.productindex', ['products' => $products]);
+    }
+
+    public function productStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'slug' => 'required',
+        ]);
+
+        $product = Product::create($request->all());
+
+        if (count($request->pictures))
+        {
+            foreach ($request->pictures as $picture) 
+            {
+                $product->addPicture($picture);
+            }
+        }
+        
+        $product->save();
+
+        $request->session()->flash('success', 'The product has been created.');
+
+        return redirect()->route('admin.productindex');
+    }
+
+    public function productUpdate(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'slug' => 'required',
+        ]);
+
+        $product = Product::find($request->id);
+
+        $product->update($request->all());
+
+        if (count($request->pictures))
+        {
+            foreach ($request->pictures as $pictureID)
+            {
+                $picture = ProductPicture::find($pictureID);
+                $picture->setMain($pictureID == $request->is_main);
+            }
+        }
+
+        if (count($request->deleteImage))
+        {
+            foreach ($request->deleteImage as $pictureID)
+            {
+                $picture = ProductPicture::find($pictureID);
+                $picture->delete();
+            }
+        }
+
+        $request->session()->flash('success', 'The product has been edited.');
+
+        return redirect()->route('admin.productedit', $request->id);
     }
 
     public function rentals()
