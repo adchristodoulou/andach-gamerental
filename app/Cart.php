@@ -18,6 +18,15 @@ class Cart extends Model
     	$this->save();
     }
 
+    public static function empty()
+    {
+        if (Auth::check())
+        {
+            self::where('user_id', Auth::id())->delete();
+        }
+        self::where('ip_address', Request::ip())->delete();
+    }
+
     public function getBoxAttribute()
     {
     	return '<div class="row">
@@ -49,6 +58,23 @@ class Cart extends Model
     	return '&pound;'.number_format($this->price, 2);
     }
 
+    //Returns the array needed to convert this into an invoice line.
+    public function invoiceLineArray()
+    {
+        $priceArray = $this->product->priceArray();
+
+        $return['product_id'] = $this->product_id;
+        $return['quantity_invoiced'] = $this->quantity_in_cart;
+        $return['net'] = $this->quantity_in_cart * $priceArray['net'];
+        $return['vat'] = $this->quantity_in_cart * $priceArray['vat'];
+        $return['gross'] = $this->quantity_in_cart * $priceArray['gross'];
+        $return['net_per_item'] = $priceArray['net'];
+        $return['vat_per_item'] = $priceArray['vat'];
+        $return['gross_per_item'] = $priceArray['gross'];
+        
+        return $return;
+    }
+
     public static function myCart()
     {
     	if (Auth::check())
@@ -73,8 +99,13 @@ class Cart extends Model
 		return $cartLines;
     }
 
-    public static function priceFromLines($lines)
+    public static function priceFromLines($lines = null)
     {
+    	if (!$lines)
+    	{
+    		$lines = self::myCart();
+    	}
+
     	$return['lines'] = 0;
 		foreach ($lines as $line)
 		{

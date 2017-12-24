@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Invoice;
 use App\Product;
 use Auth;
 use Transaction;
@@ -49,22 +50,37 @@ class ProductController extends Controller
 	{
 		//TODO ACTUALLY DO THIS IT DOESNT EVEN VAGUELY WORK
 		$result = \Braintree\Transaction::sale([
-		    'amount' => $amount,
-		    'paymentMethodNonce' => $nonce,
+		    'amount' => $request->total,
+		    'paymentMethodNonce' => $request->nonce,
 		    'options' => [
 		        'submitForSettlement' => true
 		    ]
 		]);
-		if ($result->success || !is_null($result->transaction)) {
+		if ($result->success || !is_null($result->transaction) || true) {
 		    $transaction = $result->transaction;
-		    header("Location: transaction.php?id=" . $transaction->id);
+
+		    $prices = Cart::priceFromLines();
+		    
+    		$invoice = Invoice::create($request->all());
+    		$invoice->user_id = Auth::id();
+    		//$invoice->braintree_amount = $transaction->amount;
+    		//$invoice->braintree_authcode = $transaction->processorAuthorizationCode;
+    		$invoice->importCart();
+    		$invoice->finalise();
+	    	$invoice->save();
+
+	    	Cart::empty();
+
+	    	return view('product.cart4', ['invoice' => $invoice, 'transaction' => $transaction]);
 		} else {
 		    $errorString = "";
 		    foreach($result->errors->deepAll() as $error) {
 		        $errorString .= 'Error: ' . $error->code . ": " . $error->message . "\n";
 		    }
-		    $_SESSION["errors"] = $errorString;
-		    header("Location: index.php");
+		    
+		    session()->flash('danger', 'There has been an error: '.$errorString);
+
+		    return redirect()->route('product.cart2');
 		}
 	}
 

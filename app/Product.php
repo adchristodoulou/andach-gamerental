@@ -101,6 +101,15 @@ class Product extends Model
     	return $this->hasMany('App\ProductPicture', 'product_id');
     }
 
+    public function priceArray()
+    {
+        $return['gross'] = number_format($this->price / 100, 2);
+        $return['vat']   = number_format(round($this->price * $this->is_vatable / 6) / 100, 2);
+        $return['net']   = number_format($return['gross'] - $return['vat'], 2);
+
+        return $return;
+    }
+
     public function thumbPicture()
     {
         return $this->pictures->sortByDesc('is_main')->first();

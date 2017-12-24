@@ -76,11 +76,14 @@ class SalesTables extends Migration
             $table->string('billing_town')->nullable();
             $table->string('billing_county')->nullable();
             $table->string('billing_postcode')->nullable();
+            $table->integer('braintree_amount')->default(0);
+            $table->integer('braintree_authcode')->nullable();
             $table->timestamps();
         });
 
         Schema::create('invoices_lines', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('invoice_id');
             $table->integer('product_id')->nullable();
             $table->integer('quantity_invoiced')->default(0);
             $table->integer('net')->default(0);

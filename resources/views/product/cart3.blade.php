@@ -10,10 +10,13 @@
 		{{ Form::hidden($field, $request[$field]) }}
 	@endforeach
 	{{ Form::hidden('nonce', 'nonce', ['id' => 'nonce']) }}
+	{{ Form::hidden('total', $prices['total']) }}
 
-	<div class="alert alert-warning">
-		You aren't logged in. If you log in, then all your orders will be saved in the same place and it'll be easier if there is any need to return any goods. 
-	</div>
+	@if (!Auth::check())
+		<div class="alert alert-warning">
+			You aren't logged in. If you log in, then all your orders will be saved in the same place and it'll be easier if there is any need to return any goods. 
+		</div>
+	@endif
 
 	<div class="row">
 		<div class="col-9">
@@ -50,12 +53,16 @@
 					    	{!! Form::text('billing_county', null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
+					<!--
 					<div class="row">
 						{!! Form::label('billing_postcode', 'Postcode:', ['class' => 'col-lg-2 control-label']) !!}
 						<div class="col-lg-10">
 					    	{!! Form::text('billing_postcode', null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
+					-->
+					<div class="col-2">Postcode:</div>
+					<div class="col-10"><div id="postalCode"></div></div>
 				</div>
 			</div>
 		</div>
@@ -152,6 +159,10 @@
             expirationDate: {
               selector: '#expiration-date',
               placeholder: '10/2019'
+            },
+            postalCode: {
+              selector: '#postalCode',
+              placeholder: '{{ Auth::user()->billing_postcode }}'
             }
           }
         }, function (hostedFieldsErr, hostedFieldsInstance) {
