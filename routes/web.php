@@ -53,6 +53,10 @@ Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 * ROUTES - PRODUCTS
 ********************/
 Route::get('cart', 'ProductController@cart')->name('product.cart');
+Route::get('cart2', 'ProductController@cart2')->name('product.cart2');
+Route::post('cart3', 'ProductController@cart3')->name('product.cart3');
+Route::post('cart4', 'ProductController@cart4')->name('product.cart4');
+Route::post('cart', 'ProductController@cartPost')->name('product.cartpost');
 Route::get('product', 'ProductController@index')->name('product.index');
 Route::post('product/addtocart', 'ProductController@addToCart')->name('product.addtocart');
 Route::get('{slug}-buy', 'ProductController@show')->name('product.show');

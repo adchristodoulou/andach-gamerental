@@ -25,6 +25,9 @@ class SalesTables extends Migration
         Schema::create('deliverynotes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->date('date_of_posting')->nullable();
             $table->string('shipping_address1')->nullable();
             $table->string('shipping_address2')->nullable();
@@ -46,6 +49,9 @@ class SalesTables extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->date('date_of_invoice')->nullable();
             $table->date('date_of_finalising')->nullable();
             $table->date('date_of_shipping')->nullable();
@@ -58,12 +64,12 @@ class SalesTables extends Migration
             $table->integer('net')->default(0);
             $table->integer('vat')->default(0);
             $table->integer('gross')->default(0);
-            $table->string('invoice_address1')->nullable();
-            $table->string('invoice_address2')->nullable();
-            $table->string('invoice_address3')->nullable();
-            $table->string('invoice_town')->nullable();
-            $table->string('invoice_county')->nullable();
-            $table->string('invoice_postcode')->nullable();
+            $table->string('shipping_address1')->nullable();
+            $table->string('shipping_address2')->nullable();
+            $table->string('shipping_address3')->nullable();
+            $table->string('shipping_town')->nullable();
+            $table->string('shipping_county')->nullable();
+            $table->string('shipping_postcode')->nullable();
             $table->string('billing_address1')->nullable();
             $table->string('billing_address2')->nullable();
             $table->string('billing_address3')->nullable();
