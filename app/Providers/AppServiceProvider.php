@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App;
+use App\Cart;
 use App\Category;
 use App\Game;
 use App\System;
@@ -40,6 +41,9 @@ class AppServiceProvider extends ServiceProvider
 
             View::share('gamemenu', $gamemenu);
             View::share('gamecategories', $categories);
+
+            $numberofitemsincart = Cart::myCartCount();
+            View::share('numberofitemsincart', $numberofitemsincart);
         }
         
     }

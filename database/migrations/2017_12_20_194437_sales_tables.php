@@ -17,8 +17,8 @@ class SalesTables extends Migration
             $table->increments('id');
             $table->integer('product_id');
             $table->integer('user_id')->nullable();
-            $table->ipAddress('ip_address');
-            $table->integer('quantity_in_cart');
+            $table->ipAddress('ip_address')->nullable();
+            $table->integer('quantity_in_cart')->default(0);
             $table->timestamps();
         });
 

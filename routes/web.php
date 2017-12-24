@@ -52,8 +52,11 @@ Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 /********************
 * ROUTES - PRODUCTS
 ********************/
+Route::get('cart', 'ProductController@cart')->name('product.cart');
 Route::get('product', 'ProductController@index')->name('product.index');
-Route::get('product/{slug}', 'ProductController@show')->name('product.show');
+Route::post('product/addtocart', 'ProductController@addToCart')->name('product.addtocart');
+Route::get('{slug}-buy', 'ProductController@show')->name('product.show');
+Route::get('{slug}-category', 'ProductController@showcategory')->name('product.showcategory');
 
 /********************
 * ROUTES - USER

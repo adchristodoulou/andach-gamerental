@@ -3,8 +3,10 @@
 namespace App;
 
 use App\ProductPicture;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Image;
+use Request;
 
 class Product extends Model
 {
@@ -35,6 +37,19 @@ class Product extends Model
         ProductPicture::create($array);
     }
 
+    public function addToCart($quantity = 1)
+    {
+        if (Auth::check())
+        {
+            $array['user_id'] = Auth::id();
+        }
+        $array['ip_address'] = Request::ip();
+        $array['product_id'] = $this->id;
+        $cartLine = Cart::firstOrCreate($array);
+
+        $cartLine->addQuantity($quantity);
+    }
+
     public function carts()
     {
     	return $this->hasMany('App\Cart', 'product_id');
@@ -48,7 +63,24 @@ class Product extends Model
     public function deleteCategory($categoryID)
     {
         $this->categories()->detach($categoryID);
-    }      
+    }
+
+    public function getBoxAttribute()
+    {
+        return '<div class="col-3">'.$this->thumb_img.'<br />
+            <a href="'.route('product.show', $this->slug).'">'.$this->name.'</a><br />
+            '.$this->num_in_stock.' in stock</div>';
+    }
+
+    public function getFullTextNl2brAttribute()
+    {
+        return nl2br(e($this->full_text));
+    }
+
+    public function getPriceFormattedAttribute()
+    {
+        return '&pound;'.number_format($this->price / 100, 2);
+    }
 
     public function getThumbImgAttribute()
     {
