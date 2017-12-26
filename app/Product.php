@@ -101,11 +101,12 @@ class Product extends Model
     	return $this->hasMany('App\ProductPicture', 'product_id');
     }
 
+    //Returns the price in pence as integers. 
     public function priceArray()
     {
-        $return['gross'] = number_format($this->price / 100, 2);
-        $return['vat']   = number_format(round($this->price * $this->is_vatable / 6) / 100, 2);
-        $return['net']   = number_format($return['gross'] - $return['vat'], 2);
+        $return['gross'] = $this->price;
+        $return['vat']   = round(($this->price * $this->is_vatable / 6));
+        $return['net']   = round(($return['gross'] - $return['vat']));
 
         return $return;
     }

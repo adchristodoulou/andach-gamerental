@@ -14,6 +14,16 @@ class InvoiceLine extends Model
     	return $this->hasMany('App\DeliveryNoteLine', 'invoice_line_id');
     }
 
+    public function getBoxAttribute()
+    {
+        return '<div class="row">
+            <div class="col-1">'.$this->quantity_invoiced.'x</div>
+            <div class="col-7"><a href="'.route('product.show', $this->product->slug).'">'.$this->product->name.'</a></div>
+            <div class="col-2">'.$this->net.'</div>
+            <div class="col-2">'.$this->gross.'</div>
+        </div>';
+    }
+
     public function invoice()
     {
     	return $this->belongsTo('App\Invoice', 'invoice_id');

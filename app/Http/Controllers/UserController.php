@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SubscriptionCancel;
 use App\Mail\SubscriptionResume;
+use App\Invoice;
 use App\Rental;
 use App\User;
 use App\Wishlist;
@@ -159,6 +160,20 @@ class UserController extends Controller
         $rentals = Rental::where('user_id', Auth::id())->whereNotNull('date_of_delivery')->get();
 
         return view('user.history', ['rentals' => $rentals]);
+    }
+
+    public function invoiceList()
+    {
+        $invoices = Invoice::where('user_id', Auth::id())->get();
+
+        return view('user.invoicelist', ['invoices' => $invoices]);
+    }
+
+    public function invoiceShow($id)
+    {
+        $invoice = Invoice::where('user_id', Auth::id())->where('id', $id)->first();
+
+        return view('user.invoiceshow', ['invoice' => $invoice]);
     }
 
     public function registerAddress()
