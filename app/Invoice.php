@@ -71,6 +71,11 @@ class Invoice extends Model
         return implode('<br />', array_filter($array));
     }
 
+    public function getFormattedValue($name)
+    {
+        return '&pound;'.number_format($this->$name / 100, 2);
+    }
+
     public function importCart()
     {
         $cartLines = Cart::myCart();

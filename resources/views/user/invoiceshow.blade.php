@@ -3,7 +3,7 @@
 @section('content')
 	@include('user.menu')
 
-	<h2>Invoice Show</h2>
+	<h2>Invoice #{{ $invoice->id }}</h2>
 
 	<div class="row">
 		<div class="col-12 col-md-4">
@@ -27,29 +27,38 @@
 	</div>
 
 	<h2>Invoice Lines</h2>
-	<div class="row">
-		<div class="col-1">Qty</div>
-		<div class="col-7">Product</div>
-		<div class="col-2">Net</div>
-		<div class="col-2">Price with VAT</div>
-	</div>
-	@foreach ($invoice->lines as $line)
-		{!! $line->box !!}
-	@endforeach
-	<div class="row">
-		<div class="col-8"></div>
-		<div class="col-2">Subtotal:</div>
-		<div class="col-2">{{ $invoice->lines_gross }}</div>
-	</div>
-	<div class="row">
-		<div class="col-8"></div>
-		<div class="col-2">Shipping:</div>
-		<div class="col-2">{{ $invoice->shipping_gross }}</div>
-	</div>
-	<div class="row">
-		<div class="col-8"></div>
-		<div class="col-2">Total:</div>
-		<div class="col-2">{{ $invoice->gross }}</div>
-	</div>
+	<table class="table table-hover table-bordered table-sm table-responsive">
+		<thead class="thead-default">
+			<tr>
+				<th>Qty</th>
+				<th>Product</th>
+				<th>Net</th>
+				<th>Price with VAT</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach ($invoice->lines as $line)
+				{!! $line->box !!}
+			@endforeach
+			<tr>
+				<td>&nbsp;</td>
+				<td>Subtotal:</td>
+				<td class="text-right">{{ $invoice->getFormattedValue('lines_net') }}</td>
+				<td class="text-right">{{ $invoice->getFormattedValue('lines_gross') }}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>Shipping:</td>
+				<td class="text-right">{{ $invoice->getFormattedValue('shipping_net') }}</td>
+				<td class="text-right">{{ $invoice->getFormattedValue('shipping_gross') }}</td>
+			</tr>
+			<tr class="table-success">
+				<td>&nbsp;</td>
+				<td>Total:</td>
+				<td class="text-right">{{ $invoice->getFormattedValue('net') }}</td>
+				<td class="text-right">{{ $invoice->getFormattedValue('gross') }}</td>
+			</tr>
+		</tbody>
+	</table>
 
 @endsection

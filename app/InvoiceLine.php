@@ -16,12 +16,17 @@ class InvoiceLine extends Model
 
     public function getBoxAttribute()
     {
-        return '<div class="row">
-            <div class="col-1">'.$this->quantity_invoiced.'x</div>
-            <div class="col-7"><a href="'.route('product.show', $this->product->slug).'">'.$this->product->name.'</a></div>
-            <div class="col-2">'.$this->net.'</div>
-            <div class="col-2">'.$this->gross.'</div>
-        </div>';
+        return '<tr>
+            <td class="col-1">'.$this->quantity_invoiced.'x</td>
+            <td class="col-7"><a href="'.route('product.show', $this->product->slug).'">'.$this->product->name.'</a></td>
+            <td class="col-2 text-right">'.$this->getFormattedValue('net').'</td>
+            <td class="col-2 text-right">'.$this->getFormattedValue('gross').'</td>
+        </tr>';
+    }
+
+    public function getFormattedValue($name)
+    {
+        return '&pound;'.number_format($this->$name / 100, 2);
     }
 
     public function invoice()
