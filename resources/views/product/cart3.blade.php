@@ -23,6 +23,9 @@
 			<div class="card">
 				<div class="card-header">Billing Address</div>
 				<div class="card-body">
+					<div class="alert alert-info">
+						Please note: for security reasons, you have to manually confirm your billing postcode. This is because it is part of the information used by your card provider to verify the transaction.
+					</div>
 					<div class="row">
 						{!! Form::label('billing_address1', 'Address 1:', ['class' => 'col-lg-2 control-label']) !!}
 						<div class="col-lg-10">
@@ -53,16 +56,8 @@
 					    	{!! Form::text('billing_county', null, ['class' => 'form-control']) !!}
 						</div>
 					</div>
-					<!--
 					<div class="row">
-						{!! Form::label('billing_postcode', 'Postcode:', ['class' => 'col-lg-2 control-label']) !!}
-						<div class="col-lg-10">
-					    	{!! Form::text('billing_postcode', null, ['class' => 'form-control']) !!}
-						</div>
 					</div>
-					-->
-					<div class="col-2">Postcode:</div>
-					<div class="col-10"><div id="postalCode"></div></div>
 				</div>
 			</div>
 		</div>
@@ -80,20 +75,23 @@
 		</div>
 
 	</div>
+	<br />
 	<div class="row">
 
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">Card Details and Information</div>
 				<div class="card-body">
-					Price: &pound;{{ $prices['total'] }}
+					<div class="alert alert-success"><i class="fa fa-lock" aria-hidden="true"></i> <b>Security:</b> Your credit/debit card details are always encrypted and only processed by our third-party payment provider. We never store your card details on our servers in any form and have no way of accessing this information. </div>
 					<div class="row">
 						<div class="col-2">Card Number:</div>
-						<div class="col-10"><div id="card-number"></div></div>
+						<div class="col-10"><div id="card-number" class="form-control" style="height: 34px"></div></div>
 						<div class="col-2">Expiration Date:</div>
-						<div class="col-10"><div id="expiration-date"></div></div>
+						<div class="col-10"><div id="expiration-date" class="form-control" style="height: 34px"></div></div>
 						<div class="col-2">CVV:</div>
-						<div class="col-10"><div id="cvv"></div></div>
+						<div class="col-10"><div id="cvv" class="form-control" style="height: 34px"></div></div>
+						<div class="col-2">Postcode:</div>
+						<div class="col-10"><div id="postalCode" class="form-control" style="height: 34px"></div></div>
 					</div>
 				</div>
 			</div>
@@ -137,8 +135,6 @@
               'font-size': '1rem',
               'line-height': '1.25',
               'color': '#495057',
-              'display': 'block',
-              'display': 'block',
             },
             'input.invalid': {
               'color': 'red'

@@ -63,15 +63,16 @@ class ProductController extends Controller
 		    
     		$invoice = Invoice::create($request->all());
     		$invoice->user_id = Auth::id();
-    		//$invoice->billing_postcode = $transaction->billingDetails->postalCode;
-    		//$invoice->braintree_amount = $transaction->amount;
-    		//$invoice->braintree_authcode = $transaction->processorAuthorizationCode;
+    		$invoice->billing_postcode = $transaction->billingDetails->postalCode;
+    		//Note that braintree processes this in pence. 
+    		$invoice->braintree_amount = $transaction->amount * 100;
+    		$invoice->braintree_authcode = $transaction->processorAuthorizationCode;
     		$invoice->importCart();
     		$invoice->setShippingGrossInPounds($prices['shipping']);
     		$invoice->finalise();
 	    	$invoice->save();
 
-	    	//Cart::empty();
+	    	Cart::empty();
 
 	    	return view('product.cart4', ['invoice' => $invoice, 'transaction' => $transaction]);
 		} else {
