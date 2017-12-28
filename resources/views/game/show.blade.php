@@ -33,7 +33,6 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Vid
 		</div>
 		<div class="col-lg-6">
 			<h2>Rent {{ $game->name }} for <span itemprop="gamePlatform">{{ $game->system->name }}</span></h2>
-			<p><a href="{{ route('game.achievements', $game->slug) }}">View Achievements for this Game</a></p>
 			@if (Auth::check())
 				@if (Auth::user()->isAdmin())
 					<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>

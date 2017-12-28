@@ -246,10 +246,11 @@ class Game extends Model
                     ]);
             }
         }
-
         if (isset($api->cover))
         {
+            $remove = ['//', 'https:', 'http:'];
             $image = str_replace('t_thumb', 't_cover_big', $api->cover->url);
+            $image = str_replace($remove, '', $image);
             $this->updateImage($image);
         } else {
             dd($api);
@@ -262,7 +263,7 @@ class Game extends Model
 
     public function refreshInfo()
     {
-        $this->refreshAchievementInfo();
+        //$this->refreshAchievementInfo();
         return $this->refreshGameDBInfo();
     }
 

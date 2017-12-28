@@ -19,7 +19,7 @@
 				{!! Form::checkbox('games[]', $game->id, null, ['class' => 'select']) !!}
 			</div>
 			<div class="col-3">
-				<a href="{{ route('game.show', $game->slug) }}">{{ $game->name }}</a>
+				<a href="{{ route('game.show', $game->slug) }}">{{ $game->name }} [Show]</a> <a href="{{ route('game.edit', $game->id) }}">[Edit]</a>
 			</div>
 			<div class="col-3">
 				{{ $game->system->name }}
