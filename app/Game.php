@@ -249,8 +249,10 @@ class Game extends Model
 
         if (isset($api->cover))
         {
-            $image = 'http:'.str_replace('t_thumb', 't_cover_big', $api->cover->url);
+            $image = str_replace('t_thumb', 't_cover_big', $api->cover->url);
             $this->updateImage($image);
+        } else {
+            dd($api);
         }
         
         $this->update($updateArray);

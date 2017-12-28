@@ -124,15 +124,42 @@
           <ul class="navbar-nav ml-auto navbar-gamebar">
             @foreach ($gamemenu as $system)
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="https://example.com" id="navbarDropdownMenuLink-{{ $system->url }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="{{ route('game.search', ['system_id' => $system->url]) }}" id="navbarDropdownMenuLink-{{ $system->url }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ $system->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-{{ $system->url }}">
                   <a class="dropdown-item" href="{{ route('game.search', ['system_id' => $system->url]) }}">All Games</a>
                   <div class="dropdown-divider"></div>
-                  @foreach ($gamecategories as $category)
-                  <a class="dropdown-item" href="{{ route('game.search', ['system_id' =>  $system->url, 'category_id' => $category->url]) }}">{{ $category->name }}</a> 
-                  @endforeach
+                    @foreach ($gamecategories as $category)
+                    <a class="dropdown-item" href="{{ route('game.search', ['system_id' =>  $system->url, 'category_id' => $category->url]) }}">{{ $category->name }}</a> 
+                    @endforeach
+                </div>
+              </li>
+            @endforeach
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Products Menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 20px">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto navbar-gamebar">
+             @foreach ($productCategories as $prodCat)
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ route('product.showcategory', $prodCat['slug']) }}" id="navbarDropdownMenuLink-{{ $prodCat['slug'] }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ $prodCat['name'] }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-{{ $prodCat['slug'] }}">
+                  <a class="dropdown-item" href="{{ route('product.showcategory', $prodCat['slug']) }}">All Products</a>
+                  <div class="dropdown-divider"></div>
+                    @foreach ($prodCat['child'] as $childProdCat)
+                    <a class="dropdown-item" href="{{ route('product.showcategory', $childProdCat['slug']) }}">{{ $childProdCat['name'] }}</a> 
+                    @endforeach
                 </div>
               </li>
             @endforeach

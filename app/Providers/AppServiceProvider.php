@@ -6,6 +6,7 @@ use App;
 use App\Cart;
 use App\Category;
 use App\Game;
+use App\ProductCategory;
 use App\System;
 use Auth;
 use View;
@@ -44,6 +45,9 @@ class AppServiceProvider extends ServiceProvider
 
             $numberofitemsincart = Cart::myCartCount();
             View::share('numberofitemsincart', $numberofitemsincart);
+
+            $productCategories = ProductCategory::nested()->get();
+            View::share('productCategories', $productCategories);
         }
         
     }

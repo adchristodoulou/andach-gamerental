@@ -13,7 +13,7 @@ This is a PHP application to run a website that will let you rent video games ou
     1. `sudo apt-get update`
 2. Install Apache, PHP and mySQL
     1. `sudo apt-get install -y apache2`
-    2. `sudo apt-get install -y php7.1 zip unzip php7.1-curl php7.1-mbstring php7.1-dom php7.1-gd php7.1-mysql composer webmin mariadb-server`
+    2. `sudo apt-get install -y php7.1 zip unzip php7.1-curl php7.1-mbstring php7.1-dom php7.1-gd php7.1-mysql php7.1-zip composer webmin mariadb-server`
 3. Secure the MariaDB installation
     1. `sudo /usr/bin/mysql_secure_installation`
     2. I strongly recommend you reset the MariaDB root password, disable root login remotely, remove anonymous users and the test DB, and reload priviliges. (i.e. yes to all answers)

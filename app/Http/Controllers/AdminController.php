@@ -14,6 +14,7 @@ use App\Stock;
 use App\User;
 use Auth;
 use Excel;
+use IGDB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -85,6 +86,17 @@ class AdminController extends Controller
         $request->session()->flash('success', 'Games have been successfully updated!');
 
         return redirect()->route('admin.gameindex');
+    }
+
+    public function IGDBSearch($name)
+    {
+        $api = IGDB::searchGames($name);
+        foreach ($api as $game)
+        {
+            $return[] = $game->id.' - '.$game->name;
+        }
+
+        return '<pre>'.print_r($return, 1).'</pre>';
     }
 
     public function printDeliveryNote($assignmentID)

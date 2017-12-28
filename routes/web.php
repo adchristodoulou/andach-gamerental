@@ -86,6 +86,7 @@ Route::post('admin/assignment-run', 'AdminController@assignmentRun')->name('admi
 Route::post('admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
 Route::get('admin/games', 'AdminController@gameIndex')->name('admin.gameindex');
 Route::post('admin/games-post', 'AdminController@gameIndexPost')->name('admin.gameindexpost');
+Route::get('admin/igdb/{name}', 'AdminController@IGDBSearch')->name('admin.igdbsearch');
 Route::get('admin/printdeliverynote/{id}', 'AdminController@printDeliveryNote')->name('admin.printdeliverynote');
 Route::get('admin/product/create/', 'AdminController@productCreate')->name('admin.productcreate');
 Route::get('admin/product/edit/{id}', 'AdminController@productEdit')->name('admin.productedit');

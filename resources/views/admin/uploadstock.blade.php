@@ -2,7 +2,7 @@
 
 @section('content')
 	@include('admin.menu')
-	<h2>Upload Stock Items</h2>
+	<h2>Upload Games</h2>
 
 	{!! Form::open(['route' => 'admin.uploadstockpost', 'method' => 'POST', 'files' => 'true']) !!}
 
