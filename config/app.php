@@ -239,6 +239,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Nestable' => Nestable\Facades\NestableService::class,
         'Form' => Collective\Html\FormFacade::class,
