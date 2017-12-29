@@ -1,7 +1,12 @@
-@php ($i = 0)
-@php ($closedFinalRow = 0)
-
 @extends('template')
+
+@section('meta-description')
+Purchase video games and video game accessories from Andach Game Rentals, great prices and availability!
+@endsection
+
+@section('title')
+Purchase Video Games and Accessories | Andach Game Rentals | Video Games
+@endsection
 
 @section('content')
 	

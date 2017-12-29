@@ -1,5 +1,13 @@
 @extends('template')
 
+@section('meta-description')
+Login for Andach Video Game rentals - rent video games for a fixed price per month and buy accessories and games.  
+@endsection
+
+@section('title')
+Login for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy Video Games
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

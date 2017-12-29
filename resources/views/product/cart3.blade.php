@@ -1,5 +1,13 @@
 @extends('template')
 
+@section('meta-description')
+Payment details for video games and video game accessories from Andach Game Rentals, great prices and availability!
+@endsection
+
+@section('title')
+Payment details for Video Games and Accessories | Andach Game Rentals | Video Games
+@endsection
+
 @section('content')
 	
 	<h2>Cart - Payment Information (Step 3 of 4)</h2>

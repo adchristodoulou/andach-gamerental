@@ -115,8 +115,11 @@
     </nav>
 
     <!-- Game Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 20px">
+    <nav class="navbar navbar-expand-lg navbar-light" style="margin-top: 18px; background-color: #DBA800;">
       <div class="container">
+        <div id="navbar-title">
+          Rent Games
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -142,8 +145,11 @@
     </nav>
 
     <!-- Products Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 20px">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #db3a34">
       <div class="container">
+        <div id="navbar-title">
+          Buy Games &amp; Accessories
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

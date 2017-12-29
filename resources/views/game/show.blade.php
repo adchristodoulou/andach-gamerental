@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('h1')
-Rent {{ $game->name }} for {{ $game->system->name }} from Online Video Game Rentals from Andah
+Rent {{ $game->name }} for {{ $game->system->name }} from Online Video Game Rentals from Andach
 @endsection
 
 @section('meta-description')

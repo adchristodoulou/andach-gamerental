@@ -4,6 +4,14 @@
 The {{ $plan->name }} game rental service.
 @endsection
 
+@section('meta-description')
+Rent {{ $plan->max_games_simultaneously }} video games at a time for &pound;{{ number_format($plan->cost, 2) }} per month. 
+@endsection
+
+@section('title')
+The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Buy Video Games
+@endsection
+
 @section('content')
 <div class="container">
 
@@ -17,6 +25,10 @@ The {{ $plan->name }} game rental service.
   <div class="row">
     <div class="col-2">@if ($plan->is_priority) Yes @else No @endif</div>
     <div class="col-10">Priority Service</div>
+  </div>
+  <div class="row">
+    <div class="col-2">&pound;{{ number_format($plan->cost, 2) }}</div>
+    <div class="col-10">Price Per Month</div>
   </div>
 
 @if(Auth::check())  
