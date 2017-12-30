@@ -3,6 +3,10 @@
 
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'Game Search') }}
+@endsection
+
 @section('content')
 	
 	<h2>Games Index</h2>

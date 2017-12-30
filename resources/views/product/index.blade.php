@@ -1,6 +1,3 @@
-@php ($i = 0)
-@php ($closedFinalRow = 0)
-
 @extends('template')
 
 @section('content')

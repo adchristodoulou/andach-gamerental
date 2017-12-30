@@ -13,6 +13,16 @@ class ProductCategory extends Model
 
     protected $table = 'products_categories';
 
+    public function children()
+    {
+    	return self::parent($this->id)->renderAsArray();
+    }
+
+    public function parentCategory()
+    {
+        return $this->belongsTo('App\ProductCategory', 'parent_id');
+    }
+
     public function products()
     {
     	return $this->belongsToMany('App\Product', 'products_categories_link', 'category_id', 'product_id');

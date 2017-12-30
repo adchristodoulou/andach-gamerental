@@ -18,6 +18,10 @@ body {
     height: 100%;
 }
 
+.breadcrumb {
+  margin-bottom: 0;
+}
+
 h1 {
   font-size: 0.5em;
   display: inline;

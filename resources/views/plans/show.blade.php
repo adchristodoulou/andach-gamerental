@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('plan', $plan) }}
+@endsection
+
 @section('h1')
 The {{ $plan->name }} game rental service.
 @endsection

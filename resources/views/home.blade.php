@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+  {{ Breadcrumbs::render('home') }}
+@endsection
+
 @section('content')
       <h2>Rent Xbox One Games</h2>
       <div class="row row-eq-height">

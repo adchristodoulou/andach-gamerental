@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('game', $game) }}
+@endsection
+
 @section('h1')
 Rent {{ $game->name }} for {{ $game->system->name }} from Online Video Game Rentals from Andach
 @endsection

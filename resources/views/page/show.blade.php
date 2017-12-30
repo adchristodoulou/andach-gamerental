@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', $page->name) }}
+@endsection
+
 @section('h1')
 {{ $page->h1 }}
 @endsection

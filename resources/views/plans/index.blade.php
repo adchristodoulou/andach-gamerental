@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'All Game Rental Plans') }}
+@endsection
+
 @section('h1')
 Video Game Rental Plans from Andach Game Rental
 @endsection

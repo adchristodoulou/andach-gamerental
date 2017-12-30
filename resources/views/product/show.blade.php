@@ -1,7 +1,10 @@
-@php ($i = 0)
-@php ($closedFinalRow = 0)
-
 @extends('template')
+
+@section('breadcrumbs')
+	@foreach ($product->categories as $category)
+    	{{ Breadcrumbs::render('product', $product, $category) }}
+    @endforeach
+@endsection
 
 @section('content')
 	

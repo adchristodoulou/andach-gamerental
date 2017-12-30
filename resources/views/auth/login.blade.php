@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'Login') }}
+@endsection
+
 @section('meta-description')
 Login for Andach Video Game rentals - rent video games for a fixed price per month and buy accessories and games.  
 @endsection

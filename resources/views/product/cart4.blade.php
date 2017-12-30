@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'Cart') }}
+@endsection
+
 @section('meta-description')
 Thankyou for your purchase from Andach Game Rentals!
 @endsection

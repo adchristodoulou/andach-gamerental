@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'Contact') }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

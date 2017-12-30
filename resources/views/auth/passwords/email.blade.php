@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('template')
+
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'Forgot Password') }}
+@endsection
 
 @section('content')
 <div class="container">

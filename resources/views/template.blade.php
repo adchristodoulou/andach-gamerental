@@ -174,6 +174,10 @@
       </div>
     </nav>
 
+    <div class="container" style="background-color: #e9ecef">
+      @yield('breadcrumbs')
+    </div>
+
     @if (Auth::check())
       @if (!Auth::user()->subscription('main'))
         <div class="row">

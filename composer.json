@@ -12,6 +12,7 @@
         "php": ">=7.0.0",
         "andach/igad": "dev-master",
         "atayahmet/laravel-nestable": "^0.8.4",
+        "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "guzzlehttp/guzzle": "^6.3",

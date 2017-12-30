@@ -14,6 +14,12 @@
 	    	{!! Form::text('slug', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
+	<div class="row">
+		{!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::text('name', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
 
 	<div class="row">
 		{!! Form::label('h1', 'H1:', ['class' => 'col-lg-2 control-label']) !!}

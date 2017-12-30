@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('homeroute', 'Cart') }}
+@endsection
+
 @section('meta-description')
 Payment details for video games and video game accessories from Andach Game Rentals, great prices and availability!
 @endsection

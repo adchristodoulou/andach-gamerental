@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Invoice;
 use App\Product;
+use App\ProductCategory;
 use Auth;
 use Transaction;
 use Illuminate\Http\Request;
@@ -116,5 +117,13 @@ class ProductController extends Controller
     	$product = Product::where('slug', $slug)->first();
 
     	return view('product.show', ['product' => $product]);
+    }
+
+    public function showCategory($slug)
+    {
+    	$category = ProductCategory::where('slug', $slug)->first();
+    	$children = ProductCategory::parent($category->id)->renderAsArray();
+
+    	return view('product.category', ['category' => $category, 'children' => $children]);
     }
 }
