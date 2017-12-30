@@ -1,23 +1,30 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class SecurityTest extends TestCase
+class AdminTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testExample()
+
+    public function testAdminUserCanSee()
+    {
+    	$this->assertTrue(true);
+    }
+
+    public function testNoUserCantSee()
     {
         $response = $this->get('/admin');
         $response->assertRedirect('login');
 
         $response = $this->post('/admin/assignment-run');
-        $response->assertRedirect('login');        
+        $response->assertRedirect('login');    
     }
 }
