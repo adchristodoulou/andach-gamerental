@@ -8,11 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class WebhookTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use RefreshDatabase;
     public function testExample()
     {
         $this->assertTrue(true);

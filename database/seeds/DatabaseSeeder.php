@@ -14,5 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(RatingsTableSeeder::class);
         $this->call(SystemsTableSeeder::class);
+
+        if (App::environment('testing')) 
+        {
+            $this->call(PHPUnitTestSeeder::class);
+        }
     }
 }

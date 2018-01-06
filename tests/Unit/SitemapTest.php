@@ -8,11 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SitemapTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use RefreshDatabase;
     public function testExample()
     {
         $this->assertTrue(true);

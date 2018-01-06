@@ -30,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
         \Braintree_Configuration::publicKey(config('services.braintree.public_key'));
         \Braintree_Configuration::privateKey(config('services.braintree.private_key'));
 
+        $gamemenu = array();
+        $categories = array();
+        $numberofitemsincart = 0;
+        $productCategories = array();
+
         if( !App::runningInConsole() ){
             Cashier::useCurrency('gbp', '£');
 
@@ -40,15 +45,15 @@ class AppServiceProvider extends ServiceProvider
 
             $categories = Category::all();
 
-            View::share('gamemenu', $gamemenu);
-            View::share('gamecategories', $categories);
-
             $numberofitemsincart = Cart::myCartCount();
-            View::share('numberofitemsincart', $numberofitemsincart);
 
             $productCategories = ProductCategory::nested()->get();
-            View::share('productCategories', $productCategories);
         }
+
+        View::share('gamemenu', $gamemenu);
+        View::share('gamecategories', $categories);
+        View::share('numberofitemsincart', $numberofitemsincart);
+        View::share('productCategories', $productCategories);
         
     }
 

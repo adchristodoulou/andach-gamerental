@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BraintreeTokenTest extends TestCase
 {
+    use RefreshDatabase;
     protected $mainController;
 
     public function setUp() {

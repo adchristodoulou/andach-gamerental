@@ -8,11 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ContactTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use RefreshDatabase;
     public function testBasicRoutes()
     {
         $response = $this->get('/contact');

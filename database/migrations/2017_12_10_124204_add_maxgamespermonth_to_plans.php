@@ -14,11 +14,11 @@ class AddMaxgamespermonthToPlans extends Migration
     public function up()
     {
         Schema::table('plans', function ($table) {
-            $table->integer('max_games_per_month')->after('name');
+            $table->integer('max_games_per_month')->default(0)->after('name');
         });
 
         Schema::table('users', function ($table) {
-            $table->integer('games_rented_this_month')->after('num_games_on_rental');
+            $table->integer('games_rented_this_month')->default(0)->after('num_games_on_rental');
         });
     }
 

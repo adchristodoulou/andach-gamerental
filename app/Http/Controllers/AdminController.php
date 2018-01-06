@@ -125,7 +125,7 @@ class AdminController extends Controller
 
     public function productIndex()
     {
-        $products = Product::all();
+        $products = Product::with('pictures')->get();
 
         return view('admin.productindex', ['products' => $products]);
     }

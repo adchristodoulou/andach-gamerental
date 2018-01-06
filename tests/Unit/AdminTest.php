@@ -2,21 +2,26 @@
 
 namespace Tests\Unit;
 
+use App\System;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use RefreshDatabase;
 
     public function testAdminUserCanSee()
     {
-    	$this->assertTrue(true);
+        $user = User::first();
+        $this->be($user);
+
+        $response = $this->get('/admin');
+        $response->assertSee('ADMIN DASHBOARD');
+
+        $response = $this->post('/admin/send-games');
+        $response->assertSee('Assignment Run');
     }
 
     public function testNoUserCantSee()
@@ -26,5 +31,17 @@ class AdminTest extends TestCase
 
         $response = $this->post('/admin/assignment-run');
         $response->assertRedirect('login');    
+    }
+
+    public function testOtherUserCantSee()
+    {
+        $user = User::find(2);
+        $this->be($user);
+
+        $response = $this->get('/admin');
+        $response->assertRedirect('/');
+
+        $response = $this->post('/admin/send-games');
+        $response->assertRedirect('/');
     }
 }

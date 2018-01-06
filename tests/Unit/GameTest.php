@@ -8,23 +8,21 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GameTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicRoutes()
+    use RefreshDatabase;
+    public function testSearchExists()
     {
         $response = $this->get('/search-games');
 
         $response->assertStatus(200);
         $response->assertSee('Games Index');
+        $response->assertSee('TEST GAME');
+    }
 
-        $response = $this->get('/rent-halo-5-guardians-xbox-one');
+    public function testGameExists()
+    {
+        $response = $this->get('/rent-test-game');
 
         $response->assertStatus(200);
-        $response->assertSee('Rent Halo');
-
-
+        $response->assertSee('TEST GAME');
     }
 }

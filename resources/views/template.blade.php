@@ -74,6 +74,10 @@
               <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{ route('plan.index') }}">Game Rental Plans</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link" href="/about-us">About</a>
             </li>
             <li class="nav-item">
@@ -104,8 +108,10 @@
             @endif
             <li class="nav-item">
               <a class="nav-link" href="{{ route('product.cart') }}">Cart
-                @if ($numberofitemsincart > 0)
-                  ({{ $numberofitemsincart }})
+                @if (isset($numberofitemsincart))
+                  @if ($numberofitemsincart > 0)
+                    ({{ $numberofitemsincart }})
+                  @endif
                 @endif
               </a>
             </li>
@@ -177,16 +183,6 @@
     <div class="container" style="background-color: #e9ecef">
       @yield('breadcrumbs')
     </div>
-
-    @if (Auth::check())
-      @if (!Auth::user()->subscription('main'))
-        <div class="row">
-          <div class="col-12">
-            <div class="alert alert-danger text-center">You are not currently subscribed to any plan. Check out <b><a href="{{ route('plan.index') }}">our full range of plans</a></b>, pick one and get playing immediately!</div>
-          </div>
-        </div>
-      @endif
-    @endif
 
     @if (Session::has('success'))
     <div class="container">
