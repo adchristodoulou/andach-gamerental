@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\System;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;

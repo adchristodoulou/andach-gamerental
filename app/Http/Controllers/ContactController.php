@@ -53,7 +53,14 @@ class ContactController extends Controller
 
     	$contact->addAttachment($request->attachment);
 
-    	return redirect()->route('contact.show', $contact->id);
+        $request->session()->flash('success', 'Thankyou, we have received your comments and will be in touch shortly if needed.');
+
+        if (Auth::check())
+        {
+            return redirect()->route('contact.show', $contact->id);
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function update(Request $request)

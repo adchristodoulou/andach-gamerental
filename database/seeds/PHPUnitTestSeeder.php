@@ -11,6 +11,32 @@ class PHPUnitTestSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('contacts')->insert([
+            'user_id' => 2,
+            'category_id' => 1,
+            'title' => 'CONTACT TITLE',
+            'full_text' => 'CONTACT FULLTEXT',
+        ]);
+        
+        DB::table('contacts')->insert([
+            'user_id' => 1,
+            'category_id' => 1,
+            'title' => 'CONTACT TITLE',
+            'full_text' => 'CONTACT FULLTEXT',
+        ]);
+
+        DB::table('contacts_attachments')->insert([
+            'contact_id' => 1,
+            'slug' => 'test-attachment',
+            'extension' => 'pdf',
+            'filename' => 'test',
+            'created_at' => '2018-01-01 00:00:00',
+        ]);
+
+        DB::table('contacts_categories')->insert([
+            'name' => 'TEST CONTACT CATEGORY',
+        ]);
+
         DB::table('games')->insert([
             'name' => 'TEST GAME IN STOCK',
             'slug' => 'test-game-in-stock',

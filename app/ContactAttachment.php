@@ -15,8 +15,14 @@ class ContactAttachment extends Model
 
     public function getBoxAttribute()
     {
+        if ($this->user)
+        {
+            $username = $this->user->name;
+        } else {
+            $username = 'ANONYMOUS USER';
+        }
     	return '<div class="card border-info">
-    		<div class="card-header text-info">Attachment added on '.e($this->created_at).' by '.e($this->user->name).'</div>
+    		<div class="card-header text-info">Attachment added on '.e($this->created_at).' by '.e($username).'</div>
     		<div class="card-body text-info"><a href="'.route('contact.attachment', $this->slug).'">View this attachment</a></div>
     		<div class="card-footer text-info">Original Name: '.e($this->filename).'</div>
     	</div>';
