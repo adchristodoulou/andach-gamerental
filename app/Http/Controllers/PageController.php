@@ -12,12 +12,19 @@ class PageController extends Controller
     {
         $this->middleware('checkadmin', ['except' => 'show']);
     }
+    
+    public function create()
+    {
+        return view('page.form');
+    }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function edit($id)
+    {
+        $page = Page::find($id);
+
+        return view('page.form', ['page' => $page]);
+    }
+
     public function index()
     {
         $pages = Page::all();
@@ -25,22 +32,16 @@ class PageController extends Controller
         return view('page.index', ['pages' => $pages]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show($id)
     {
-        return view('page.form');
+        //Synchronise with GameController@show
+        $page = Page::where('slug', $id)->first();
+
+        if (!$page) abort(404, 'Page not found');
+
+        return view('page.show', ['page' => $page]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $page = Page::create($request->all());
@@ -52,42 +53,6 @@ class PageController extends Controller
         return redirect()->route('page.create');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //Synchronise with GameController@show
-        $page = Page::where('slug', $id)->first();
-
-        if (!$page) abort(404, 'Page not found');
-
-        return view('page.show', ['page' => $page]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $page = Page::find($id);
-
-        return view('page.form', ['page' => $page]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $page = Page::find($id);
@@ -97,16 +62,5 @@ class PageController extends Controller
         $request->session()->flash('success', 'The page has successfully been edited, <a href="'.route('page.show', $page->slug).'">click here to see it</a>!');
 
         return redirect()->route('page.edit', $id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
