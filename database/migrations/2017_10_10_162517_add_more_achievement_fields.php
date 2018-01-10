@@ -27,8 +27,7 @@ class AddMoreAchievementFields extends Migration
     public function down()
     {
         Schema::table('games', function (Blueprint $table) {
-            $table->dropColumn('xbox_id');
-            $table->dropColumn('playstation_id');
+            $table->dropColumn(['xbox_id', 'playstation_id']);
         });
     }
 }

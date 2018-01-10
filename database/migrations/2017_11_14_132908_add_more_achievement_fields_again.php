@@ -14,8 +14,8 @@ class AddMoreAchievementFieldsAgain extends Migration
     public function up()
     {
         Schema::table('achievements', function ($table) {
-            $table->string('third_party_id')->nullable()->after('id');
-            $table->string('image')->nullable()->after('percentage_unlocked');
+            $table->string('third_party_id')->after('game_id')->default('');
+            $table->string('image')->after('percentage_unlocked')->default('');
         });
     }
 
@@ -27,8 +27,7 @@ class AddMoreAchievementFieldsAgain extends Migration
     public function down()
     {
         Schema::table('achievements', function (Blueprint $table) {
-            $table->dropColumn('third_party_id');
-            $table->dropColumn('image');
+            $table->dropColumn(['third_party_id', 'image']);
         });
     }
 }

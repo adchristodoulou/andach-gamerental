@@ -36,23 +36,15 @@ class CreateAssignmentsAndOthers extends Migration
             $table->timestamps();
         });
 
-        Schema::table('stock', function (Blueprint $table) {
-            $table->date('date_purchased')->after('game_id');
-            $table->date('date_retired')->after('date_purchased')->nullable();
-            $table->integer('retired_reason_id')->after('date_retired')->nullable();
-            $table->boolean('currently_in_stock')->after('retired_reason_id')->nullable();
-            $table->integer('times_rented')->after('currently_in_stock')->nullable();
-            $table->integer('purchase_price')->after('times_rented')->nullable();
-            $table->dropColumn('stock_movement');
-        });
-
         Schema::table('games', function (Blueprint $table) {
-            $table->integer('num_in_stock')->after('slug')->nullable();
-            $table->integer('num_available')->after('num_in_stock')->nullable();
+            $table->integer('num_in_stock')->after('slug')->default(0);
+        });
+        Schema::table('games', function (Blueprint $table) {
+            $table->integer('num_available')->after('num_in_stock')->default(0);
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('num_games_on_rental')->after('remember_token')->nullable();
+            $table->integer('num_games_on_rental')->after('remember_token')->default(0);
         });
     }
 
@@ -67,19 +59,8 @@ class CreateAssignmentsAndOthers extends Migration
         Schema::dropIfExists('assignment_runs');
         Schema::dropIfExists('retirement_reasons');
 
-        Schema::table('stock', function (Blueprint $table) {
-            $table->dropColumn('date_purchased');
-            $table->dropColumn('date_retired');
-            $table->dropColumn('retired_reason_id');
-            $table->dropColumn('currently_in_stock');
-            $table->dropColumn('times_rented');
-            $table->dropColumn('purchase_price');
-            $table->integer('stock_movement')->after('game_id');
-        });
-
         Schema::table('games', function (Blueprint $table) {
-            $table->dropColumn('num_in_stock');
-            $table->dropColumn('num_available');
+            $table->dropColumn('num_in_stock', 'num_available');
         });
 
         Schema::table('users', function (Blueprint $table) {

@@ -76,10 +76,7 @@ class AddXboxAchievementFields extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('xbox_id');
-            $table->dropColumn('xbox_username');
-            $table->dropColumn('psn_id');
-            $table->dropColumn('psn_username');
+            $table->dropColumn(['xbox_id', 'xbox_username', 'psn_id', 'psn_username']);
         });
 
         Schema::table('games', function (Blueprint $table) {

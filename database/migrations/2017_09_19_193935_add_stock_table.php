@@ -16,7 +16,12 @@ class AddStockTable extends Migration
         Schema::create('stock', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('game_id');
-            $table->integer('stock_movement');
+            $table->date('date_purchased')->nullable();
+            $table->date('date_retired')->nullable();
+            $table->integer('retired_reason_id')->nullable();
+            $table->boolean('currently_in_stock')->nullable();
+            $table->integer('times_rented')->nullable();
+            $table->integer('purchase_price')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });

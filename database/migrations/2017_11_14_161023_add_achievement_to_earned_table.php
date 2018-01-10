@@ -14,7 +14,7 @@ class AddAchievementToEarnedTable extends Migration
     public function up()
     {
         Schema::table('achievements_earned', function ($table) {
-            $table->string('achievement_id')->after('id');
+            $table->string('achievement_id')->after('id')->default(0);
         });
     }
 

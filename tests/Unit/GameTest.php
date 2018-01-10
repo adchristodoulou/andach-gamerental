@@ -20,9 +20,9 @@ class GameTest extends TestCase
 
     public function testGameExists()
     {
-        $response = $this->get('/rent-test-game');
+        $response = $this->get('/rent-test-game-in-stock');
 
         $response->assertStatus(200);
-        $response->assertSee('TEST GAME');
+        $response->assertSee('TEST GAME IN STOCK');
     }
 }

@@ -260,6 +260,7 @@ class AdminController extends Controller
                 $stock = Stock::find($stockid);
                 $stock->retire($request->retirement_reason_id);
             }
+            $request->session()->flash('success', 'The stock has successfully been retired!');
             $returnID = $stock->game_id;
         }
 

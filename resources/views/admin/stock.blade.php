@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('admin.menu')
 
 	{!! Form::open(['route' => 'admin.stockupdate', 'method' => 'POST']) !!}
 	<h2>{{ $game->name }} - Current Stock</h2>

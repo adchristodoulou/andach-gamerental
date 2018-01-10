@@ -14,7 +14,7 @@ class AddNameToPage extends Migration
     public function up()
     {
         Schema::table('pages', function ($table) {
-            $table->string('name')->after('slug');
+            $table->string('name')->after('slug')->default('');
         });
     }
 

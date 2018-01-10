@@ -14,7 +14,7 @@ class AddNameToAchievementHowDidIMissThisOneFfs extends Migration
     public function up()
     {
         Schema::table('achievements', function ($table) {
-            $table->string('name')->after('id');
+            $table->string('name')->after('id')->default('');
         });
     }
 
