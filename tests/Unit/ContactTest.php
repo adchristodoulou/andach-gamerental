@@ -39,13 +39,13 @@ class ContactTest extends TestCase
 
     public function test_store()
     {
-    	$response = $this->followRedirects()->post('/contact/send', [
+    	$response = $this->followingRedirects()->post('/contact/send', [
     		'title' => 'CONTACTINSERT TITLE',
     		'category_id' => 1,
     		'full_text' => 'CONTACTINSERT FULL TEXT',
     		]);
 
-    	$response->assertSee('Thankyou, we have received your comments.');
+    	$response->assertSee('Thankyou, we have received your comments');
     }
 
     public function test_update()
@@ -53,7 +53,7 @@ class ContactTest extends TestCase
     	$user = User::first();
         $this->be($user);
 
-        $response = $this->followRedirects()->post('/contact/send', [
+        $response = $this->followingRedirects()->post('/contact/send', [
     		'id' => 1,
     		'full_text' => 'CONTACTUPDATE FULL TEXT',
     		]);

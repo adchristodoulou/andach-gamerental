@@ -17,7 +17,7 @@ class PHPUnitTestSeeder extends Seeder
             'title' => 'CONTACT TITLE',
             'full_text' => 'CONTACT FULLTEXT',
         ]);
-        
+
         DB::table('contacts')->insert([
             'user_id' => 1,
             'category_id' => 1,
@@ -48,7 +48,57 @@ class PHPUnitTestSeeder extends Seeder
         DB::table('games')->insert([
             'name' => 'TEST GAME OUT OF STOCK',
             'slug' => 'test-game-out-of-stock',
+            'system_id' => 4919,
+            'num_in_stock' => 0,
+            'num_available' => 0,
+        ]);
+
+        DB::table('games')->insert([
+            'name' => 'TEST GAME XboxOne 2',
+            'slug' => 'test-game-xboxone-2',
             'system_id' => 4920,
+            'num_in_stock' => 0,
+            'num_available' => 0,
+        ]);
+
+        DB::table('games')->insert([
+            'name' => 'TEST GAME XboxOne 3',
+            'slug' => 'test-game-xboxone-3',
+            'system_id' => 4920,
+            'num_in_stock' => 0,
+            'num_available' => 0,
+        ]);
+
+        DB::table('games')->insert([
+            'name' => 'TEST GAME XboxOne 4',
+            'slug' => 'test-game-xboxone-4',
+            'system_id' => 4920,
+            'num_in_stock' => 0,
+            'num_available' => 0,
+        ]);
+
+        DB::table('games')->insert([
+            'name' => 'TEST GAME PS4 2',
+            'slug' => 'test-game-ps4-2',
+            'system_id' => 4919,
+            'num_in_stock' => 0,
+            'num_available' => 0,
+        ]);
+
+        DB::table('games')->insert([
+            'name' => 'TEST GAME PS4 3',
+            'slug' => 'test-game-ps4-3',
+            'system_id' => 4919,
+            'num_in_stock' => 0,
+            'num_available' => 0,
+        ]);
+
+        DB::table('games')->insert([
+            'name' => 'TEST GAME PS4 4',
+            'slug' => 'test-game-ps4-4',
+            'system_id' => 4919,
+            'num_in_stock' => 0,
+            'num_available' => 0,
         ]);
 
         DB::table('pages')->insert([

@@ -15,169 +15,9 @@ use Storage;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        $games = Game::paginate(4);
-
-        $systems = System::all()->pluck('name', 'url');
-        $categories = Category::all()->pluck('name', 'url');
-        $rating = Rating::all()->pluck('name', 'name');
-        $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
-
-        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Category::all()->pluck('name', 'id');
-        $ratings    = Rating::all()->pluck('name', 'id');
-        $systems    = System::all()->pluck('name', 'id');
-
-        return view('game.form', ['categories' => $categories, 'ratings' => $ratings, 'systems' => $systems]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        if (!$request->gamesdb_id)
-        {
-            //Then we need to show to the user the list of IDs. 
-            $api = IGDB::searchGames($request->name);
-            foreach ($api as $game)
-            {
-                $errors[] = $game->id.' - '.$game->name;
-            }
-
-            if (count($errors))
-            {
-                $request->session()->flash('success', implode($errors, "\n"));
-
-                return redirect()->route('game.create');
-            }
-        }
-
-        $request->validate([
-            'system_id' => 'required',
-            'gamesdb_id' => 'required',
-        ]);
-
-        $game = Game::create($request->all());
-
-        if(isset($request->picture))
-        {
-            $game->picture_url = $request->picture->store('games_boxes', 'public');
-            $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
-        }
-        $game->save();
-        $game->refreshInfo();
-
-        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
-
-        return redirect()->route('game.create');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $game = Game::where('slug', $id)->first();
-
-        //Synchronise with PageController@show. TODO: This is probably dumb. Must be a better way?
-        if (!$game)
-        {
-            $page = Page::where('slug', 'rent-'.$id)->first();
-
-            if (!$page) abort(404, 'Page not found');
-
-            return view('page.show', ['page' => $page]);
-        }
-
-        return view('game.show', ['game' => $game]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $categories = Category::all()->pluck('name', 'id');
-        $ratings    = Rating::all()->pluck('name', 'id');
-        $systems    = System::all()->pluck('name', 'id');
-        $game       = Game::find($id);
-
-        return view('game.form', ['game' => $game, 'categories' => $categories, 'ratings' => $ratings, 'systems' => $systems]);
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'system_id' => 'required',
-        ]);
-
-        $game = Game::find($id);
-
-        $game->update($request->all());
-
-        if(isset($request->picture))
-        {
-            $game->picture_url = $request->picture->store('games_boxes', 'public');
-            $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
-        }
-
-        $game->save();
-        $errors = $game->refreshInfo();
-
-        if (count($errors))
-        {
-            $request->session()->flash('success', implode($errors, "\n"));
-
-            return redirect()->route('game.edit', $id);
-        }
-
-        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
-
-        return redirect()->route('game.edit', $id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $this->middleware('checkadmin')->only(['create', 'edit', 'store', 'update']);
     }
 
     public function achievements($id)
@@ -189,7 +29,7 @@ class GameController extends Controller
 
     public function addToWishlist(Request $request)
     {
-        if(Auth::check())
+        if (Auth::check())
         {
             Auth::user()->addToWishlist($request->id);
         } else {
@@ -201,18 +41,38 @@ class GameController extends Controller
         return redirect()->route('game.show', $game->slug);
     }
 
+    public function create()
+    {
+        $categories = Category::all()->pluck('name', 'id');
+        $ratings    = Rating::all()->pluck('name', 'id');
+        $systems    = System::all()->pluck('name', 'id');
+
+        return view('game.form', ['categories' => $categories, 'ratings' => $ratings, 'systems' => $systems]);
+    }
+
     public function deleteFromWishlist(Request $request)
     {
         if(Auth::check())
         {
             Auth::user()->deleteFromWishlist($request->id);
         } else {
-            $request->session()->flash('success', 'You are not logged in.');
+            $request->session()->flash('success', 'You need to login to delete a game to your wishlist!');
             return redirect()->route('login');
         }
         $game = Game::find($request->id);
 
         return redirect()->route('game.show', $game->slug);
+    }
+
+    public function edit($id)
+    {
+        $categories = Category::all()->pluck('name', 'id');
+        $ratings    = Rating::all()->pluck('name', 'id');
+        $systems    = System::all()->pluck('name', 'id');
+        $game       = Game::find($id);
+
+        return view('game.form', ['game' => $game, 'categories' => $categories, 'ratings' => $ratings, 'systems' => $systems]);
+
     }
 
     public function homepage()
@@ -221,6 +81,18 @@ class GameController extends Controller
         $ps4     = Game::where('system_id', 4919)->get()->random(4);
 
         return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
+    }
+
+    public function index()
+    {
+        $games = Game::paginate(4);
+
+        $systems = System::all()->pluck('name', 'url');
+        $categories = Category::all()->pluck('name', 'url');
+        $rating = Rating::all()->pluck('name', 'name');
+        $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
+
+        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
 
     public function search(Request $request)
@@ -278,5 +150,92 @@ class GameController extends Controller
         $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
 
         return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
+    }
+
+    public function show($id)
+    {
+        $game = Game::where('slug', $id)->first();
+
+        //Synchronise with PageController@show. TODO: This is probably dumb. Must be a better way?
+        if (!$game)
+        {
+            $page = Page::where('slug', 'rent-'.$id)->first();
+
+            if (!$page) abort(404, 'Page not found');
+
+            return view('page.show', ['page' => $page]);
+        }
+
+        return view('game.show', ['game' => $game]);
+    }
+
+    public function store(Request $request)
+    {
+        if (!$request->gamesdb_id)
+        {
+            //Then we need to show to the user the list of IDs. 
+            $api = IGDB::searchGames($request->name);
+            foreach ($api as $game)
+            {
+                $errors[] = $game->id.' - '.$game->name;
+            }
+
+            if (count($errors))
+            {
+                $request->session()->flash('success', implode($errors, "\n"));
+
+                return redirect()->route('game.create');
+            }
+        }
+
+        $request->validate([
+            'system_id' => 'required',
+            'gamesdb_id' => 'required',
+        ]);
+
+        $game = Game::create($request->all());
+
+        if(isset($request->picture))
+        {
+            $game->picture_url = $request->picture->store('games_boxes', 'public');
+            $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
+        }
+        $game->save();
+        $game->refreshInfo();
+
+        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
+
+        return redirect()->route('game.create');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'system_id' => 'required',
+        ]);
+
+        $game = Game::find($id);
+
+        $game->update($request->all());
+
+        if(isset($request->picture))
+        {
+            $game->picture_url = $request->picture->store('games_boxes', 'public');
+            $game->thumb_url   = $request->picture->store('games_thumbs', 'public');
+        }
+
+        $game->save();
+        $errors = $game->refreshInfo();
+
+        if (count($errors))
+        {
+            $request->session()->flash('success', implode($errors, "\n"));
+
+            return redirect()->route('game.edit', $id);
+        }
+
+        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
+
+        return redirect()->route('game.edit', $id);
     }
 }
