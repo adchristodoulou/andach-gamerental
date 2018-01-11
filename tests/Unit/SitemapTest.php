@@ -9,8 +9,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class SitemapTest extends TestCase
 {
     use RefreshDatabase;
-    public function testExample()
+
+    public function test_index()
     {
-        $this->assertTrue(true);
+        $response = $this->get('/sitemap');
+        $response->assertSee('/test-page');
+        $response->assertSee('/rent-test-game-in-stock');
+        $response->assertSee('/plan/test-plan-2priority');
     }
 }

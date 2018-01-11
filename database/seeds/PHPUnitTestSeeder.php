@@ -110,6 +110,43 @@ class PHPUnitTestSeeder extends Seeder
             'slug' => 'test-page',
         ]);
 
+        DB::table('plans')->insert([
+            'name' => 'TEST PLAN 1PERMONTH',
+            'max_games_per_month' => 1,
+            'max_games_simultaneously' => 1,
+            'slug' => 'test-plan-1permonth',
+            'braintree_plan' => 'test-braintree-1permonth',
+            'cost' => 1,
+        ]);
+
+        DB::table('plans')->insert([
+            'name' => 'TEST PLAN 1UNLIMITED',
+            'max_games_per_month' => 99,
+            'max_games_simultaneously' => 1,
+            'slug' => 'test-plan-1unlimited',
+            'braintree_plan' => 'test-braintree-1unlimited',
+            'cost' => 2,
+        ]);
+
+        DB::table('plans')->insert([
+            'name' => 'TEST PLAN 2PRIORITY',
+            'max_games_per_month' => 99,
+            'max_games_simultaneously' => 2,
+            'is_priority' => 1,
+            'slug' => 'test-plan-2priority',
+            'braintree_plan' => 'test-braintree-2priority',
+            'cost' => 3,
+        ]);
+
+        DB::table('plans')->insert([
+            'name' => 'TEST PLAN 3UNLIMITED',
+            'max_games_per_month' => 99,
+            'max_games_simultaneously' => 3,
+            'slug' => 'test-plan-3unlimited',
+            'braintree_plan' => 'test-braintree-3unlimited',
+            'cost' => 4,
+        ]);
+
         DB::table('products')->insert([
             'id' => 1,
             'slug' => 'test-first-product',
@@ -119,6 +156,17 @@ class PHPUnitTestSeeder extends Seeder
             'full_text' => 'Full Text of the First Product',
             'is_vatable' => 1,
             'num_in_stock' => 0,
+        ]);
+
+        DB::table('products_categories')->insert([
+            'parent_id' => 0,
+            'name' => 'TEST HEAD CATEGORY',
+            'slug' => 'test-head-category',
+        ]);
+
+        DB::table('products_categories_link')->insert([
+            'product_id' => 1,
+            'category_id' => 1,
         ]);
 
         DB::table('retirement_reasons')->insert([
