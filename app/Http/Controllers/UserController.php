@@ -14,13 +14,13 @@ use Mail;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function account()
     {
-        if(!Auth::check())
-        {
-            return redirect()->route('login');
-        }
-
         $user = Auth::user();
 
         return view('user.account', ['user' => $user]);
@@ -58,6 +58,7 @@ class UserController extends Controller
         {
             Auth::user()->subscription('main')->cancel();
             $request->session()->flash('success', 'You have cancelled your subscription.');
+
             $user = Auth::user();
             Mail::to($user)->send(new SubscriptionCancel($this->subscription('main')->ends_at));
 
@@ -69,10 +70,6 @@ class UserController extends Controller
 
     public function edit()
     {
-        if (!Auth::check()) {
-            session()->flash('danger', 'You must be logged in to do that');
-            return redirect()->route('login');
-        } 
         $user = Auth::user();
 
         return view('user.form', ['user' => $user]);
@@ -132,11 +129,6 @@ class UserController extends Controller
 
     public function subscription()
     {
-        if(!Auth::check())
-        {
-            return redirect()->route('login');
-        }
-
         $user = Auth::user();
 
         return view('user.subscription', ['user' => $user]);
@@ -144,11 +136,11 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $user = User::find(Auth::id());
+        $user = Auth::user();
 
         $user->update($request->all());
 
-        $request->session()->flash('success', 'You have successfully changed your account details. ');
+        $request->session()->flash('success', 'You have successfully changed your account details.');
 
         return redirect()->route('user.edit');
     }
