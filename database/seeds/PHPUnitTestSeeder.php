@@ -57,24 +57,24 @@ class PHPUnitTestSeeder extends Seeder
             'name' => 'TEST GAME XboxOne 2',
             'slug' => 'test-game-xboxone-2',
             'system_id' => 4920,
-            'num_in_stock' => 0,
-            'num_available' => 0,
+            'num_in_stock' => 2,
+            'num_available' => 2,
         ]);
 
         DB::table('games')->insert([
             'name' => 'TEST GAME XboxOne 3',
             'slug' => 'test-game-xboxone-3',
             'system_id' => 4920,
-            'num_in_stock' => 0,
-            'num_available' => 0,
+            'num_in_stock' => 1,
+            'num_available' => 1,
         ]);
 
         DB::table('games')->insert([
             'name' => 'TEST GAME XboxOne 4',
             'slug' => 'test-game-xboxone-4',
             'system_id' => 4920,
-            'num_in_stock' => 0,
-            'num_available' => 0,
+            'num_in_stock' => 2,
+            'num_available' => 2,
         ]);
 
         DB::table('games')->insert([
@@ -173,6 +173,13 @@ class PHPUnitTestSeeder extends Seeder
             'id' => 1,
             'name' => 'Test Retirement Reason',
         ]);
+
+        DB::table('stock')->insert(['game_id' => 1]);
+        DB::table('stock')->insert(['game_id' => 3]);
+        DB::table('stock')->insert(['game_id' => 3]);
+        DB::table('stock')->insert(['game_id' => 4]);
+        DB::table('stock')->insert(['game_id' => 5]);
+        DB::table('stock')->insert(['game_id' => 5]);
 
         DB::table('users')->insert([
         	'id' => 1,
