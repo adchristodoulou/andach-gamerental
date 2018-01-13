@@ -67,6 +67,7 @@ class SyncPlans extends Command
             Plan::create([
                 'name' => $braintreePlan->name,
                 'max_games_simultaneously' => substr($braintreePlan->id, 0, 1),
+                'max_games_per_month' => 99,
                 'is_premium' => $premium,
                 'is_priority' => $priority,
                 'slug' => str_slug($braintreePlan->name),

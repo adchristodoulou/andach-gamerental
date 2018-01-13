@@ -17,6 +17,10 @@ class AssignmentRun extends Model
     	$create['stock_id'] = $stock->id;
     	$create['game_id'] = $stock->game->id;
 
+        $user->deleteFromWishlist($stock->game->id, false);
+        $user->recordGameAssigned();
+        $stock->recordAssigned();
+
     	return Assignment::create($create);
     }
 
@@ -40,26 +44,29 @@ class AssignmentRun extends Model
 
     public function makeAssignments()
     {
+        $numAssignments = 0;
+
         foreach (array(1, 0) as $priority)
         {
-            $users = $this->getUsersNeedingAssignment($priority);
+            do {
+                $numAssignmentsThisRound = 0;
+                $users = $this->getUsersNeedingAssignment($priority);
 
-            $numAssignments = 0;
-            $assignToUser = true;
-            
-            foreach ($users as $user)
-            {
-                //Double-check never hurts.
-                if ($user->canReceiveGames())
+                foreach ($users as $user)
                 {
-                    $stockToAssign = $user->firstAvailableStockItem();
-
-                    if ($this->assign($stockToAssign, $user))
+                    //Double-check never hurts.
+                    if ($user->canReceiveGames())
                     {
-                        $numAssignments++;
+                        $stockToAssign = $user->firstAvailableStockItem();
+
+                        if ($this->assign($stockToAssign, $user))
+                        {
+                            $numAssignments++;
+                            $numAssignmentsThisRound++;
+                        }
                     }
                 }
-            }
+            } while ($numAssignmentsThisRound > 0);
         }
 
     	return $numAssignments;

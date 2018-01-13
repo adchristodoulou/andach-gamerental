@@ -15,10 +15,10 @@
 				<p><i>There were no assignments</i></p>
 			@else
 				<div class="row">
-					<div class="col-2">Checkbox</div>
+					<div class="col-2">Make Into Rental</div>
 					<div class="col-3">User</div>
 					<div class="col-3">Game</div>
-					<div class="col-2">Delivery Date</div>
+					<div class="col-2">Deliver?</div>
 					<div class="col-2">Print Delivery Note</div>
 				</div>
 
@@ -53,7 +53,7 @@
 
 		@endforeach
 
-		{{ Form::submit('Send Ticked Games') }}
+		{{ Form::submit('Make Assignments into Rentals and/or Deliver Rentals') }}
 
 		{!! Form::close() !!}
 	@endif

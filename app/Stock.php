@@ -24,6 +24,25 @@ class Stock extends Model
         return '&pound;'.number_format($this->purchase_price / 100, 2);
     }
 
+    public function recordAssigned()
+    {
+        $this->currently_in_stock = 0;
+        $this->times_rented = $this->times_rented + 1;
+        $this->save();
+
+        $this->game->num_available = $this->game->num_available - 1;
+        $this->game->save();
+    }
+
+    public function recordReturned()
+    {
+        $this->currently_in_stock = 1;
+        $this->save();
+
+        $this->game->num_available = $this->game->num_available + 1;
+        $this->game->save();
+    }
+
     public function rentals()
     {
         return $this->hasMany('App\Rental', 'stock_id');

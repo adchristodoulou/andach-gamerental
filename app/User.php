@@ -70,6 +70,13 @@ class User extends Authenticatable
 
     public function canReceiveGames()
     {
+        $array['numgames'] = $this->num_games_on_rental;
+        $array['gamesrented'] = $this->games_rented_this_month;
+        $array['currentmax'] = $this->currentMaxGames();
+        $array['currentmaxpermonth'] = $this->currentMaxGamesPerMonth();
+
+        //dd($array);
+
         return ($this->num_games_on_rental < $this->currentMaxGames()) && 
             $this->games_rented_this_month < $this->currentMaxGamesPerMonth();
     }
@@ -100,15 +107,20 @@ class User extends Authenticatable
         return $this->hasMany('App\Subscription', 'user_id');
     }
 
-    public function deleteFromWishlist($gameID)
+    public function deleteFromWishlist($gameID, $flash = true)
     {
         if(count($this->wishlists()->where('game_id', $gameID)->get()))
         {
-            session()->flash('success', 'This game has been removed from your wishlist.');
+            $flashMessage = 'This game has been removed from your wishlist.';
             $this->wishlists()->where('game_id', $gameID)->delete();
             return true;
         } else {
-            session()->flash('success', 'This game wasn\'t on your wishlist in the first place. What do you want us to do, purge it from existance? No, other people might want to rent it.');
+            $flashMessage = 'This game wasn\'t on your wishlist in the first place. What do you want us to do, purge it from existance? No, other people might want to rent it.';
+        }
+
+        if ($flash)
+        {
+            session()->flash('success', $flashMessage);
         }
     }
 
@@ -148,11 +160,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Page', 'author_id');
     }
 
-    public function recordGamePosted()
+    public function recordGameAssigned()
     {
         $this->games_rented_this_month = $this->games_rented_this_month + 1;
         $this->num_games_on_rental     = $this->num_games_on_rental + 1;
         $this->save();
+    }
+
+    public function recordGamePosted()
+    {
+        
     }
 
     public function recordGameReturned()

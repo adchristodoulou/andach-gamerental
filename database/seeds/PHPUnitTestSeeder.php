@@ -114,6 +114,7 @@ class PHPUnitTestSeeder extends Seeder
             'name' => 'TEST PLAN 1PERMONTH',
             'max_games_per_month' => 1,
             'max_games_simultaneously' => 1,
+            'is_priority' => 0,
             'slug' => 'test-plan-1permonth',
             'braintree_plan' => 'test-braintree-1permonth',
             'cost' => 1,
@@ -123,6 +124,7 @@ class PHPUnitTestSeeder extends Seeder
             'name' => 'TEST PLAN 1UNLIMITED',
             'max_games_per_month' => 99,
             'max_games_simultaneously' => 1,
+            'is_priority' => 0,
             'slug' => 'test-plan-1unlimited',
             'braintree_plan' => 'test-braintree-1unlimited',
             'cost' => 2,
@@ -174,12 +176,32 @@ class PHPUnitTestSeeder extends Seeder
             'name' => 'Test Retirement Reason',
         ]);
 
-        DB::table('stock')->insert(['game_id' => 1]);
-        DB::table('stock')->insert(['game_id' => 3]);
-        DB::table('stock')->insert(['game_id' => 3]);
-        DB::table('stock')->insert(['game_id' => 4]);
-        DB::table('stock')->insert(['game_id' => 5]);
-        DB::table('stock')->insert(['game_id' => 5]);
+        DB::table('stock')->insert(['game_id' => 1, 'currently_in_stock' => 1]);
+        DB::table('stock')->insert(['game_id' => 3, 'currently_in_stock' => 1]);
+        DB::table('stock')->insert(['game_id' => 3, 'currently_in_stock' => 1]);
+        DB::table('stock')->insert(['game_id' => 4, 'currently_in_stock' => 1]);
+        DB::table('stock')->insert(['game_id' => 5, 'currently_in_stock' => 1]);
+        DB::table('stock')->insert(['game_id' => 5, 'currently_in_stock' => 1]);
+
+        DB::table('subscriptions')->insert([
+            'user_id' => 1,
+            'name' => 'main',
+            'braintree_id' => '123456',
+            'braintree_plan' => 'test-braintree-1permonth',
+            'quantity' => 1,
+            'created_at' => '2018-01-01',
+            'updated_at' => '2018-01-01',
+        ]);
+
+        DB::table('subscriptions')->insert([
+            'user_id' => 2,
+            'name' => 'main',
+            'braintree_id' => 'abcdef',
+            'braintree_plan' => 'test-braintree-2priority',
+            'quantity' => 1,
+            'created_at' => '2018-01-01',
+            'updated_at' => '2018-01-01',
+        ]);
 
         DB::table('users')->insert([
         	'id' => 1,

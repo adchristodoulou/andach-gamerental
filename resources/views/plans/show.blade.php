@@ -75,65 +75,36 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
 @endsection
 
 @section('javascript')
-<!--
 <script src="https://js.braintreegateway.com/web/dropin/1.9.2/js/dropin.min.js"></script>
+<script>
+    var form = document.querySelector('#payment-form');
+    var client_token = "{{ Braintree_ClientToken::generate() }}";
 
-   <script>
-     var submitButton = document.querySelector('#submit-button');
+    braintree.dropin.create({
+      authorization: client_token,
+      selector: '#dropin-container',
+      paypal: {
+        flow: 'vault'
+      }
+    }, function (createErr, instance) {
+      if (createErr) {
+        console.log('Create Error', createErr);
+        return;
+      }
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-     braintree.dropin.create({
-       authorization: '{{ Braintree_ClientToken::generate() }}',
-       selector: '#dropin-container'
-     }, function (err, dropinInstance) {
-       if (err) {
-         // Handle any errors that might've occurred when creating Drop-in
-         console.error(err);
-         return;
-       }
-       submitButton.removeClass('invisible');
-       submitButton.addEventListener('click', function () {
-         dropinInstance.requestPaymentMethod(function (err, payload) {
-           if (err) {
-             // Handle errors in requesting payment method
-           }
-
-           alert(payload);
-         });
-       });
-     });
-   </script>
- -->
-
-   <script src="https://js.braintreegateway.com/web/dropin/1.9.2/js/dropin.min.js"></script>
-    <script>
-        var form = document.querySelector('#payment-form');
-        var client_token = "{{ Braintree_ClientToken::generate() }}";
-
-        braintree.dropin.create({
-          authorization: client_token,
-          selector: '#dropin-container',
-          paypal: {
-            flow: 'vault'
-          }
-        }, function (createErr, instance) {
-          if (createErr) {
-            console.log('Create Error', createErr);
+        instance.requestPaymentMethod(function (err, payload) {
+          if (err) {
+            console.log('Request Payment Method Error', err);
             return;
           }
-          form.addEventListener('submit', function (event) {
-            event.preventDefault();
 
-            instance.requestPaymentMethod(function (err, payload) {
-              if (err) {
-                console.log('Request Payment Method Error', err);
-                return;
-              }
-
-              // Add the nonce to the form and submit
-              document.querySelector('#payment_method_nonce').value = payload.nonce;
-              form.submit();
-            });
-          });
+          // Add the nonce to the form and submit
+          document.querySelector('#payment_method_nonce').value = payload.nonce;
+          form.submit();
         });
-    </script>
+      });
+    });
+</script>
 @endsection
