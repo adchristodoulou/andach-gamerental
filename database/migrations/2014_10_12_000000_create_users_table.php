@@ -38,6 +38,10 @@ class CreateUsersTable extends Migration
             $table->string('billing_county')->nullable();
             $table->string('billing_postcode')->nullable();
 
+            $table->string('braintree_id')->nullable();
+            $table->string('paypal_email')->nullable();
+            $table->string('card_brand')->nullable();
+            $table->string('card_last_four')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
 
             $table->rememberToken();

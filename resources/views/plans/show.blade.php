@@ -59,10 +59,10 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
   <p>You'll need to wait just a few seconds for the form below to load. Please note that you need to provide your <i>billing</i> post code to the form, not your delivery post code.</p>
   <form method="post" id="payment-form" action="{{ route('plan.store') }}">
       {{ csrf_field() }}
+      {{ Form::hidden('payment_method_nonce', '', ['id' => 'payment_method_nonce']) }}
       {{ Form::hidden('plan', $plan->id) }}
       <div id="dropin-container"></div>
-
-      <button id="payment-button" class="btn btn-primary btn-flat invisible" type="submit">Pay now</button>
+      <button id="submit-button" class="btn btn-primary btn-flat " type="submit">Pay now</button>
   </form>
 
 </div>
@@ -75,18 +75,65 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
 @endsection
 
 @section('javascript')
-<script src="https://js.braintreegateway.com/js/braintree-2.30.0.min.js"></script>
+<!--
+<script src="https://js.braintreegateway.com/web/dropin/1.9.2/js/dropin.min.js"></script>
 
+   <script>
+     var submitButton = document.querySelector('#submit-button');
+
+     braintree.dropin.create({
+       authorization: '{{ Braintree_ClientToken::generate() }}',
+       selector: '#dropin-container'
+     }, function (err, dropinInstance) {
+       if (err) {
+         // Handle any errors that might've occurred when creating Drop-in
+         console.error(err);
+         return;
+       }
+       submitButton.removeClass('invisible');
+       submitButton.addEventListener('click', function () {
+         dropinInstance.requestPaymentMethod(function (err, payload) {
+           if (err) {
+             // Handle errors in requesting payment method
+           }
+
+           alert(payload);
+         });
+       });
+     });
+   </script>
+ -->
+
+   <script src="https://js.braintreegateway.com/web/dropin/1.9.2/js/dropin.min.js"></script>
     <script>
-        $.ajax({
-            url: '{{ url('braintree/token') }}'
-        }).done(function (response) {
-            braintree.setup(response.data.token, 'dropin', {
-                container: 'dropin-container',
-                onReady: function () {
-                    $('#payment-button').removeClass('invisible');
-                }
+        var form = document.querySelector('#payment-form');
+        var client_token = "{{ Braintree_ClientToken::generate() }}";
+
+        braintree.dropin.create({
+          authorization: client_token,
+          selector: '#dropin-container',
+          paypal: {
+            flow: 'vault'
+          }
+        }, function (createErr, instance) {
+          if (createErr) {
+            console.log('Create Error', createErr);
+            return;
+          }
+          form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            instance.requestPaymentMethod(function (err, payload) {
+              if (err) {
+                console.log('Request Payment Method Error', err);
+                return;
+              }
+
+              // Add the nonce to the form and submit
+              document.querySelector('#payment_method_nonce').value = payload.nonce;
+              form.submit();
             });
+          });
         });
     </script>
 @endsection

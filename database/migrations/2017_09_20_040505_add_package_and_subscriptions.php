@@ -13,19 +13,6 @@ class AddPackageAndSubscriptions extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            $table->string('braintree_id')->default('')->after('billing_postcode');
-        });
-        Schema::table('users', function ($table) {
-            $table->string('paypal_email')->default('')->after('braintree_id');
-        });
-        Schema::table('users', function ($table) {
-            $table->string('card_brand')->default('')->after('paypal_email');
-        });
-        Schema::table('users', function ($table) {
-            $table->string('card_last_four')->default('')->after('card_brand');
-        });
-
         Schema::create('subscriptions', function ($table) {
             $table->increments('id');
             $table->integer('user_id');
@@ -61,9 +48,5 @@ class AddPackageAndSubscriptions extends Migration
     {
         Schema::dropIfExists('subscriptions');
         Schema::dropIfExists('plans');
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['braintree_id', 'paypal_email', 'card_brand', 'card_last_four', 'trial_ends_at']);
-        });
     }
 }
