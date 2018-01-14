@@ -24,6 +24,11 @@
 
 				@foreach ($run->assignments as $assignment)
 
+				//These are here to allow testing to be easier in the appropriate environment. 
+				@if (App::environment() == 'testing')
+					<!-- {{ $assignment->user->name }} gets {{ $assignment->game->name }} -->
+					<!-- {{ $assignment->user->name }} on run #{{ $run->id }} -->
+				@endif
 				<div class="row">
 					<div class="col-2">
 						@if (!$assignment->rental_id)
