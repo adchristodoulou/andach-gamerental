@@ -184,15 +184,6 @@
       @yield('breadcrumbs')
     </div>
 
-    <div class="container" style="background-image: #444444">
-      <h2>Rent video games rather than buying them with Andach Games</h2>
-      <ul>
-        <li>Save money.</li>
-        <li>Excellent choice, with hundreds of games on multiple systems.</li>
-        <li>Know what you're spending with a single fixed monthly outgoing.</li>
-      </ul>
-    </div>
-
     @if (Session::has('success'))
     <div class="container">
       <div class="row">

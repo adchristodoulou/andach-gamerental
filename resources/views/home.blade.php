@@ -5,6 +5,16 @@
 @endsection
 
 @section('content')
+
+      <div class="container" style="background-image: #444444">
+        <h2>Rent video games rather than buying them with Andach Games</h2>
+        <ul>
+          <li>Save money.</li>
+          <li>Excellent choice, with hundreds of games on multiple systems.</li>
+          <li>Know what you're spending with a single fixed monthly outgoing.</li>
+        </ul>
+      </div>
+    
       <h2>Rent Xbox One Games</h2>
       <div class="row row-eq-height">
         @foreach ($xboxone as $game)

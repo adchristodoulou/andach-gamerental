@@ -12,6 +12,7 @@
 			<div class="col-4">
 				<p><b>Legal</b></p>
 				<p><a href="{{ route('page.show', 'cookies') }}">Cookies</a></p>
+				<p><a href="{{ route('page.show', 'delivery-information') }}">Delivery Information</a></p>
 				<p><a href="{{ route('page.show', 'privacy-policy') }}">Privacy Policy</a></p>
 				<p><a href="{{ route('page.show', 'terms-and-conditions') }}">Terms and Conditions</a></p>
 			</div>
