@@ -15,6 +15,21 @@ class RegisterTest extends TestCase
      */
     public function testExample()
     {
-        $this->assertTrue(true);
+        $response = $this->followingRedirects()->post('/register', [
+        	'name' => 'John Smith',
+        	'email' => 'johnsmith@example.com',
+        	'password' => 'letmein',
+        	'password_confirmation' => 'letmein',
+        ]);
+
+        $response->assertSee('User Registration (Step 2 of 3 - Address)');
+
+        $response = $this->followingRedirects()->post('/user/register', [
+        	'shipping_address1' => 'test1',
+        	'shipping_postcode' => 'testpostcode',
+        ]);
+        $response->assertSee('You have successfully added your address details. Now choose your plan');
+
+        
     }
 }
