@@ -180,10 +180,6 @@
       </div>
     </nav>
 
-    <div class="container" style="background-color: #e9ecef">
-      @yield('breadcrumbs')
-    </div>
-
     @if (Session::has('success'))
     <div class="container">
       <div class="row">
@@ -206,15 +202,21 @@
 
     @if (isset($errors))
       @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-          @endforeach
-        </ul>
+      <div class="container" id="errorscontainer">
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
       </div>
       @endif
     @endif
+
+    <div class="container" style="background-color: #e9ecef">
+      @yield('breadcrumbs')
+    </div>
 
     <!-- Page Content -->
     <div class="container" id="contentcontainer">

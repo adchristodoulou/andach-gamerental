@@ -136,6 +136,13 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'shipping_address1' => 'required',
+            'shipping_postcode' => 'required',
+        ]);
+                
         $user = Auth::user();
 
         $user->update($request->all());

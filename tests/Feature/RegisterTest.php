@@ -15,6 +15,21 @@ class RegisterTest extends TestCase
      */
     public function testExample()
     {
+        $response = $this->followingRedirects()->post('/register', []);
+        $response->assertSee('The name field is required.');
+        $response->assertSee('The email field is required.');
+        $response->assertSee('The password field is required.');
+
+        $response = $this->followingRedirects()->post('/register', [
+            'name' => 'John Smith',
+            'email' => 'admin@example.com',
+            'password' => 'letmein',
+        ]);
+        $response->assertDontSee('The name field is required.');
+        $response->assertSee('The email has already been taken.');
+        $response->assertSee('The password confirmation does not match.');
+
+
         $response = $this->followingRedirects()->post('/register', [
         	'name' => 'John Smith',
         	'email' => 'johnsmith@example.com',
@@ -29,7 +44,5 @@ class RegisterTest extends TestCase
         	'shipping_postcode' => 'testpostcode',
         ]);
         $response->assertSee('You have successfully added your address details. Now choose your plan');
-
-        
     }
 }

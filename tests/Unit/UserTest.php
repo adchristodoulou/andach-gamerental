@@ -103,13 +103,24 @@ class UserTest extends TestCase
 
     public function test_update()
     {
-    	$response = $this->put('/user/update', ['test', 1]);
+    	$response = $this->put('/user/update', ['test' => 1]);
         $response->assertRedirect('login');
 
         $user = User::first();
         $this->be($user);
 
-        $response = $this->followingRedirects()->put('/user/update', ['test', 1]);
-        $response->assertSee('You have successfully changed your account details');
+        $response = $this->followingRedirects()->put('/user/update', ['test' => 1]);
+        $response->assertSee('The name field is required.');
+        $response->assertSee('The email field is required.');
+        $response->assertSee('The shipping address1 field is required.');
+        $response->assertSee('The shipping postcode field is required.');
+
+        $response = $this->followingRedirects()->put('/user/update', [
+            'name' => 1,
+            'email' => 1,
+            'shipping_address1' => 1,
+            'shipping_postcode' => 1,
+        ]);
+        $response->assertSee('You have successfully changed your account details.');
     }
 }
