@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\AssignmentRun;
+use App\Competitor;
+use App\CompetitorListing;
 use App\Game;
 use App\Product;
 use App\ProductCategory;
@@ -39,6 +41,38 @@ class AdminController extends Controller
         $run->makeAssignments();
 
         return redirect()->route('admin.sendgames');
+    }
+
+    public function competitors()
+    {
+        $competitors = Competitor::all();
+        $products    = Product::pluck('name', 'id');
+        $games       = Game::pluck('name', 'id');
+
+        return view('admin.competitors', ['competitors' => $competitors, 'products' => $products, 'games' => $games]);
+    }
+
+    public function competitorsPost(Request $request)
+    {
+        if ($request->competitor_id)
+        {
+            CompetitorListing::create($request->all());
+
+            $request->session()->flash('success', 'The Listing has been added');
+        }
+
+        if (count($request->listingUpdate))
+        {
+            $ids = $request->listingUpdate;
+
+            foreach ($ids as $id)
+            {
+                $listing = CompetitorListing::find($id);
+                $listing->updatePrice();
+            }
+        }
+
+        return redirect()->route('admin.competitors');
     }
 
     public function confirmAssignments(Request $request)
@@ -140,9 +174,9 @@ class AdminController extends Controller
 
         $product = Product::create($request->all());
 
-        if (count($request->pictures))
+        if (count($request->uploadpictures))
         {
-            foreach ($request->pictures as $picture) 
+            foreach ($request->uploadpictures as $picture) 
             {
                 $product->addPicture($picture);
             }
@@ -168,6 +202,14 @@ class AdminController extends Controller
 
         $product->update($request->all());
         $product->addCategory($request->add_category);
+
+        if (count($request->uploadpictures))
+        {
+            foreach ($request->uploadpictures as $picture) 
+            {
+                $product->addPicture($picture);
+            }
+        }
 
         if (count($request->pictures))
         {

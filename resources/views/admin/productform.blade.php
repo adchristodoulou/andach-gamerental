@@ -59,9 +59,9 @@
 	</div>
 
 	<div class="row">
-		{!! Form::label('pictures', 'Upload Pictures:', ['class' => 'col-lg-2 control-label']) !!}
+		{!! Form::label('uploadpictures', 'Upload Pictures:', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
-	    	{!! Form::file('pictures[]', ['class' => 'form-control', 'multiple' => 'multiple']) !!}
+	    	{!! Form::file('uploadpictures[]', ['class' => 'form-control', 'multiple' => 'multiple']) !!}
 		</div>
 	</div>
 

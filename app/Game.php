@@ -40,6 +40,11 @@ class Game extends Model
         return $this->belongsTo('App\Collection', 'collection_id');
     }
 
+    public function competitorListings()
+    {
+        return $this->hasMany('App\CompetitorListing', 'game_id');
+    }
+
     public function developer()
     {
         return $this->belongsTo('App\Developer', 'developer_id');

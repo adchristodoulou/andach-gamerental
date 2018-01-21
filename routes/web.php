@@ -83,6 +83,8 @@ Route::get('user/registeraddress', 'UserController@registerAddress')->name('user
 ********************/
 Route::get('admin/', 'AdminController@admin')->name('admin.admin');
 Route::post('admin/assignment-run', 'AdminController@assignmentRun')->name('admin.assignmentrun');
+Route::get('admin/competitors', 'AdminController@competitors')->name('admin.competitors');
+Route::post('admin/competitors-post', 'AdminController@competitorsPost')->name('admin.competitorspost');
 Route::post('admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
 Route::get('admin/games', 'AdminController@gameIndex')->name('admin.gameindex');
 Route::post('admin/games-post', 'AdminController@gameIndexPost')->name('admin.gameindexpost');

@@ -60,6 +60,11 @@ class Product extends Model
         return $this->belongsToMany('App\ProductCategory', 'products_categories_link', 'product_id', 'category_id');
     } 
 
+    public function competitorListings()
+    {
+        return $this->hasMany('App\CompetitorListing', 'product_id');
+    }
+
     public function deleteCategory($categoryID)
     {
         $this->categories()->detach($categoryID);

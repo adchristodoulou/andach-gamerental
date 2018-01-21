@@ -1,6 +1,9 @@
 
   <ul class="nav nav-pills nav-justified">
     <li class="nav-item">
+      <a class="nav-link  @if(Route::is('admin.competitors')) active @endif" href="{{ route('admin.competitors') }}">Competitors</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  @if(Route::is('admin.rentals')) active @endif" href="{{ route('admin.rentals') }}">Current Rentals</a>
     </li>
     <li class="nav-item">
