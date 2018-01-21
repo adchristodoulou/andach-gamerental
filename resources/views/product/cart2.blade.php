@@ -18,12 +18,14 @@ Address details for Video Games and Accessories | Andach Game Rentals | Video Ga
 
 	{!! Form::model(Auth::user(), ['route' => 'product.cart3', 'method', 'POST']) !!}
 
-	<div class="alert alert-warning">
-		You aren't logged in. If you log in, then all your orders will be saved in the same place and it'll be easier if there is any need to return any goods. 
-	</div>
+	@if (!Auth::check())
+		<div class="alert alert-warning">
+			You aren't logged in. If you log in, then all your orders will be saved in the same place and it'll be easier if there is any need to return any goods. 
+		</div>
+	@endif
 
 	<div class="row">
-		<div class="col-9">
+		<div class="col-7">
 			<div class="card">
 				<div class="card-header">Your Details</div>
 				<div class="card-body">
@@ -84,15 +86,22 @@ Address details for Video Games and Accessories | Andach Game Rentals | Video Ga
 				</div>
 			</div>
 		</div>
-		<div class="col-3">
+		<div class="col-5">
 			<div class="card">
 				<div class="card-header">Order Summary</div>
 				<div class="card-body">
 					@foreach ($cartLines as $line)
 						{!! $line->box_mini !!}
 					@endforeach
+					@if ($prices['shipping'] > 0)
+						<div class="row">
+				    		<div class="col-12 col-md-7">Shipping:</div>
+				    		<div class="col-4 col-md-2"></div>
+				    		<div class="col-8 col-md-3">&pound;{{ $prices['shipping'] }}</div>
+			    		</div>
+					@endif
 				</div>
-				<div class="card-footer">Price: &pound;{{ $prices['total'] }}</div>
+				<div class="card-footer">Total Price: &pound;{{ $prices['total'] }}</div>
 			</div>
 		</div>
 	</div>

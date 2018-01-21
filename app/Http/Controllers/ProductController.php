@@ -40,6 +40,13 @@ class ProductController extends Controller
 
 	public function cart3(Request $request)
 	{
+		$request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'shipping_address1' => 'required',
+            'shipping_postcode' => 'required',
+        ]);
+		
 		$cartLines = Cart::myCart();
 		$prices = Cart::priceFromLines($cartLines);
 		$array = ['name', 'email', 'phone', 'shipping_address1', 'shipping_address2', 'shipping_address3', 'shipping_town', 'shipping_county', 'shipping_postcode'];

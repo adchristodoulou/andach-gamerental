@@ -42,9 +42,9 @@ class Cart extends Model
     public function getBoxMiniAttribute()
     {
     	return '<div class="row">
-    		<div class="col-12"><a href="'.route('product.show', $this->product->slug).'">'.$this->product->name.'</a></div>
-    		<div class="col-4">'.$this->quantity_in_cart.'</div>
-    		<div class="col-8">'.$this->price_formatted.'</div>
+    		<div class="col-12 col-md-7"><a href="'.route('product.show', $this->product->slug).'">'.$this->product->name.'</a></div>
+    		<div class="col-4 col-md-2">'.$this->quantity_in_cart.'</div>
+    		<div class="col-8 col-md-3">'.$this->price_formatted.'</div>
     		</div>';
     }
 
@@ -120,6 +120,10 @@ class Cart extends Model
 		}
 
 		$return['total'] = $return['lines'] + $return['shipping'];
+
+        $return['lines'] = number_format($return['lines'], 2);
+        $return['shipping'] = number_format($return['shipping'], 2);
+        $return['total'] = number_format($return['total'], 2);
 
 		return $return;
     }
