@@ -6,8 +6,7 @@ This is a PHP application to run a website that will let you rent video games ou
 ### Install Apache, mySQL, PHP, etc.
 1. Install the PHP7.1 and webmin repos
     1. `sudo add-apt-repository -y ppa:ondrej/php`
-    1. `sudo nano /etc/apt/sources.list` - and add the below line to the bottom
-    1. `deb http://download.webmin.com/download/repository sarge contrib`
+    1. `sudo echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list`
     1. `wget http://www.webmin.com/jcameron-key.asc`
     1. `sudo apt-key add jcameron-key.asc`
     1. `sudo apt-get update`
