@@ -121,14 +121,14 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-    	$product = Product::where('slug', $slug)->first();
+    	$product = Product::where('slug', $slug)->firstOrFail();
 
     	return view('product.show', ['product' => $product]);
     }
 
     public function showCategory($slug)
     {
-    	$category = ProductCategory::where('slug', $slug)->first();
+    	$category = ProductCategory::where('slug', $slug)->firstOrFail();
     	$children = ProductCategory::parent($category->id)->renderAsArray();
 
     	return view('product.category', ['category' => $category, 'children' => $children]);

@@ -106,8 +106,11 @@ class GameController extends Controller
 
         if ($request->category_id)
         {
-            $sqlvalue = Category::where('url', $request->category_id)->first()->id;
-            $where[] = ['category_id', '=', $sqlvalue];
+            $sqlvalue = Category::where('url', $request->category_id)->first();
+            if ($sqlvalue)
+            {
+                $where[] = ['category_id', '=', $sqlvalue->id];
+            }
         }
 
         if ($request->is_premium)
@@ -132,14 +135,20 @@ class GameController extends Controller
 
         if ($request->rating_id)
         {
-            $sqlvalue = Rating::where('name', $request->rating_id)->first()->id;
-            $where[] = ['rating_id', '=', $sqlvalue];
+            $sqlvalue = Rating::where('name', $request->rating_id)->first();
+            if ($sqlvalue)
+            {
+                $where[] = ['rating_id', '=', $sqlvalue];
+            }
         }
 
         if ($request->system_id)
         {
-            $sqlvalue = System::where('url', $request->system_id)->first()->id;
-            $where[] = ['system_id', '=', $sqlvalue];
+            $sqlvalue = System::where('url', $request->system_id)->first();
+            if ($sqlvalue)
+            {
+                $where[] = ['system_id', '=', $sqlvalue];
+            }
         }
 
         $games = Game::where($where)->paginate(20);
