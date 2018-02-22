@@ -63,8 +63,17 @@
                 <div class="col-12 col-md-3">
                     <b>Alternative Contact Details</b>
                     <p>You can get in touch with us by phone or post at:</p>
-                    <p>T: 0116 123 4567</p>
-                    <p><i>Andach Games Ltd</i><br />P: 123 Demonstration Street<br />Nottingham<br />NG12 4SE</p>
+                    <address>
+                        <strong>Andach Game Rentals</strong>
+                        <br>{!! env('CONTACT_ADDRESS') !!}
+                      </address>
+                      <address>
+                        <abbr title="Phone">P:</abbr>
+                        {{ env('CONTACT_PHONE') }}
+                        <br>
+                        <abbr title="Email">E:</abbr>
+                        <a href="mailto:{{ env('CONTACT_EMAIL') }}">{{ env('CONTACT_EMAIL') }}</a>
+                      </address>
                 </div>
             </div>
 
