@@ -59,6 +59,7 @@ Route::post('cart4', 'ProductController@cart4')->name('product.cart4');
 Route::post('cart', 'ProductController@cartPost')->name('product.cartpost');
 Route::get('product', 'ProductController@index')->name('product.index');
 Route::post('product/addtocart', 'ProductController@addToCart')->name('product.addtocart');
+Route::get('/product/convertcart', 'ProductController@convertCart')->name('product.convertcart');
 Route::get('buy-{slug}', 'ProductController@show')->name('product.show');
 Route::get('category-{slug}', 'ProductController@showcategory')->name('product.showcategory');
 

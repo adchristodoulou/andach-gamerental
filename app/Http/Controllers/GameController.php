@@ -138,7 +138,7 @@ class GameController extends Controller
             $sqlvalue = Rating::where('name', $request->rating_id)->first();
             if ($sqlvalue)
             {
-                $where[] = ['rating_id', '=', $sqlvalue];
+                $where[] = ['rating_id', '=', $sqlvalue->id];
             }
         }
 
@@ -147,9 +147,11 @@ class GameController extends Controller
             $sqlvalue = System::where('url', $request->system_id)->first();
             if ($sqlvalue)
             {
-                $where[] = ['system_id', '=', $sqlvalue];
+                $where[] = ['system_id', '=', $sqlvalue->id];
             }
         }
+
+        //dd($where);
 
         $games = Game::where($where)->paginate(20);
 

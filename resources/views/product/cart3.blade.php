@@ -16,7 +16,11 @@ Payment details for Video Games and Accessories | Andach Game Rentals | Video Ga
 	
 	<h2>Cart - Payment Information (Step 3 of 4)</h2>
 
-	{!! Form::model(Auth::user(), ['route' => 'product.cart4', 'method', 'POST', 'id' => 'andach-payment-form']) !!}
+	@if (Auth::check())
+		{!! Form::model(Auth::user(), ['route' => 'product.cart4', 'method', 'POST', 'id' => 'andach-payment-form']) !!}
+	@else
+		{!! Form::open(['route' => 'product.cart4', 'method', 'POST', 'id' => 'andach-payment-form']) !!}
+	@endif
 
 	@foreach ($fields as $field)
 		{{ Form::hidden($field, $request[$field]) }}
@@ -170,7 +174,7 @@ Payment details for Video Games and Accessories | Andach Game Rentals | Video Ga
             },
             postalCode: {
               selector: '#postalCode',
-              placeholder: '{{ Auth::user()->billing_postcode }}'
+              placeholder: '@if (Auth::check()){{ Auth::user()->billing_postcode }}@endif'
             }
           }
         }, function (hostedFieldsErr, hostedFieldsInstance) {

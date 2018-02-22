@@ -2,19 +2,18 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CartPurchaseTest extends TestCase
+class CartGuestPurchaseTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function test_feature()
+    public function testExample()
     {
         $response = $this->followingRedirects()->post('/product/addtocart', [
         	'product_id' => 1,
@@ -44,18 +43,7 @@ class CartPurchaseTest extends TestCase
         $response = $this->get('/cart2');
         $response->assertSee('You aren\'t logged in');
         $response->assertDontSee('&pound;1.99');
-        $response->assertSee('<div class="card-footer">Total Price: &pound;29.97</div>');
-
-        $user = User::find(1);
-        $this->be($user);
-
-        //This has to be called in testing because the $this->be event doesnt fire the conversion function. 
-        $this->get('/product/convertcart');
-
-        $response = $this->get('/cart');
-        $response->assertDontSee('You aren\'t logged in');
-        $response->assertDontSee('&pound;1.99');
-        $response->assertSee('<div class="col-2">&pound;29.97</div>');
+        $response->assertSee('<div class="col-8 col-md-3">&pound;29.97</div>');
 
         $response = $this->followingRedirects()->post('/cart3', []);
         $response->assertSee('The name field is required.');
@@ -74,7 +62,5 @@ class CartPurchaseTest extends TestCase
         $response->assertDontSee('The shipping address1 field is required.');
         $response->assertDontSee('The shipping postcode field is required.');
         $response->assertSee('Step 3 of 4');
-
-
     }
 }

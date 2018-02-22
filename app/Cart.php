@@ -18,6 +18,27 @@ class Cart extends Model
     	$this->save();
     }
 
+    //For use when a user logs in to convert any lines they might have in their cart and add them to any lines they have against their user. 
+    public static function convertCartToUser()
+    {
+        if (!Auth::check()) return false;
+
+        $cartLinesIP   = Cart::where('ip_address', Request::ip())->get();
+        $cartLinesUser = Cart::where('user_id', Auth::id())->get();
+
+        foreach ($cartLinesUser as $line)
+        {
+            if ($ipLine = $cartLinesIP->where('product_id', $line->product_id)->first())
+            {
+                $line->quantity_in_cart = $line->quantity_in_cart + $ipLine->quantity_in_cart;
+                $line->save();
+                $ipLine->delete();
+            }
+        }
+
+        Cart::where('ip_address', Request::ip())->update(['user_id' => Auth::id(), 'ip_address' => '']);
+    }
+
     public static function empty()
     {
         if (Auth::check())
@@ -135,6 +156,12 @@ class Cart extends Model
 
     public function setQuantity($quantity)
     {
+        if ($quantity == 0)
+        {
+            $this->delete();
+            return false;
+        }
+
     	$this->quantity_in_cart = $quantity;
     	$this->save();
     }

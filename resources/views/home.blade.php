@@ -92,16 +92,14 @@
           <h2 class="mt-4">Contact Us</h2>
           <address>
             <strong>Andach Game Rentals</strong>
-            <br>3481 Melrose Place
-            <br>Beverly Hills, CA 90210
-            <br>
+            <br>{!! env('CONTACT_ADDRESS') !!}
           </address>
           <address>
             <abbr title="Phone">P:</abbr>
-            (123) 456-7890
+            {{ env('CONTACT_PHONE') }}
             <br>
             <abbr title="Email">E:</abbr>
-            <a href="mailto:#">name (AT) example.com</a>
+            <a href="mailto:{{ env('CONTACT_EMAIL') }}">{{ env('CONTACT_EMAIL') }}</a>
           </address>
         </div>
       </div>

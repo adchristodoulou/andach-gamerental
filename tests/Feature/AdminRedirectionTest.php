@@ -19,7 +19,7 @@ class AdminRedirectionTest extends TestCase
         $response = $this->get('/admin');
         $response->assertSee('ADMIN DASHBOARD');
 
-        $response = $this->post('/admin/send-games');
+        $response = $this->get('/admin/send-games');
         $response->assertSee('Assignment Run');
     }
 

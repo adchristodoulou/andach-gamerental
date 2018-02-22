@@ -112,6 +112,11 @@ class ProductController extends Controller
 		return redirect()->route('product.cart');
 	}
 
+	public function convertCart()
+	{
+		Cart::convertCartToUser();
+	}
+
     public function index()
     {
     	$products = Product::all();
