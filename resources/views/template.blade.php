@@ -55,81 +55,81 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <div>
-          <img src="/images/template/andach-rental-logo.png" />
-        </div>
-        <div id="navbar-title">
-          <a class="navbar-brand" href="/">Andach Game Rentals</a><br />
-          <h1>@yield('h1', 'Xbox, Playstation and retro game rentals!')</h1>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('plan.index') }}">Game Rental Plans</a>
-            </li>
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <div>
+            <img src="/images/template/andach-rental-logo.png" />
+          </div>
+          <div id="navbar-title">
+            <a class="navbar-brand" href="/">Andach Game Rentals</a><br />
+            <h1>@yield('h1', 'Xbox, Playstation and retro game rentals!')</h1>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('plan.index') }}">Game Rental Plans</a>
+              </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="/about-us">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/open-source">Open Source</a>
-            </li>
-            @if (Auth::check())
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('log-out') }}">Log Out</a>
+                <a class="nav-link" href="/about-us">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.account') }}">My Account</a>
+                <a class="nav-link" href="/contact">Contact</a>
               </li>
-              @if (Auth::user()->isAdmin())
+              <li class="nav-item">
+                <a class="nav-link" href="/open-source">Open Source</a>
+              </li>
+              @if (Auth::check())
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('admin.admin') }}">Admin</a>
+                  <a class="nav-link" href="{{ route('log-out') }}">Log Out</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('user.account') }}">My Account</a>
+                </li>
+                @if (Auth::user()->isAdmin())
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.admin') }}">Admin</a>
+                  </li>
+                @endif
+              @else
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('login') }}">Log In</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
               @endif
-            @else
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">Log In</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Register</a>
-              </li>
-            @endif
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('product.cart') }}">Cart
-                @if (isset($numberofitemsincart))
-                  @if ($numberofitemsincart > 0)
-                    ({{ $numberofitemsincart }})
+                <a class="nav-link" href="{{ route('product.cart') }}">Cart
+                  @if (isset($numberofitemsincart))
+                    @if ($numberofitemsincart > 0)
+                      ({{ $numberofitemsincart }})
+                    @endif
                   @endif
-                @endif
-              </a>
-            </li>
-          </ul>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
-    <!-- Game Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="margin-top: 18px; background-color: #DBA800;">
+    <!-- Game Rental Menu -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DBA800;">
       <div class="container">
         <div id="navbar-title">
           Rent Games
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownGames" aria-controls="navbarNavDropdownGames" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse" id="navbarNavDropdownGames">
           <ul class="navbar-nav ml-auto navbar-gamebar">
             @foreach ($gamemenu as $system)
               <li class="nav-item dropdown">
@@ -156,10 +156,10 @@
         <div id="navbar-title">
           Buy Games &amp; Accessories
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownProducts" aria-controls="navbarNavDropdownProducts" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse" id="navbarNavDropdownProducts">
           <ul class="navbar-nav ml-auto navbar-gamebar">
              @foreach ($productCategories as $prodCat)
               <li class="nav-item dropdown">
