@@ -18,6 +18,14 @@ body {
     height: 100%;
 }
 
+.game-image-system {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: .7
+  width: 120px;
+}
+
 .breadcrumb {
   margin-bottom: 0;
 }

@@ -64,7 +64,8 @@ class Game extends Model
     {
         return '<div class="col-12 col-md-6 col-lg-3 text-center">
             <a href="'.route('game.show', $this->slug).'">
-                <img src="/storage/'.$this->thumb_url.'" class="img-flex" height="300" alt="Game Box Art for '.$this->name.'"> <br />
+                <img src="/storage/'.$this->thumb_url.'" class="img-flex" height="300" alt="Game Box Art for '.$this->name.'"><br />
+                <img width="120px" src="/images/systemoverlay/'.$this->system->url.'.svg" /> 
                 '.$this->name.'</a><br />
             '.$this->num_in_stock_format.' in stock, '.$this->num_available_format.' available
         </div>';
