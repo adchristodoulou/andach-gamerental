@@ -10,12 +10,10 @@ class ProductPicture extends Model
 	protected $fillable = ['product_id', 'url', 'thumb_url', 'is_main'];
     protected $table = 'products_pictures';
 
-    public function delete()
+    public function deleteImages()
     {
-    	dd('app/public/'.$this->url);
-    	Storage::delete('app/public/'.$this->url);
-    	Storage::delete('app/public/'.$this->thumb_url);
-    	$this->delete();
+    	Storage::delete('public/'.$this->url);
+    	Storage::delete('public/'.$this->thumb_url);
     }
 
     public function getFullPathAttribute()

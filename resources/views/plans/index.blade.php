@@ -44,7 +44,7 @@ Value and Unlimited Video Game Rental Plans | Andach Game Rental
 <div class="row">
 	<div class="col-2">{{ $plan->name }}</div>
 	<div class="col-2">{{ $plan->max_games_simultaneously }}</div>
-	<div class="col-2">{{ $plan->max_games_per_month }}</div>
+	<div class="col-2">{{ $plan->max_games_per_month_formatted }}</div>
 	<div class="col-2">
 		@if ($plan->is_priority)
 			<img src="/images/template/tick.svg" height="32px">

@@ -233,7 +233,9 @@ class AdminController extends Controller
             foreach ($request->deleteImage as $pictureID)
             {
                 $picture = ProductPicture::find($pictureID);
+                $picture->deleteImages();
                 $picture->delete();
+
             }
         }
 

@@ -124,7 +124,7 @@
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DBA800;">
       <div class="container">
         <div id="navbar-title">
-          Rent Games
+          Rent
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownGames" aria-controls="navbarNavDropdownGames" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -154,7 +154,7 @@
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #db3a34">
       <div class="container">
         <div id="navbar-title">
-          Buy Games &amp; Accessories
+          Buy
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownProducts" aria-controls="navbarNavDropdownProducts" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
