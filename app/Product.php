@@ -105,6 +105,23 @@ class Product extends Model
         return '&pound;'.number_format($this->price / 100, 2);
     }
 
+    public function getRestOfThumbsDivAttribute()
+    {
+        $return = '<div class="row">';
+
+        foreach ($this->pictures as $p)
+        {
+            if (!($p->is_main))
+            {
+                $return .= '<div class="col-3"><a data-fancybox="gallery" href="'.$p->full_path.'"><img class="img-fluid" src="'.$p->thumb_path.'" /></a></div>';
+            }
+        }
+
+        $return .= '</div>';
+
+        return $return;
+    }
+
     public function getThumbImgAttribute()
     {
         $thumb = $this->thumbPicture();

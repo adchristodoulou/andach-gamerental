@@ -12,7 +12,8 @@
 
 	<div class="row">
 		<div class="col-3">
-			<a  data-fancybox="gallery" href="{{ $product->main_img_path }}">{!! $product->thumb_img !!}</a>
+			<a data-fancybox="gallery" href="{{ $product->main_img_path }}">{!! $product->thumb_img !!}</a>
+			{!! $product->rest_of_thumbs_div !!}
 			{{ Form::open(['route' => 'product.addtocart', 'method' => 'post']) }}
 			
 			{{ Form::hidden('product_id', $product->id) }}
