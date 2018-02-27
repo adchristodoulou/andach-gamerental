@@ -183,6 +183,7 @@ class AdminController extends Controller
         }
         
         $product->save();
+        $product->setMainPictureAsFirst();
         $product->addCategory($request->add_category);
 
         $request->session()->flash('success', 'The product has been created.');

@@ -10,7 +10,7 @@ use Request;
 
 class Product extends Model
 {
-    protected $fillable = ['game_id', 'slug', 'price', 'name', 'snippet', 'full_text', 'is_vatable', 'num_in_stock'];
+    protected $fillable = ['game_id', 'slug', 'price', 'name', 'snippet', 'full_text', 'is_vatable', 'num_in_stock', 'supplier_url', 'supplier_product_id'];
     protected $table = 'products';
 
     public function addCategory($categoryID)
@@ -82,6 +82,24 @@ class Product extends Model
         return nl2br(e($this->full_text));
     }
 
+    public function getMainImgAttribute()
+    {
+        $main = $this->thumbPicture();
+
+        if (!$main) return '';
+
+        return '<img src="'.$main->full_path.'">';
+    }
+
+    public function getMainImgPathAttribute()
+    {
+        $main = $this->thumbPicture();
+
+        if (!$main) return '';
+
+        return $main->full_path;
+    }
+
     public function getPriceFormattedAttribute()
     {
         return '&pound;'.number_format($this->price / 100, 2);
@@ -114,6 +132,11 @@ class Product extends Model
         $return['net']   = round(($return['gross'] - $return['vat']));
 
         return $return;
+    }
+
+    public function setMainPictureAsFirst()
+    {
+        $this->pictures->first()->setMain(true);
     }
 
     public function thumbPicture()

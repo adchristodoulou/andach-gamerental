@@ -21,9 +21,23 @@ class ProductPicture extends Model
     	return '/storage/'.$this->url;
     }
 
+    public function getHeightAttribute()
+    {
+        $imageDetails = getimagesize($_SERVER['DOCUMENT_ROOT'].'/storage/'.$this->url);
+
+        return $imageDetails[1];
+    }
+
     public function getThumbPathAttribute()
     {
     	return '/storage/'.$this->thumb_url;
+    }
+
+    public function getWidthAttribute()
+    {
+        $imageDetails = getimagesize($_SERVER['DOCUMENT_ROOT'].'/storage/'.$this->url);
+
+        return $imageDetails[0];
     }
 
     public function product()

@@ -4,11 +4,14 @@
 	@if (isset($product))
 		{!! Form::model($product, ['route' => ['admin.productupdate'], 'files' => true, 'method' => 'PUT']) !!}
 		{{ Form::hidden('id', $product->id) }}
+		<h2>Edit Product</h2>
 	@else
 		{!! Form::open(['route' => 'admin.productstore', 'files' => true, 'method' => 'POST']) !!}
+		<h2>Create Product</h2>
 	@endif
 
-	<h2>Create or Edit Product</h2>
+	
+	<p><a href="{{ route('admin.productcreate') }}">Make a New Product</a></p>
 	<div class="row">
 		{!! Form::label('name', 'Name:', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
@@ -34,6 +37,20 @@
 		{!! Form::label('price', 'Price (in pence):', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
 	    	{!! Form::text('price', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
+	<div class="row">
+		{!! Form::label('supplier_url', 'Supplier URL:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::text('supplier_url', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
+	<div class="row">
+		{!! Form::label('supplier_product_id', 'Supplier Product ID:', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::text('supplier_product_id', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 
@@ -104,11 +121,19 @@
 		@endif
 	@endif
 
-	<div class="row">
-		<div class="col-lg-12">
-			{{ Form::submit('Add this Game', ['class' => 'form-control btn btn-success']) }}
+	@if (isset($product))
+		<div class="row">
+			<div class="col-lg-12">
+				{{ Form::submit('Edit this Product', ['class' => 'form-control btn btn-success']) }}
+			</div>
 		</div>
-	</div>
+	@else
+		<div class="row">
+			<div class="col-lg-12">
+				{{ Form::submit('Add this Product', ['class' => 'form-control btn btn-success']) }}
+			</div>
+		</div>
+	@endif
 
 	{!! Form::close() !!}
 
