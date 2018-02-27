@@ -82,7 +82,8 @@ class Invoice extends Model
 
         foreach ($cartLines as $cartLine)
         {
-            $invoiceLine = InvoiceLine::create($cartLine->invoiceLineArray());
+            $invoiceLine = new InvoiceLine;
+            $invoiceLine->fill($cartLine->invoiceLineArray());
             $invoiceLine->invoice_id = $this->id;
             $invoiceLine->save();
         }

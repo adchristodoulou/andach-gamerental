@@ -77,7 +77,7 @@ class SalesTables extends Migration
             $table->string('billing_county')->nullable();
             $table->string('billing_postcode')->nullable();
             $table->integer('braintree_amount')->default(0);
-            $table->integer('braintree_authcode')->nullable();
+            $table->string('braintree_authcode')->nullable();
             $table->timestamps();
         });
 
