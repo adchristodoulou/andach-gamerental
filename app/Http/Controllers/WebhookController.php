@@ -32,7 +32,8 @@ class WebhookController extends CashierController
     public function handleSubscriptionChargedSuccessfully(WebhookNotification $notification)
     {
         $user = User::find(1);
-        Mail::to($user)->send(new BraintreeDebug($notification->subject['subscription']['id']));
+        Mail::to($user)->send(new BraintreeDebug($notification));
+        
         $sub = Subscription::where('braintree_id', $notification->subject['subscription']['id'])->first();
         $sub->user->resetMonthlyRentalCount();
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
-    protected $fillable = ['game_id', 'date_purchased', 'purchase_price', 'currently_in_stock'];
+    protected $fillable = ['game_id', 'date_purchased', 'purchase_price', 'currently_in_stock', 'note'];
     protected $table = 'stock';
 
     public function assignments()
