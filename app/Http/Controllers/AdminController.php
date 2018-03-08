@@ -312,12 +312,12 @@ class AdminController extends Controller
         return redirect()->route('admin.stock', $returnID);
     }
 
-    public function uploadStock()
+    public function uploadGames()
     {
-        return view('admin.uploadstock');
+        return view('admin.uploadgames');
     }
 
-    public function uploadStockPost(Request $request)
+    public function uploadGamesPost(Request $request)
     {
         $file = $request->file('csv');
 
@@ -337,6 +337,36 @@ class AdminController extends Controller
         }
 
         $request->session()->flash('success', $count.' games have been successfully uploaded. You might want to go to <a href="'.route('admin.gameindex').'">the game index page to update these immediately.');
+
+        return redirect()->route('admin.uploadgames');
+    }
+
+    public function uploadStock()
+    {
+        return view('admin.uploadstock');
+    }
+
+    public function uploadStockPost(Request $request)
+    {
+        $file = $request->file('csv');
+
+        $excel = Excel::load($file->path())->toArray();
+
+        $count = 0;
+        foreach ($excel as $line)
+        {
+            $stock = Stock::create([
+                    'game_id' => $line['game_id'],
+                    'date_purchased' => $line['date_purchased'],
+                    'purchase_price' => $line['purchase_price'],
+                    'note' => $line['note'],
+                ]);
+            $stock->save();
+
+            $count++;
+        }
+
+        $request->session()->flash('success', $count.' stock items have been successfully uploaded. ');
 
         return redirect()->route('admin.uploadstock');
     }

@@ -102,6 +102,8 @@ Route::get('admin/send-games', 'AdminController@sendGames')->name('admin.sendgam
 Route::get('admin/stock/', 'AdminController@stockIndex')->name('admin.stockindex');
 Route::get('admin/stock/{id}', 'AdminController@stock')->name('admin.stock');
 Route::post('admin/stock-update', 'AdminController@stockUpdate')->name('admin.stockupdate');
+Route::get('admin/upload-games', 'AdminController@uploadGames')->name('admin.uploadgames');
+Route::post('admin/upload-games-post', 'AdminController@uploadGamesPost')->name('admin.uploadgamespost');
 Route::get('admin/upload-stock', 'AdminController@uploadStock')->name('admin.uploadstock');
 Route::post('admin/upload-stock-post', 'AdminController@uploadStockPost')->name('admin.uploadstockpost');
 Route::any('admin/users', 'AdminController@users')->name('admin.users');

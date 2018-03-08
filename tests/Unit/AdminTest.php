@@ -217,13 +217,30 @@ class AdminTest extends TestCase
         $response->assertSee('There are <b>1</b> copies of this game in stock, of which <b>0</b> are on rental, leaving <b>1</b> available.');
     }
 
+    public function test_uploadGames()
+    {
+        $user = User::first();
+        $this->be($user);
+
+        $response = $this->get('/admin/upload-games');
+        $response->assertSee('Upload Games');
+        $response->assertDontSee('Upload Stock');
+    }
+
+    public function test_uploadGamesPost()
+    {
+        //Test in UploadStockTest
+        $this->assertTrue(true);
+    }
+
     public function test_uploadStock()
     {
         $user = User::first();
         $this->be($user);
 
         $response = $this->get('/admin/upload-stock');
-        $response->assertSee('Upload Games');
+        $response->assertDontSee('Upload Games');
+        $response->assertSee('Upload Stock');
     }
 
     public function test_uploadStockPost()
