@@ -26,6 +26,7 @@
         "maatwebsite/excel": "~2.1.0",
         "messerli90/igdb": "~1.0",
         "nathanmac/Parser": "^4.3",
+        "spatie/laravel-backup": "^5.4",
         "unisharp/laravel-filemanager": "~1.8",
         "watson/sitemap": "^2.0"
     },
