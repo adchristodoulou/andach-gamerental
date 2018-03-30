@@ -37,9 +37,6 @@
 					<img src="/images/creditcards/mastercard.svg" alt="Mastercard" />
 					<img src="/images/creditcards/maestro.svg" alt="Maestro" />
 					<img src="/images/creditcards/amex.svg" alt="American Express" />
-					
-				
-				<a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/andachrental.co.uk"><img src="https://seal.beyondsecurity.com/verification-images/andachrental.co.uk/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a>
 				</span>
 				</p>
 			</div>
