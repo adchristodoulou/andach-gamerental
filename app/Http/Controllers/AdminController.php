@@ -124,7 +124,7 @@ class AdminController extends Controller
 
     public function IGDBSearch($name)
     {
-        $api = IGDB::searchGames($name);
+        $api = IGDB::searchGames($name, ['*'], 50);
         foreach ($api as $game)
         {
             $return[] = $game->id.' - '.$game->name;
