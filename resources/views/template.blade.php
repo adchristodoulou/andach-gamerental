@@ -23,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="@yield('meta-description', 'Andach Rentals, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')">
     <meta name="author" content="">
-    <meta name="p:domain_verify" content="e9d1312cc0534f98a43b3f786b39e93a"/>
+    <meta name="p:domain_verify" content="99c61c01911c03b4928a9b63f479c92a"/>
 
     <title>@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')</title>
 
