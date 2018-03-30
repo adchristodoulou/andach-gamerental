@@ -10,7 +10,11 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-108867511-1');
+      gtag('config', '{{ env('APP_GOOGLE_ANALYTICS_TRACKING_ID') }}');
+
+      @if (Auth::check())
+      gtag('set', {'user_id': '{{ Auth::id() }}'});
+      @endif
     </script>
 
 

@@ -67,20 +67,8 @@ Login for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy Vide
                         <span class="fa fa-twitter"></span> Sign in with Twitter
                     </a>
 
-                    <a class="btn btn-block btn-social btn-github" href="/login/github/"">
-                        <span class="fa fa-github"></span> Sign in with Github
-                    </a>
-
                     <a class="btn btn-block btn-social btn-google" href="/login/google/"">
                         <span class="fa fa-google"></span> Sign in with Google+
-                    </a>
-
-                    <a class="btn btn-block btn-social btn-linkedin" href="/login/linkedin/"">
-                        <span class="fa fa-linkedin"></span> Sign in with LinkedIn
-                    </a>
-
-                    <a class="btn btn-block btn-social btn-bitbucket" href="/login/bitbucket/"">
-                        <span class="fa fa-bitbucket"></span> Sign in with BitBucket
                     </a>
                 </div>
             </div>

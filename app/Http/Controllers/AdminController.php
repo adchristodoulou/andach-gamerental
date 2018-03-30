@@ -360,8 +360,11 @@ class AdminController extends Controller
                     'date_purchased' => $line['date_purchased'],
                     'purchase_price' => $line['purchase_price'],
                     'note' => $line['note'],
+                    'currently_in_stock' => 1,
                 ]);
             $stock->save();
+
+            $stock->game->incrementStock(1);
 
             $count++;
         }
