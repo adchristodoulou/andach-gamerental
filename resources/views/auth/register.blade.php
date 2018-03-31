@@ -61,10 +61,6 @@ Register for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy V
                         <span class="fa fa-facebook"></span> Sign in with Facebook
                     </a>
 
-                    <a class="btn btn-block btn-social btn-twitter" href="/login/twitter/"">
-                        <span class="fa fa-twitter"></span> Sign in with Twitter
-                    </a>
-
                     <a class="btn btn-block btn-social btn-google" href="/login/google/"">
                         <span class="fa fa-google"></span> Sign in with Google+
                     </a>
