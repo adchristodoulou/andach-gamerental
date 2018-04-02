@@ -13,4 +13,14 @@ class Page extends Model
     {
     	return $this->belongsTo('App\User', 'author_id');
     }
+
+    public function getAuthorNameAttribute()
+    {
+    	if ($this->author)
+    	{
+    		return $this->author->name;
+    	}
+
+    	return '';
+    }
 }

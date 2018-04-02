@@ -18,7 +18,7 @@
 			<div class="col-1">{{ $page->id }}</div>
 			<div class="col-3"><a href="{{ route('page.edit', $page->id) }}">{{ $page->slug }}</a></div>
 			<div class="col-3"><a href="{{ route('page.show', $page->slug) }}">{{ $page->h1 }}</a></div>
-			<div class="col-5">{{ $page->author->name }}</div>
+			<div class="col-5">{{ $page->author_name }}</div>
 		</div>
 
 	@endforeach
