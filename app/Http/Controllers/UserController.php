@@ -147,6 +147,12 @@ class UserController extends Controller
 
         $user->update($request->all());
 
+        if (!$request->marketing_subscribe)
+        {
+            $user->marketing_subscribe = 0;
+            $user->save();
+        }
+
         $request->session()->flash('success', 'You have successfully changed your account details.');
 
         return redirect()->route('user.edit');

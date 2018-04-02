@@ -51,6 +51,9 @@
 		</div>
 	</div>
 
+	<h2>Marketing Emails</h2>
+	<p>{!! Form::checkbox('marketing_subscribe') !!} Please tick the box if you wish to be included in marketing emails (no more than two per week). We will keep you up to date on new games we have in, and/or new services we offer. You can unsubscribe via a one-click link in the footer to any email we send out, or via your members area. </p> 
+
 	<div class="row">
 		<div class="col-lg-12">
 			{{ Form::submit('Update User Details', ['class' => 'form-control btn btn-primary']) }}
