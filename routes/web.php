@@ -108,6 +108,8 @@ Route::get('admin/upload-stock', 'AdminController@uploadStock')->name('admin.upl
 Route::post('admin/upload-stock-post', 'AdminController@uploadStockPost')->name('admin.uploadstockpost');
 Route::any('admin/users', 'AdminController@users')->name('admin.users');
 
+Route::get('admin/testmail', 'AdminController@testMail')->name('admin.testmail');
+
 /********************
 * ROUTES - CONTACT
 ********************/
