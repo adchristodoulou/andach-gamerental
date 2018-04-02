@@ -461,5 +461,10 @@ BT HOSTED FIELDS SPECIFIC
 footer p {
   color: white;
   padding: 0;
-  margin: 0;
+  margin: -5px;
+  line-height: normal;
+}
+
+footer a {
+  font-size: small;
 }

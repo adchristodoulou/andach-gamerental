@@ -6,10 +6,14 @@
 
 @section('content')
 
+  <div class="row alert alert-danger">
+    <div class="col-12"><b>Andach Games is launching soon! You can sign up, but we're not ready for subscriptions just yet.</b></div>
+  </div>
+
       <div class="container" style="background-image: #444444">
         <h2>Rent video games rather than buying them with Andach Games</h2>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <div class="rounded px-1 border border-dark" style="background-color: #084c61; height: 100%">
               <p class="text-center text-white">
                 <i class="fa fa-gbp fa-5x"" aria-hidden="true"></i>
@@ -19,7 +23,7 @@
               </p>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <div class="rounded px-1 border border-dark" style="background-color: #345995; height: 100%">
               <p class="text-center text-white">
                 <i class="fa fa-edit fa-5x"" aria-hidden="true"></i>
@@ -29,7 +33,7 @@
               </p>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <div class="rounded px-1 border border-dark" style="background-color: #ffffff; height: 100%">
               <p class="text-center">
                 <i class="fa fa-list fa-5x"" aria-hidden="true"></i>

@@ -41,6 +41,8 @@ Register for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy V
                             {!! Form::label('password_confirmation', 'Confirm Password:') !!}
                             {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                         </div>
+
+                        <p><i>In registering, you confirm you agree with the <a href="{{ route('page.show', 'terms-and-conditions') }}">terms and conditions</a> and <a href="{{ route('page.show', 'privacy-policy') }}">privacy policy</a>.</i></p>
                         
                         <div class="row">
                             <div class="col-lg-12">
@@ -58,12 +60,14 @@ Register for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy V
                     <h4 class="card-title">...or Register with Social Media</h4>
 
                     <a class="btn btn-block btn-social btn-facebook" href="/login/facebook/"">
-                        <span class="fa fa-facebook"></span> Sign in with Facebook
+                        <span class="fa fa-facebook"></span> Register with Facebook
                     </a>
 
                     <a class="btn btn-block btn-social btn-google" href="/login/google/"">
-                        <span class="fa fa-google"></span> Sign in with Google+
+                        <span class="fa fa-google"></span> Register with Google+
                     </a>
+
+                    <p><i>In registering, you confirm you agree with the <a href="{{ route('page.show', 'terms-and-conditions') }}">terms and conditions</a> and <a href="{{ route('page.show', 'privacy-policy') }}">privacy policy</a>.</i></p>
                 </div>
             </div>
         </div>
