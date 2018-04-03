@@ -4,6 +4,18 @@
     {{ Breadcrumbs::render('homeroute', 'Contact') }}
 @endsection
 
+@section('h1')
+Get in touch with Andach Games
+@endsection
+
+@section('meta_description')
+Contact Andach Games for any questions about video game rental, our plans or to suggest games that we don't have yet - we'll see if we can get a copy ASAP!
+@endsection
+
+@section('title')
+Contact Us | Excellent Value Game Rental | Andach Games
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

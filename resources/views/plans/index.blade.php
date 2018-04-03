@@ -9,7 +9,11 @@ Video Game Rental Plans from Andach Game Rental
 @endsection
 
 @section('title')
-Value and Unlimited Video Game Rental Plans | Andach Game Rental
+Value and Unlimited Video Game Rental Plans | Andach Games
+@endsection
+
+@section('meta-description')
+Rent video games from Andach Games with plans available from &pound;3.99 per month, with unlimited video game rental at just &pound;9.99 per month. Free postage both ways, no contracts. 
 @endsection
 
 @section('content')

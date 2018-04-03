@@ -9,7 +9,7 @@ Purchase video games and video game accessories from Andach Game Rentals, great 
 @endsection
 
 @section('title')
-Purchase Video Games and Accessories | Andach Game Rentals | Video Games
+Purchase Video Games and Accessories | Andach Games
 @endsection
 
 @section('content')

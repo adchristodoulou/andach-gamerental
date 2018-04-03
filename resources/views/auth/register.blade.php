@@ -9,7 +9,7 @@ Register for Andach Video Game rentals - rent video games for a fixed price per 
 @endsection
 
 @section('title')
-Register for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy Video Games
+Register for Game Rentals | Plans from &pound3.99 per month | Andach Games
 @endsection
 
 @section('content')
