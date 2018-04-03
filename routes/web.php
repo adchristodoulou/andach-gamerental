@@ -47,6 +47,7 @@ Route::get('search-games', 'GameController@search')->name('game.search');
 ********************/
 Route::get('plan', 'PlanController@index')->name('plan.index');
 Route::post('plan-store', 'PlanController@store')->name('plan.store');
+Route::get('plan/thanks', 'PlanController@thanks')->name('plan.thanks');
 Route::get('plan/{slug}', 'PlanController@show')->name('plan.show');
 
 /********************

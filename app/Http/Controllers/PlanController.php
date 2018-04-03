@@ -38,6 +38,11 @@ class PlanController extends Controller
       }
 
       // redirect to home after a successful subscription
-      return redirect()->route('user.subscription');
+      return redirect()->route('plan.thanks')->with('data', ['plan' => $plan->name, 'user' => $request->user()->firstname]);
+    }
+
+    public function thanks()
+    {
+      return view('plans.thanks');
     }
 }
