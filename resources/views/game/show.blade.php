@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('google-analytics')
+	gtag('set', {'content_group1': 'Games'}); 
+@endsection
+
 @section('breadcrumbs')
     {{ Breadcrumbs::render('game', $game) }}
 @endsection

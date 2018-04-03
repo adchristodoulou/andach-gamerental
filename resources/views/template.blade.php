@@ -4,7 +4,7 @@
 
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108867511-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('APP_GOOGLE_ANALYTICS_TRACKING_ID') }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -15,6 +15,8 @@
       @if (Auth::check())
       gtag('set', {'user_id': '{{ Auth::id() }}'});
       @endif
+
+      @yield('google-analytics')
     </script>
 
 

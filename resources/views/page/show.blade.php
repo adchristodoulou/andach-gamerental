@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('google-analytics')
+	gtag('set', {'content_group1': 'Static Pages'}); 
+@endsection
+
 @section('breadcrumbs')
     {{ Breadcrumbs::render('homeroute', $page->name) }}
 @endsection
