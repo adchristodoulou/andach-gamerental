@@ -1,4 +1,7 @@
 User-agent: * 
+Disallow: /admin
+Disallow: /login
+Disallow: /user
 Disallow: /search-games
 
 Sitemap: https://andachrental.co.uk/sitemap
