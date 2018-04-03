@@ -71,6 +71,20 @@ class Game extends Model
         </div>';
     }
 
+    public function getEsrbDescriptionAttribute()
+    {
+        switch ($this->esrb_rating)
+        {
+            case 1: return 'Rating Pending';
+            case 2: return 'Early Childhood';
+            case 3: return 'Everyone';
+            case 4: return 'Everyone 10 Plus';
+            case 5: return 'Teen';
+            case 6: return  'Mature';
+            case 7: return 'Adults Only';
+        }
+    }
+
     public function getEsrbPictureAttribute()
     {
         switch ($this->esrb_rating)
@@ -98,6 +112,18 @@ class Game extends Model
     public function getNumOnRentalAttribute()
     {
         return $this->num_in_stock - $this->num_available;
+    }
+
+    public function getPegiDescriptionAttribute()
+    {
+        switch ($this->pegi_rating)
+        {
+            case 1: return '3+';
+            case 2: return '7+';
+            case 3: return '12+';
+            case 4: return '16+';
+            case 5: return '18+';
+        }
     }
 
     public function getPegiPictureAttribute()

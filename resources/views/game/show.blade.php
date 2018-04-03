@@ -69,8 +69,8 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Vid
 			</div>
 
 			<p>
-				<img src="{{ $game->esrb_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px" /> 
-				<img src="{{ $game->pegi_picture }}" data-toggle="modal" data-target="#exampleModal" height="64px"/>
+				<img src="{{ $game->esrb_picture }}" alt="ESRB Rated {{ $game->esrb_description }}" data-toggle="modal" data-target="#exampleModal" height="64px" /> 
+				<img src="{{ $game->pegi_picture }}" alt="PEGI Rated {{ $game->pegi_description }}" data-toggle="modal" data-target="#exampleModal" height="64px"/>
 			</p>
 		</div>
 	</div>
