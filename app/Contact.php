@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Mail\ContactUpdate;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Mail;
 
 class Contact extends Model
 {
@@ -80,6 +82,19 @@ class Contact extends Model
     public function replies()
     {
     	return $this->hasMany('App\ContactReply', 'contact_id');
+    }
+
+    public function sendEmailUpdate()
+    {
+        if ($this->email)
+        {
+            $to = $this->email;
+        } else {
+            $to = $this->user;
+        }
+
+        Mail::to($to)->send(new ContactUpdate($this));
+        Mail::to('andreas@andachgames.co.uk')->send(new ContactUpdate($this));
     }
 
     public function user()

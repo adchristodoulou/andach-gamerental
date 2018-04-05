@@ -30,6 +30,7 @@ class SubscriptionCancel extends Mailable
     public function build()
     {
         return $this->from('example@useaquestion.co.uk')
+                ->subject('Andach Games: Your subscription has been cancelled')
                 ->view('email.subscriptioncancel');
     }
 }

@@ -53,6 +53,8 @@ class ContactController extends Controller
 
     	$contact->addAttachment($request->attachment);
 
+        $contact->sendEmailUpdate();
+
         $request->session()->flash('success', 'Thankyou, we have received your comments and will be in touch shortly if needed.');
 
         if (Auth::check())

@@ -21,6 +21,12 @@ class ContactReply extends Model
     	</div>';
     }
 
+    public function getMailBoxAttribute()
+    {
+        return '<p><b>Reply on '.e($this->created_at).' by '.e($this->user->name).'</b></p>
+            <p>'.nl2br(e($this->full_text)).'</p>';
+    }
+
     public function user()
     {
     	return $this->belongsTo('App\User', 'user_id');

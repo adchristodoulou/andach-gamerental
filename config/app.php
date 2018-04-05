@@ -188,6 +188,7 @@ return [
         Andach\IGAD\IGADServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Nestable\NestableServiceProvider::class,
+        Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
 
     ],
 

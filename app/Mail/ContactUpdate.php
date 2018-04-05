@@ -2,26 +2,26 @@
 
 namespace App\Mail;
 
-use App\Plan;
+use App\Contact;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SubscriptionChange extends Mailable
+class ContactUpdate extends Mailable
 {
     use Queueable, SerializesModels;
-    public $plan;
 
+    public $contact;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Plan $plan)
+    public function __construct(Contact $contact)
     {
-        $this->plan = $plan;
+        $this->contact = $contact;
     }
 
     /**
@@ -32,7 +32,7 @@ class SubscriptionChange extends Mailable
     public function build()
     {
         return $this->from('example@useaquestion.co.uk')
-                ->subject('Andach Games: Your subscription has been changed')
-                ->view('email.subscriptionchange');
+                ->subject('Andach Games: Update to your Query "'.$this->contact->title.'"')
+                ->view('email.contactupdate');
     }
 }

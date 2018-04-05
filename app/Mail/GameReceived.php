@@ -31,6 +31,7 @@ class GameReceived extends Mailable
     public function build()
     {
         return $this->from('example@useaquestion.co.uk')
+                ->subject('Andach Games: '.$this->rental->game->name.' has been received')
                 ->view('email.gamereceived');
     }
 }
