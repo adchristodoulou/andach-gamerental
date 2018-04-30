@@ -23,7 +23,7 @@ class CheckAdmin
         }
 
         //Also update the ContactMiddleware middleware. 
-        if (!(Auth::id() == 1))
+        if (!(Auth::user()->isAdmin()))
         {
             session()->flash('danger', 'You must be logged in as an admin to access this page.');
             return redirect()->route('home');
