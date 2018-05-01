@@ -37,6 +37,13 @@ class ContactController extends Controller
     	return view('contact.create', ['categories' => $categories]);
     }
 
+    public function index()
+    {
+        $contacts = Contact::whereNull('closed_by')->get();
+
+        return view('contact.index', ['contacts' => $contacts]);
+    }
+
     public function show($id)
     {
     	$contact = Contact::find($id);

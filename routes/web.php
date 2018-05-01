@@ -115,6 +115,7 @@ Route::get('admin/testmail', 'AdminController@testMail')->name('admin.testmail')
 * ROUTES - CONTACT
 ********************/
 Route::get('contact', 'ContactController@create')->name('contact.create');
+Route::get('contact/index', 'ContactController@index')->name('contact.index');
 Route::get('contact/attachment/{slug}', 'ContactController@attachment')->name('contact.attachment');
 Route::post('contact/send', 'ContactController@store')->name('contact.store');
 Route::get('contact/show/{id}', 'ContactController@show')->name('contact.show');

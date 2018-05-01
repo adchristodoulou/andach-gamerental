@@ -50,6 +50,22 @@ class Contact extends Model
         return $this->belongsTo('App\User', 'closed_by');
     }
 
+    public function getBoxAttribute()
+    {
+        if ($this->isClosed())
+        {
+            $closedText = 'CLOSED - ';
+        } else {
+            $closedText = '';
+        }
+
+        return '<div class="card">
+            <div class="card-header"><a href="'.route('contact.show', $this->id).'"">#'.$this->id.' '.$closedText.$this->title.'</a></div>
+            <div class="card-body">'.$this->full_text.'</div>
+            <div class="card-footer">'.$this->created_at.'</div>
+        </div>';
+    }
+
     public function getClosedByNameAttribute()
     {
         if ($this->closeUser)
@@ -77,6 +93,21 @@ class Contact extends Model
         ksort($return);
 
         return $return;
+    }
+
+    public function getUserNameAttribute()
+    {
+        if ($this->user)
+        {
+            return $this->user->name;
+        }
+
+        return $this->email;
+    }
+
+    public function isClosed()
+    {
+        return $this->closed_by > 0;
     }
 
     public function replies()

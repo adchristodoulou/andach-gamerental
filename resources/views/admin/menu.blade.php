@@ -4,6 +4,9 @@
       <a class="nav-link  @if(Route::is('admin.competitors')) active @endif" href="{{ route('admin.competitors') }}">Competitors</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link  @if(Route::is('contact.index')) active @endif" href="{{ route('contact.index') }}">Contacts</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  @if(Route::is('admin.rentals')) active @endif" href="{{ route('admin.rentals') }}">Current Rentals</a>
     </li>
     <li class="nav-item">
