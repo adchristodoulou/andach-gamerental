@@ -23,4 +23,15 @@ class Page extends Model
 
     	return '';
     }
+
+    //Replaces certain elements with bootstrap classes. 
+    public function getBootstrappedBodyAttribute()
+    {
+        $return = $this->body;
+
+        $return = str_replace('<blockquote>', '<blockquote class="blockquote">', $return);
+        $return = str_replace('type="button"', 'type="button" class="form-control btn btn-success"', $return);
+
+        return $return;
+    }
 }

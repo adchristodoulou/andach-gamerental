@@ -17,7 +17,7 @@
 @section('content')
 	<div class="row" itemscope itemtype ="http://schema.org/Article">
 		<div class="col-12">
-			{!! $page->body !!}
+			{!! $page->bootstrapped_body !!}
 		</div>
 	</div>
 @endsection
