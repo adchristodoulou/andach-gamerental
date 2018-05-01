@@ -88,7 +88,7 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			{{ Form::submit('Add this Game', ['class' => 'form-control']) }}
+			{{ Form::submit('Add this Game', ['class' => 'form-control btn btn-success']) }}
 		</div>
 	</div>
 

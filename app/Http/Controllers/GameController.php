@@ -188,7 +188,7 @@ class GameController extends Controller
             $api = IGDB::searchGames($request->name);
             foreach ($api as $game)
             {
-                $errors[] = $game->id.' - '.$game->name;
+                $errors[] = $game->id.' - '.$game->name.'<br />';
             }
 
             if (count($errors))
@@ -203,6 +203,14 @@ class GameController extends Controller
             'system_id' => 'required',
             'gamesdb_id' => 'required',
         ]);
+
+        //Now we need to check that there's no existing game with this ID. 
+        $existingGames = Game::where('system_id', $request->system_id)->where('gamesdb_id', $request->gamesdb_id);
+        if ($existingGames->count())
+        {
+            session()->flash('danger', 'This combination of SystemID and IGDB ID already exists. You probably want to edit this game.');
+            return redirect()->route('game.edit', $existingGames->first()->id);
+        }
 
         $game = Game::create($request->all());
 
@@ -223,7 +231,16 @@ class GameController extends Controller
     {
         $request->validate([
             'system_id' => 'required',
+            'gamesdb_id' => 'required',
         ]);
+
+        //Now we need to check that there's no existing game with this ID. 
+        $existingGames = Game::where('system_id', $request->system_id)->where('gamesdb_id', $request->gamesdb_id)->where('id', '<>', $id);
+        if ($existingGames->count())
+        {
+            session()->flash('danger', 'This combination of SystemID and IGDB ID already exists. You probably want to edit this game.');
+            return redirect()->route('game.edit', $existingGames->first()->id);
+        }
 
         $game = Game::find($id);
 
