@@ -12,7 +12,7 @@ class PlanController extends Controller
 {
     public function index()
     {
-        return view('plans.index')->with(['plans' => Plan::get()]);
+        return view('plans.index')->with(['plans' => Plan::where('is_visible', 1)->get()]);
     }
 
     public function show($id)
