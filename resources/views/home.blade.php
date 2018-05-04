@@ -14,22 +14,22 @@
         <h2>Rent video games rather than buying them with Andach Games</h2>
         <div class="row">
           <div class="col-12 col-md-4">
-            <div class="rounded px-1 border border-dark" style="background-color: #084c61; height: 100%">
-              <p class="text-center text-white">
+            <div class="rounded px-1 border border-dark" style="background-color: #DBA800; height: 100%">
+              <p class="text-center text-grey">
                 <i class="fa fa-gbp fa-5x"" aria-hidden="true"></i>
               </p>
-              <p class="text-center text-white">
-                It's cheaper. Even second hand games now can be astonishingly expensive, and you're stuffed if you find out you don't like one. Not with Andach - just send it back and get another at no extra cost! All postage (both ways) is first class and included in the cost of your subscription. 
+              <p class="text-center text-grey">
+                <b>It's cheaper.</b> Even second hand games now can be astonishingly expensive, and you're stuffed if you find out you don't like one. Not with Andach - just send it back and get another at no extra cost! All postage (both ways) is first class and included in the cost of your subscription. 
               </p>
             </div>
           </div>
           <div class="col-12 col-md-4">
-            <div class="rounded px-1 border border-dark" style="background-color: #345995; height: 100%">
-              <p class="text-center text-white">
+            <div class="rounded px-1 border border-dark" style="background-color: #db3a34; height: 100%">
+              <p class="text-center text-grey">
                 <i class="fa fa-edit fa-5x"" aria-hidden="true"></i>
               </p>
-              <p class="text-center text-white">
-                Register Today for just &pound;3.99 per month for our cheapest plan, or &pound;9.99 per month for unlimited games! We're completely open about how much stock we have, unlike some games rental companies, so you'll always be able to see what you can get. No late fees, no tie-in periods, no contracts. 
+              <p class="text-center text-grey">
+                Register Today for just &pound;3.99 per month for our cheapest plan, or &pound;9.99 per month for unlimited games! <b>We're completely open about how much stock we have</b>, unlike some games rental companies, so you'll always be able to see what you can get. No late fees, no tie-in periods, no contracts. 
               </p>
             </div>
           </div>
@@ -71,7 +71,7 @@
           <p>Our entire website is fully <a href="/open-source">open source</a> and our business is completely open, reflecting the way we think you should do business. </p>
           <p>You pay a regular monthly fee and get as many games as you like! There's no catch, there's no small print. 
           <p>
-            <a class="btn btn-primary btn-lg" href="/register">Register Now! &raquo;</a>
+            <a class="btn btn-success btn-lg" href="/register">Register Now! &raquo;</a>
           </p>
         </div>
         <div class="col-sm-4">
@@ -98,28 +98,28 @@
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card">
             <div class="card-header text-center" style="background-color: #898486">
-              <i class="fa fa-search fa-5x" style="color: #084c61" aria-hidden="true"></i>
+              <i class="fa fa-search fa-5x" style="color: #db3a34" aria-hidden="true"></i>
             </div>
             <div class="card-body">
               <h4 class="card-title">Sign Up</h4>
               <p class="card-text">Sign up for an account through our secure, encrypted third party payment provider. We never see and can never access your full credit card information. </p>
             </div>
             <div class="card-footer text-center">
-              <a href="{{ route('register') }}" class="btn btn-primary" style="background-color: #084c61; border: 1px solid black">Register Now!</a>
+              <a href="{{ route('register') }}" class="btn btn-primary" style="background-color: #db3a34; border: 1px solid black">Register Now!</a>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card">
             <div class="card-header text-center" style="background-color: #898486">
-              <i class="fa fa-list-ol fa-5x" style="color: #345995" aria-hidden="true"></i>
+              <i class="fa fa-list-ol fa-5x" style="color: #DBA800" aria-hidden="true"></i>
             </div>
             <div class="card-body">
               <h4 class="card-title">Add to List</h4>
               <p class="card-text">Browse and search for games you want, to create an ordered list of your preferenes for us to send to you. </p>
             </div>
             <div class="card-footer text-center">
-              <a href="{{ route('game.search') }}" class="btn btn-primary" style="background-color: #345995; border: 1px solid black">Search our Games Database</a>
+              <a href="{{ route('game.search') }}" class="btn btn-primary" style="background-color: #DBA800; border: 1px solid black">Search our Games Database</a>
             </div>
           </div>
         </div>
