@@ -290,6 +290,8 @@ class Game extends Model
         $this->update($updateArray);
 
         $this->save();
+        
+        return [];
     }
 
     public function refreshInfo()
