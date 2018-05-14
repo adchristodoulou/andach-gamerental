@@ -222,7 +222,7 @@ class GameController extends Controller
         $game->save();
         $game->refreshInfo();
 
-        $request->session()->flash('success', 'The game has successfully been added, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
+        $request->session()->flash('success', 'The game has successfully been added, <a target="_blank" href="'.route('game.show', $game->slug).'">click here to see it</a>!');
 
         return redirect()->route('game.create');
     }
@@ -262,7 +262,7 @@ class GameController extends Controller
             return redirect()->route('game.edit', $id);
         }
 
-        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->slug).'">click here to see it</a>!');
+        $request->session()->flash('success', 'The game has successfully been edited, <a href="'.route('game.show', $game->slug).'">click here to see it</a>! Alternatively you can <a href="'.route('game.create').'">create a new game</a>.)');
 
         return redirect()->route('game.edit', $id);
     }

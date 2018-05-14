@@ -22,7 +22,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="@yield('meta-description', 'Andach Games, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')">
+    <meta name="description" content="@yield('meta-description', 'Andach Games, Video Game Rentals for Xbox One, 360, PS3, PS4 Gaming. Rent unlimited games for only &pound;9.99 per month!')">
     <meta name="author" content="">
     <meta name="p:domain_verify" content="99c61c01911c03b4928a9b63f479c92a"/>
 
@@ -45,11 +45,11 @@
     <meta property="og:title" content="@yield('title', 'Andach Video Game Rentals - Xbox One and 360, PS3, PS4 and Wii')"/>
     <meta property="og:site_name" content="Andach Video Game Rentals"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:description" content="@yield('meta-description', 'Andach Games, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')" />
+    <meta property="og:description" content="@yield('meta-description', 'Andach Games, Video Game Rentals for Xbox One, 360, PS3, PS4 Gaming. Rent unlimited games for only &pound;9.99 per month!')" />
     <meta property="og:image" content="@yield('image', '')" />
 
     <meta property="twitter:card" content="product" />
-    <meta property="twitter:description" content="@yield('meta-description', 'Andach Games, Video Game Rentals for Xbox One, 360, PS3, PS4 and Retro Gaming. Rent unlimited games for only &pound;9.99 per month!')" />
+    <meta property="twitter:description" content="@yield('meta-description', 'Andach Games, Video Game Rentals for Xbox One, 360, PS3, PS4 Gaming. Rent unlimited games for only &pound;9.99 per month!')" />
     <meta property="twitter:title" content="@yield('title', 'Andach Video Game Games - Xbox One and 360, PS3, PS4 and Wii')"/>
     <meta property="twitter:url" content="{{ url()->current() }}"/>
     <meta property="twitter:image" content="@yield('image', '')" />
@@ -80,11 +80,11 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
           <div>
-            <img src="/images/template/andach-rental-logo.png" alt="Andach Header Logo" />
+              <a href="/"><img src="/images/template/andach-rental-logo.png" alt="Andach Header Logo" /></a>
           </div>
           <div id="navbar-title">
             <a class="navbar-brand" href="/">Andach Game Rentals</a><br />
-            <h1>@yield('h1', 'Xbox, Playstation and retro game rentals!')</h1>
+            <h1>@yield('h1', 'Xbox and Playstation game rentals!')</h1>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -172,6 +172,7 @@
     </nav>
 
     <!-- Products Menu -->
+    <!--
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #db3a34">
       <div class="container">
         <div id="navbar-title">
@@ -200,6 +201,7 @@
         </div>
       </div>
     </nav>
+    -->
 
     @if (Session::has('success'))
     <div class="container">

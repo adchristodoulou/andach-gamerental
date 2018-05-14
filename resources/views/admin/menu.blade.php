@@ -10,6 +10,9 @@
       <a class="nav-link  @if(Route::is('admin.rentals')) active @endif" href="{{ route('admin.rentals') }}">Current Rentals</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link  @if(Route::is('game.create')) active @endif" href="{{ route('game.create') }}">Game Create</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  @if(Route::is('admin.gameindex')) active @endif" href="{{ route('admin.gameindex') }}">Game Index</a>
     </li>
     <li class="nav-item">
