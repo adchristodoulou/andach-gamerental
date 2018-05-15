@@ -160,8 +160,8 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-{{ $system->url }}">
                   <a class="dropdown-item" href="{{ route('game.search', ['system_id' => $system->url]) }}">All Games</a>
                   <div class="dropdown-divider"></div>
-                    @foreach ($gamecategories as $category)
-                    <a class="dropdown-item" href="{{ route('game.search', ['system_id' =>  $system->url, 'category_id' => $category->url]) }}">{{ $category->name }}</a> 
+                    @foreach ($gamegenres as $genre)
+                    <a class="dropdown-item" href="{{ route('game.search', ['system_id' =>  $system->url, 'genre_id' => $genre->slug]) }}">{{ $genre->name }}</a> 
                     @endforeach
                 </div>
               </li>

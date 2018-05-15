@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App;
 use App\Cart;
-use App\Category;
 use App\Game;
+use App\Genre;
 use App\ProductCategory;
 use App\System;
 use Auth;
@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             $systems  = array_flip(array_flip(array_filter($systems)));
             $gamemenu = System::whereIn('id', $systems)->orderBy('id', 'desc')->get();
 
-            $categories = Category::all();
+            $genres = Genre::orderBy('name')->get();
 
             $numberofitemsincart = Cart::myCartCount();
 
@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         View::share('gamemenu', $gamemenu);
-        View::share('gamecategories', $categories);
+        View::share('gamegenres', $genres);
         View::share('numberofitemsincart', $numberofitemsincart);
         View::share('productCategories', $productCategories);
         

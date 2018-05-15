@@ -323,6 +323,12 @@ class Game extends Model
     {
         return $this->hasMany('App\Rental', 'game_id');
     }
+    
+    public function scopeGenre($query, $genreID)
+    {
+        return $query->join('link_games_genres', 'games.id', '=', 'link_games_genres.game_id')
+               ->where('link_games_genres.genre_id', $genreID );
+    }
 
     public function screenshots()
     {

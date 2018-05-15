@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Game;
+use App\Genre;
 use App\Page;
 use App\Rating;
 use App\System;
@@ -135,11 +136,7 @@ class GameController extends Controller
 
         if ($request->rating_id)
         {
-            $sqlvalue = Rating::where('name', $request->rating_id)->first();
-            if ($sqlvalue)
-            {
-                $where[] = ['rating_id', '=', $sqlvalue->id];
-            }
+            $where[] = ['pegi_rating', '=', $request->rating_id];
         }
 
         if ($request->system_id)
@@ -153,14 +150,21 @@ class GameController extends Controller
 
         //dd($where);
 
-        $games = Game::where($where)->paginate(20);
+        if ($request->genre_id)
+        {
+            $genre = Genre::where('slug', $request->genre_id)->first();
+            $games = Game::genre($genre->id)->where($where)->paginate(20);
+        } else {
+            $games = Game::where($where)->paginate(20);
+        }
 
         $systems = System::all()->pluck('name', 'url');
         $categories = Category::all()->pluck('name', 'url');
-        $rating = Rating::all()->pluck('name', 'name');
+        $genres = Genre::orderby('name')->pluck('name', 'slug');
+        $rating = Rating::all()->pluck('name', 'id');
         $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
 
-        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
+        return view('game.index', ['games' => $games, 'genres' => $genres, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
 
     public function show($id)

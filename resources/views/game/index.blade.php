@@ -21,8 +21,8 @@
 	<div class="row">
 		<div class="col-3 col-md-2">Only Available?</div>
 		<div class="col-9 col-md-4">{{ Form::checkbox('num_available', 1, null, ['class' => 'form-control']) }}</div>
-		<div class="col-3 col-md-2">Category:</div>
-		<div class="col-9 col-md-4">{{ Form::select('category_id', $categories, null, ['class' => 'form-control', 'placeholder' => '']) }}</div>
+		<div class="col-3 col-md-2">Genre:</div>
+		<div class="col-9 col-md-4">{{ Form::select('genre_id', $genres, null, ['class' => 'form-control', 'placeholder' => '']) }}</div>
 	</div>
 	<div class="row">
 		<div class="col-3 col-md-2">Only Premium?</div>
