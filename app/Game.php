@@ -252,6 +252,25 @@ class Game extends Model
         //$updateArray['release_date'] = date('Y-m-d', (int) $releaseDate);
         
         $this->genres()->sync($api->genres ?? array());
+        
+        //Syncing the genres is one thing. Now have to make sure they all exist. 
+        foreach ($api->genres as $genreID)
+        {
+            $genre = IGDB::getGenre($genreID);
+            
+            if (!Genre::find($genreID))
+            {
+                $insert['id'] = $genre->id;
+                $insert['name'] = $genre->name;
+                $insert['slug'] = $genre->slug;
+                
+                $newGenre = new Genre($insert);
+                $newGenre->save();
+            }
+        }
+        
+        
+        
         $this->modes()->sync($api->game_modes ?? array());
 
         $websiteArray = $api->websites ?? array();
