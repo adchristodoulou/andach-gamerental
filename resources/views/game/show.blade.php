@@ -20,10 +20,48 @@ Rent {{ $game->name }} for {{ $game->system->name }} from Andach Game Rentals
 Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Video Games
 @endsection
 
+
+
+@section('microdata')
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "VideoGame",
+  "author": {
+    "@type": "Organization",
+    "name": "Andach Games Ltd"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Andach Games Ltd",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://andachgames.co.uk/images/template/andach-rental-logo.png",
+      "width": 98,
+      "height": 60
+    }
+  },
+  "mainEntityOfPage": {
+   "@type": "WebPage",
+   "@id": "{{ url()->current() }}"
+  },
+  "datePublished": "{{ $game->created_at }}",
+  "dateModified": "{{ $game->updated_at }}",
+  "name": "{{ $game->name }}",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://andachgames.co.uk/images/template/andach-rental-logo.png",
+    "width": 98,
+    "height": 60
+  }
+}
+</script>
+@endsection
+
 @section('content')
-	<div class="row" itemscope itemtype ="http://schema.org/Product">
+	<div class="row">
 		<div class="col-lg-4 text-center">
-			<img itemprop="screenshot" src="/storage/{{ $game->thumb_url }}" alt="Rent {{ $game->name }} for {{ $game->system->name }}" />
+			<img src="/storage/{{ $game->thumb_url }}" alt="Rent {{ $game->name }} for {{ $game->system->name }}" />
 			<br />
 			{{ $game->num_in_stock_format }} in stock, with {{ $game->num_available_format }} available right now.
 			<br />
@@ -40,7 +78,7 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Vid
 			@endif
 		</div>
 		<div class="col-lg-6">
-			<h2>Rent {{ $game->name }} for <span itemprop="gamePlatform">{{ $game->system->name }}</span></h2>
+            <h2>Rent {{ $game->name }} for <span itemprop="gamePlatform">{{ $game->system->name }}</span></h2>
 			@if (Auth::check())
 				@if (Auth::user()->isAdmin())
 					<p><a href="{{ route('game.edit', $game->id) }}">Edit this Game</a></p>
