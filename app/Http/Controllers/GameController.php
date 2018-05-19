@@ -78,8 +78,11 @@ class GameController extends Controller
 
     public function homepage()
     {
-        $xboxone = Game::where('system_id', 4920)->get()->random(4);
-        $ps4     = Game::where('system_id', 4919)->get()->random(4);
+        $xboxonecount = Game::where('system_id', 4920)->count();
+        $ps4count = Game::where('system_id', 4919)->count();
+        
+        $xboxone = Game::where('system_id', 4920)->get()->random(min(4, $xboxonecount));
+        $ps4     = Game::where('system_id', 4919)->get()->random(min(4, $ps4count));
 
         return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
     }
