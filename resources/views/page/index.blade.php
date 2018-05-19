@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('admin.menu')
 	
 	<h2>Pages Index</h2>
 

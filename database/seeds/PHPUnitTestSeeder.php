@@ -108,6 +108,16 @@ class PHPUnitTestSeeder extends Seeder
             'html_title' => 'TEST HTMLTITLE',
             'meta_description' => 'TEST METADESCRIPTION',
             'slug' => 'test-page',
+            'is_commentable' => 1,
+        ]);
+
+        DB::table('pages')->insert([
+            'body' => 'TEST SECOND BODY',
+            'name' => 'TEST SECOND NAME',
+            'h1' => 'TEST SECOND H1',
+            'html_title' => 'TEST SECOND HTMLTITLE',
+            'meta_description' => 'TEST SECOND METADESCRIPTION',
+            'slug' => 'test-second-page',
         ]);
 
         DB::table('plans')->insert([

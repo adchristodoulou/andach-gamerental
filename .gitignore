@@ -12,3 +12,4 @@ yarn-error.log
 .env
 /.env.testing
 /nbproject
+/gamerental_testing

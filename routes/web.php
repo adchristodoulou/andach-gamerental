@@ -22,6 +22,7 @@ Route::get('/', 'GameController@homepage')->name('home');
 Route::get('page', 'PageController@index')->name('page.index');
 Route::post('page', 'PageController@store')->name('page.store');
 Route::get('page/create', 'PageController@create')->name('page.create');
+Route::post('page/addcomment', 'PageController@addComment')->name('page.addcomment');
 Route::put('page/{id}', 'PageController@update')->name('page.update');
 Route::delete('page/{id}', 'PageController@destroy')->name('page.destroy');
 Route::get('page/{slug}/edit', 'PageController@edit')->name('page.edit');
@@ -135,4 +136,4 @@ Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProv
 
 Route::get('sitemap', 'SitemapController@index')->name('sitemap');
 
-Route::get('{slug}', 'PageController@show')->name('page.show');
+Route::get('{slug}', 'PageController@show')->where('slug', '(.*)')->name('page.show');

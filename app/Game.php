@@ -137,6 +137,11 @@ class Game extends Model
             case 5: return '/images/pegi/18.svg';
         }
     }
+    
+    public function getSlugNameAttribute()
+    {
+        return $this->name.' for '.$this->system->name;
+    }
 
     //This is the HTML to show the box for the wishlist itself. 
     public function getWishlistAttribute()
@@ -177,6 +182,11 @@ class Game extends Model
         if (!Auth::check()) return false;
 
         return count($this->wishlists()->where('user_id', Auth::id())->get());
+    }
+    
+    public function pages()
+    {
+        return $this->hasMany('App\Page', 'game_id');
     }
 
     public function publisher()

@@ -85,6 +85,12 @@ Rent {{ $game->name }} for {{ $game->system->name }} | Andach Game Rentals | Vid
 					<p><a href="{{ route('admin.stock', $game->id) }}">Edit Stock for this Game</a></p>
 				@endif
 			@endif
+            
+            @if ($game->pages)
+                @foreach ($game->pages as $page)
+                    <p><a href="{{ route('page.show', $page->slug) }}">{{ $page->name }}</a></p>
+                @endforeach
+            @endif
 
 			@if ($game->publisher)
 				<p>Publisher: {{ $game->publisher }}</p>

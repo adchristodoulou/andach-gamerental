@@ -60,6 +60,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Cart', 'user_id');
     }
+    
+    public function comments()
+    {
+        return $this->hasMany('App\PageComment', 'user_id');
+    }
 
     public function contacts()
     {

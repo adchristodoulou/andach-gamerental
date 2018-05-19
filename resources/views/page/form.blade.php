@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('admin.menu')
 	@if (isset($page))
 		{!! Form::model($page, ['route' => ['page.update', $page->id], 'files' => true, 'method' => 'PUT']) !!}
 	@else
@@ -57,6 +58,20 @@
 		{!! Form::label('date_published', 'Date Published:', ['class' => 'col-lg-2 control-label']) !!}
 		<div class="col-lg-10">
 	    	{!! Form::date('date_published', null, ['class' => 'form-control']) !!}
+		</div>
+	</div>
+
+	<div class="row">
+		{!! Form::label('game_id', 'Game (optional)', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::select('game_id', $games, null, ['class' => 'form-control', 'placeholder' => '-- please select game --']) !!}
+		</div>
+	</div>
+
+	<div class="row">
+		{!! Form::label('is_commentable', 'Is Commentable?', ['class' => 'col-lg-2 control-label']) !!}
+		<div class="col-lg-10">
+	    	{!! Form::checkbox('is_commentable', 1, null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
 

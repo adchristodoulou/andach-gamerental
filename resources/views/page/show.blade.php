@@ -56,4 +56,20 @@
 			{!! $page->bootstrapped_body !!}
 		</div>
 	</div>
+
+    @if (count($page->comments))
+        <h2>{{ count($page->comments) }} Comment(s) on this Page</h2>
+        @foreach ($page->comments as $comment)
+            {!! $comment->box !!}
+        @endforeach
+    @endif
+
+    @if ($page->canComment())
+        {{ Form::open(['route' => 'page.addcomment', 'method' => 'post']) }}
+        <h2>Add a Comment</h2>
+        <p>{{ Form::hidden('id', $page->id) }}</p>
+        <p>{{ Form::textarea('comment', null, ['class' => 'form-control']) }}</p>
+        <p>{{ Form::submit('Add Comment', ['class' => 'form-control btn btn-success']) }}</p>
+        {{ Form::close() }}
+    @endif
 @endsection
