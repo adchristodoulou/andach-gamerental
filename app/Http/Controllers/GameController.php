@@ -91,9 +91,10 @@ class GameController extends Controller
         $systems = System::all()->pluck('name', 'url');
         $categories = Category::all()->pluck('name', 'url');
         $rating = Rating::all()->pluck('name', 'name');
+        $genres = Genre::all()->pluck('name', 'id');
         $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
 
-        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
+        return view('game.index', ['genres' => $genres, 'games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
 
     public function search(Request $request)
