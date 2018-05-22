@@ -188,12 +188,18 @@ class Game extends Model
     {
         return $this->hasMany('App\Page', 'game_id');
     }
+    
+    public function pegiRating()
+    {
+    	return $this->belongsTo('App\Rating', 'pegi_rating');
+    }
 
     public function publisher()
     {
         return $this->belongsTo('App\Publisher', 'publisher_id');
     }
 
+    //TODO: Safely delete this function as moved to pegi_rating()
     public function rating()
     {
     	return $this->belongsTo('App\Rating', 'rating_id');

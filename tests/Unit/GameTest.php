@@ -34,6 +34,25 @@ class GameTest extends TestCase
 
         $response = $this->followingRedirects()->get('/user/account');
         $response->assertSee('TEST GAME IN STOCK');
+
+        //Child is limited to 12 years old. 
+        $user = User::find(3);
+        $this->be($user);
+
+        $response = $this->followingRedirects()->post('/game/addtowishlist', [
+            'id' => 1,
+            ]);
+        $response->assertSee('cannot be added to your wishlist because its age rating');
+
+        $response = $this->followingRedirects()->post('/game/addtowishlist', [
+            'id' => 2,
+            ]);
+        $response->assertSee('This game has been added to your wishlist');
+
+        $response = $this->followingRedirects()->post('/game/addtowishlist', [
+            'id' => 3,
+            ]);
+        $response->assertSee('cannot be added to your wishlist because its age rating');
     }
 
     public function test_create()

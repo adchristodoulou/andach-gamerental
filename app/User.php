@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Mail\UserAgeLimit;
 use App\Wishlist;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
+use Mail;
 
 class User extends Authenticatable
 {
@@ -40,10 +42,29 @@ class User extends Authenticatable
             session()->flash('success', 'You aleady had this game on your wishlist.');
             return true;
         } else {
+            //Check that the account is not age restricted
+            if (!$this->gameAgeRatingAppropriate($gameID))
+            {
+                $game = Game::find($gameID);
+                session()->flash('danger', 'The game cannot be added to your wishlist because its age rating of '.$game->pegiRating->name.' is higher than your account limit of '.$this->maximum_age.'.');
+                return false;
+            }
             session()->flash('success', 'This game has been added to your wishlist.');
             $wish = new Wishlist(['game_id' => $gameID, 'order' => 1000]);
             $this->wishlists()->save($wish);
+            return true;
         }
+    }
+    
+    public function ageLimitToConfirm($age)
+    {
+        $this->maximum_age_hash = uniqid();
+        $this->maximum_age_expiry = date('Y-m-d h:i:d', strtotime('+24 hours'));
+        $this->maximum_age_held = $age;
+        $this->save();
+        
+        Mail::to($this)->send(new UserAgeLimit($this));
+        Mail::to('andreas@andachrental.co.uk')->send(new UserAgeLimit($this));
     }
 
     public function assignmentRuns()
@@ -64,6 +85,24 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany('App\PageComment', 'user_id');
+    }
+    
+    public function confirmAgeLimit($hash)
+    {
+        if (strtotime($this->maximum_age_expiry) < strtotime('now'))
+        {
+            return false;
+        }
+        
+        if ($this->maximum_age_hash != $hash)
+        {
+            return false;
+        }
+        
+        $this->maximum_age = $this->maximum_age_held;
+        $this->save();
+        
+        return true;
     }
 
     public function contacts()
@@ -146,6 +185,40 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+    
+    public function gameAgeRatingAppropriate($gameID)
+    {
+        if (!$this->maximum_age)
+        {
+            return true;
+        }
+        
+        $game = Game::find($gameID);
+        
+        if (!$game->pegiRating) 
+        {
+            return false;
+        }
+        
+        if ($game->pegiRating->minimum_age > $this->maximum_age)
+        {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public function getAgeLimitBoxAttribute()
+    {
+        if ($this->maximum_age)
+        {
+            $return = 'There is currently a maximum age limit set on this account, which is '.$this->maximum_age.'.';
+        } else {
+            $return = 'There is no maximum age limit currently set on this account';
+        }
+        
+        return '<div class="alert alert-info">'.e($return).'</div>';
     }
 
     public function invoices()

@@ -70,6 +70,9 @@ Route::get('category-{slug}', 'ProductController@showcategory')->name('product.s
 ********************/
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
+Route::get('user/agelimit', 'UserController@ageLimit')->name('user.agelimit');
+Route::get('user/agelimitconfirm/{hash}', 'UserController@ageLimitConfirm')->name('user.agelimitconfirm');
+Route::post('user/agelimitupdate', 'UserController@ageLimitUpdate')->name('user.agelimitupdate');
 Route::get('user/edit', 'UserController@edit')->name('user.edit');
 Route::get('user/history', 'UserController@history')->name('user.history');
 Route::get('user/invoice/{id}', 'UserController@invoiceShow')->name('user.invoiceshow');

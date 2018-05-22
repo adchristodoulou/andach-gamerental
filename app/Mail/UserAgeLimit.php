@@ -2,25 +2,25 @@
 
 namespace App\Mail;
 
-use App\Rental;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GameReceived extends Mailable
+class UserAgeLimit extends Mailable
 {
     use Queueable, SerializesModels;
-    public $rental;
-
+    public $user;
+    
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Rental $rental)
+    public function __construct(User $user)
     {
-        $this->rental = $rental;
+        $this->user = $user;
     }
 
     /**
@@ -30,8 +30,8 @@ class GameReceived extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@andachrental.co.uk')
-            ->subject('Andach Games: '.$this->rental->game->name.' has been received')
-            ->view('email.gamereceived');
+        return $this->from('noreply@andachgames.co.uk')
+            ->subject('Andach Games: Update Your Age Limit')
+            ->view('email.useragelimit');
     }
 }

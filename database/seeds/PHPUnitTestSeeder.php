@@ -43,6 +43,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4920,
             'num_in_stock' => 1,
             'num_available' => 1,
+            'pegi_rating' => 4,
         ]);
 
         DB::table('games')->insert([
@@ -51,6 +52,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4919,
             'num_in_stock' => 0,
             'num_available' => 0,
+            'pegi_rating' => 1,
         ]);
 
         DB::table('games')->insert([
@@ -230,6 +232,14 @@ class PHPUnitTestSeeder extends Seeder
         	'name' => 'Normal User',
         	'email' => 'user@example.com',
         	'password' =>  bcrypt('userpass'),
+        ]);
+
+        DB::table('users')->insert([
+        	'id' => 3,
+        	'name' => 'Age Limited User',
+        	'email' => 'child@example.com',
+        	'password' =>  bcrypt('userpass'),
+            'maximum_age' => 12,
         ]);
     }
 }
