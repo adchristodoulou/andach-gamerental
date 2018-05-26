@@ -32,7 +32,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
@@ -105,9 +105,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/open-source">Open Source</a>
-              </li>
               @if (Auth::check())
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('log-out') }}">Log Out</a>
@@ -128,15 +125,7 @@
                   <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
               @endif
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('product.cart') }}">Cart
-                  @if (isset($numberofitemsincart))
-                    @if ($numberofitemsincart > 0)
-                      ({{ $numberofitemsincart }})
-                    @endif
-                  @endif
-                </a>
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -204,6 +193,10 @@
     </nav>
     -->
 
+    <div class="container" style="background-color: #e9ecef">
+      @yield('breadcrumbs')
+    </div>
+
     @if (Session::has('success'))
     <div class="container">
       <div class="row">
@@ -237,10 +230,6 @@
       </div>
       @endif
     @endif
-
-    <div class="container" style="background-color: #e9ecef">
-      @yield('breadcrumbs')
-    </div>
 
     <!-- Page Content -->
     <div class="container" id="contentcontainer">
