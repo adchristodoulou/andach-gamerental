@@ -20,7 +20,7 @@ class UserTest extends TestCase
         $this->be($user);
 
         $response = $this->get('/user/account');
-        $response->assertSee('My Current Wishlist');
+        $response->assertSee('My Current List');
     }
 
     public function test_accountUpdate()

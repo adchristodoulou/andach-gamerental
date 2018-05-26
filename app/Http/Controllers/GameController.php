@@ -162,7 +162,7 @@ class GameController extends Controller
             $games = Game::where($where)->paginate(20);
         }
 
-        $systems = System::all()->pluck('name', 'url');
+        $systems = System::has('games')->pluck('name', 'url');
         $categories = Category::all()->pluck('name', 'url');
         $genres = Genre::orderby('name')->pluck('name', 'slug');
         $rating = Rating::all()->pluck('name', 'id');

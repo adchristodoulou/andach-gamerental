@@ -148,6 +148,9 @@ class Game extends Model
     {
         return '
         <div class="row">
+            <div class="col-1">
+                <input type="checkbox" name="delete[]" value="'.$this->id.'" class="form-control">
+            </div>
             <div class="col-2">
                 <a href="'.route('game.show', $this->slug).'">
                     <img src="/storage/'.$this->thumb_url.'" class="img-flex" height="120px" alt="Game Box Art for '.$this->name.'"> 
@@ -157,9 +160,6 @@ class Game extends Model
             <div class="col-6">
                 '.$this->num_in_stock_format.' in stock, '.$this->num_available_format.' available
                 <input type="hidden" name="order[]" value="'.$this->id.'">
-            </div>
-            <div clas="col-1">
-                <input type="checkbox" name="delete[]" value="'.$this->id.'">
             </div>
         </div>';
     }

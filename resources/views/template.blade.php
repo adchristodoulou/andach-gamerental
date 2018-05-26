@@ -158,6 +158,15 @@
             @endforeach
           </ul>
         </div>
+
+        <form action="/search-games" method="get">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+          </div>
+          <input type="text" name="name" class="form-control" placeholder="Search for a Game" />
+        </div>
+        </form>
       </div>
     </nav>
 
