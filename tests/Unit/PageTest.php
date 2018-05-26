@@ -10,6 +10,26 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class PageTest extends TestCase
 {
     use RefreshDatabase;
+    
+    public function test_addComment()
+    {
+        $response = $this->followingRedirects()->post('/page/addcomment', ['id' => 1, 'comment' => 'x']);
+        $response->assertSee('You need to be logged in to comment on a page');
+        
+        $user = User::find(2);
+        $this->be($user);
+        
+        $response = $this->followingRedirects()->post('/page/addcomment', ['id' => 1, 'comment' => 'TEST COMMENT MADE JUST NOW']);
+        $response->assertDontSee('You need to be logged in to comment on a page');
+        
+        $response = $this->followingRedirects()->post('/page/addcomment', ['id' => 2, 'comment' => 'TEST COMMENT MADE JUST NOW']);
+        $response->assertSee('You cannot comment on this page');
+        
+        $response = $this->get('/test-page');
+        $response->assertStatus(200);
+        $response->assertSee('TEST BODY');
+        $response->assertSee('TEST COMMENT MADE JUST NOW');
+    }
 
     public function test_create()
     {
@@ -66,7 +86,7 @@ class PageTest extends TestCase
         $this->be($user);
         
         $response = $this->get('/page');
-        $response->assertSee('TEST NAME');
+        $response->assertSee('TEST H1');
         $response->assertSee('Pages Index');
     }
 

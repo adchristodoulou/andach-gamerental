@@ -73,7 +73,7 @@ class AdminTest extends TestCase
         $this->be($user);
 
         $response = $this->get('/admin/product/create');
-        $response->assertSee('Create or Edit Product');
+        $response->assertSee('Create Product');
     }
 
     public function test_productEdit()
@@ -224,7 +224,6 @@ class AdminTest extends TestCase
 
         $response = $this->get('/admin/upload-games');
         $response->assertSee('Upload Games');
-        $response->assertDontSee('Upload Stock');
     }
 
     public function test_uploadGamesPost()
@@ -239,7 +238,6 @@ class AdminTest extends TestCase
         $this->be($user);
 
         $response = $this->get('/admin/upload-stock');
-        $response->assertDontSee('Upload Games');
         $response->assertSee('Upload Stock');
     }
 

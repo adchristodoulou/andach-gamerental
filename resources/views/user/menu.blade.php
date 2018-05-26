@@ -3,6 +3,9 @@
 	    <a class="nav-link @if(Route::is('user.account')) active @endif" href="{{ route('user.account') }}">Wishlist</a>
 	  </li>
 	  <li class="nav-item">
+	    <a class="nav-link @if(Route::is('user.agelimit')) active @endif" href="{{ route('user.agelimit') }}">Age Limit</a>
+	  </li>
+	  <li class="nav-item">
 	    <a class="nav-link @if(Route::is('user.subscription')) active @endif" href="{{ route('user.subscription') }}">Subscriptions</a>
 	  </li>
 	  <li class="nav-item">

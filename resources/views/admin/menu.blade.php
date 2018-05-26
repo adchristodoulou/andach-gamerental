@@ -16,6 +16,9 @@
       <a class="nav-link  @if(Route::is('admin.gameindex')) active @endif" href="{{ route('admin.gameindex') }}">Game Index</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link  @if(Route::is('page.index')) active @endif" href="{{ route('page.index') }}">Pages</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  @if(Route::is('admin.productindex')) active @endif" href="{{ route('admin.productindex') }}">Products</a>
     </li>
     <li class="nav-item">

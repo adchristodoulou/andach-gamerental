@@ -137,6 +137,11 @@ class Game extends Model
             case 5: return '/images/pegi/18.svg';
         }
     }
+    
+    public function getSlugNameAttribute()
+    {
+        return $this->name.' for '.$this->system->name;
+    }
 
     //This is the HTML to show the box for the wishlist itself. 
     public function getWishlistAttribute()
@@ -178,12 +183,23 @@ class Game extends Model
 
         return count($this->wishlists()->where('user_id', Auth::id())->get());
     }
+    
+    public function pages()
+    {
+        return $this->hasMany('App\Page', 'game_id');
+    }
+    
+    public function pegiRating()
+    {
+    	return $this->belongsTo('App\Rating', 'pegi_rating');
+    }
 
     public function publisher()
     {
         return $this->belongsTo('App\Publisher', 'publisher_id');
     }
 
+    //TODO: Safely delete this function as moved to pegi_rating()
     public function rating()
     {
     	return $this->belongsTo('App\Rating', 'rating_id');

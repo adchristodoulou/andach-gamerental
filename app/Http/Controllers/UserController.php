@@ -51,6 +51,43 @@ class UserController extends Controller
 
         return redirect()->route('user.account');
     }
+    
+    public function ageLimit()
+    {
+        $user = Auth::user();
+
+        return view('user.agelimit', ['user' => $user]);
+    }
+    
+    public function ageLimitConfirm($hash)
+    {
+        $user = User::where('maximum_age_hash', $hash)->first();
+        
+        if (!$user->count())
+        {
+            session()->flash('danger', 'Your code was not recognised');
+            return redirect()->route('home');
+        }
+        
+        if ($user->confirmAgeLimit($hash))
+        {
+            session()->flash('success', 'Your new age limit has been confirmed');
+        } else {
+            session()->flash('danger', 'Your new age limit has not been set. It\'s most likely expired. Please head into your <a href="'.route('user.agelimit').'">user area</a> and get a new email sent to you.');
+        }
+        
+        return redirect()->route('home');
+    }
+    
+    public function ageLimitUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $user->ageLimitToConfirm($request->age);
+        session()->flash('success', 'Please click the link in your email to confirm your new age limit.');
+        
+        return redirect()->route('user.agelimit');
+    }
 
     public function cancelSubscription(Request $request)
     {

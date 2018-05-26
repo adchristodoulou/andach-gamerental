@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+	@include('admin.menu')
 	@if (isset($game))
 		{!! Form::model($game, ['route' => ['game.update', $game->id], 'files' => true, 'method' => 'PUT']) !!}
 	@else

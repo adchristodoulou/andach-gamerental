@@ -153,6 +153,10 @@ class Product extends Model
 
     public function setMainPictureAsFirst()
     {
+        if (!$this->pictures->first())
+        {
+            return false;
+        }
         $this->pictures->first()->setMain(true);
     }
 

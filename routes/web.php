@@ -22,6 +22,7 @@ Route::get('/', 'GameController@homepage')->name('home');
 Route::get('page', 'PageController@index')->name('page.index');
 Route::post('page', 'PageController@store')->name('page.store');
 Route::get('page/create', 'PageController@create')->name('page.create');
+Route::post('page/addcomment', 'PageController@addComment')->name('page.addcomment');
 Route::put('page/{id}', 'PageController@update')->name('page.update');
 Route::delete('page/{id}', 'PageController@destroy')->name('page.destroy');
 Route::get('page/{slug}/edit', 'PageController@edit')->name('page.edit');
@@ -69,6 +70,9 @@ Route::get('category-{slug}', 'ProductController@showcategory')->name('product.s
 ********************/
 Route::get('user/account', 'UserController@account')->name('user.account');
 Route::post('user/accountupdate', 'UserController@accountUpdate')->name('user.accountupdate');
+Route::get('user/agelimit', 'UserController@ageLimit')->name('user.agelimit');
+Route::get('user/agelimitconfirm/{hash}', 'UserController@ageLimitConfirm')->name('user.agelimitconfirm');
+Route::post('user/agelimitupdate', 'UserController@ageLimitUpdate')->name('user.agelimitupdate');
 Route::get('user/edit', 'UserController@edit')->name('user.edit');
 Route::get('user/history', 'UserController@history')->name('user.history');
 Route::get('user/invoice/{id}', 'UserController@invoiceShow')->name('user.invoiceshow');
@@ -135,4 +139,4 @@ Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProv
 
 Route::get('sitemap', 'SitemapController@index')->name('sitemap');
 
-Route::get('{slug}', 'PageController@show')->name('page.show');
+Route::get('{slug}', 'PageController@show')->where('slug', '(.*)')->name('page.show');

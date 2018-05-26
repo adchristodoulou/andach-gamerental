@@ -43,6 +43,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4920,
             'num_in_stock' => 1,
             'num_available' => 1,
+            'pegi_rating' => 4,
         ]);
 
         DB::table('games')->insert([
@@ -51,6 +52,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4919,
             'num_in_stock' => 0,
             'num_available' => 0,
+            'pegi_rating' => 1,
         ]);
 
         DB::table('games')->insert([
@@ -108,10 +110,21 @@ class PHPUnitTestSeeder extends Seeder
             'html_title' => 'TEST HTMLTITLE',
             'meta_description' => 'TEST METADESCRIPTION',
             'slug' => 'test-page',
+            'is_commentable' => 1,
+        ]);
+
+        DB::table('pages')->insert([
+            'body' => 'TEST SECOND BODY',
+            'name' => 'TEST SECOND NAME',
+            'h1' => 'TEST SECOND H1',
+            'html_title' => 'TEST SECOND HTMLTITLE',
+            'meta_description' => 'TEST SECOND METADESCRIPTION',
+            'slug' => 'test-second-page',
         ]);
 
         DB::table('plans')->insert([
             'name' => 'TEST PLAN 1PERMONTH',
+            'is_visible' => 1,
             'max_games_per_month' => 1,
             'max_games_simultaneously' => 1,
             'is_priority' => 0,
@@ -122,6 +135,7 @@ class PHPUnitTestSeeder extends Seeder
 
         DB::table('plans')->insert([
             'name' => 'TEST PLAN 1UNLIMITED',
+            'is_visible' => 1,
             'max_games_per_month' => 99,
             'max_games_simultaneously' => 1,
             'is_priority' => 0,
@@ -132,6 +146,7 @@ class PHPUnitTestSeeder extends Seeder
 
         DB::table('plans')->insert([
             'name' => 'TEST PLAN 2PRIORITY',
+            'is_visible' => 1,
             'max_games_per_month' => 99,
             'max_games_simultaneously' => 2,
             'is_priority' => 1,
@@ -142,6 +157,7 @@ class PHPUnitTestSeeder extends Seeder
 
         DB::table('plans')->insert([
             'name' => 'TEST PLAN 3UNLIMITED',
+            'is_visible' => 1,
             'max_games_per_month' => 99,
             'max_games_simultaneously' => 3,
             'slug' => 'test-plan-3unlimited',
@@ -207,6 +223,7 @@ class PHPUnitTestSeeder extends Seeder
         	'id' => 1,
         	'name' => 'Admin User',
         	'email' => 'admin@example.com',
+        	'is_admin' => 1,
         	'password' =>  bcrypt('adminpass'),
         ]);
 
@@ -215,6 +232,14 @@ class PHPUnitTestSeeder extends Seeder
         	'name' => 'Normal User',
         	'email' => 'user@example.com',
         	'password' =>  bcrypt('userpass'),
+        ]);
+
+        DB::table('users')->insert([
+        	'id' => 3,
+        	'name' => 'Age Limited User',
+        	'email' => 'child@example.com',
+        	'password' =>  bcrypt('userpass'),
+            'maximum_age' => 12,
         ]);
     }
 }

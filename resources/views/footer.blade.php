@@ -36,10 +36,10 @@
 			<div class="col-12 col-md-4">
 				<p><b>Social Media</b></p>
 				<p>
-					<a href="https://www.facebook.com/andachgames" style="color: #3B5998"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a> 
-					<a href="https://www.instagram.com/andachgames" style="color: #8a3ab9"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a> 
-					<a href="https://twitter.com/andachgames" style="color: #55acee"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a> 
-					<a href="https://www.pinterest.co.uk/andachgames" style="color: #cb2027"><i class="fa fa-pinterest fa-2x" aria-hidden="true"></i></a> 
+					<a href="https://www.facebook.com/andachgames" style="color: #3B5998"><i class="fab fa-facebook-square fa-2x" aria-hidden="true"></i></a> 
+					<a href="https://www.instagram.com/andachgames" style="color: #8a3ab9"><i class="fab fa-instagram fa-2x" aria-hidden="true"></i></a> 
+					<a href="https://twitter.com/andachgames" style="color: #55acee"><i class="fab fa-twitter fa-2x" aria-hidden="true"></i></a> 
+					<a href="https://www.pinterest.co.uk/andachgames" style="color: #cb2027"><i class="fab fa-pinterest fa-2x" aria-hidden="true"></i></a> 
 
 			</div>
 		</div>

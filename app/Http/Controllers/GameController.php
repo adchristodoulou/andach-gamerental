@@ -78,8 +78,11 @@ class GameController extends Controller
 
     public function homepage()
     {
-        $xboxone = Game::where('system_id', 4920)->get()->random(4);
-        $ps4     = Game::where('system_id', 4919)->get()->random(4);
+        $xboxonecount = Game::where('system_id', 4920)->count();
+        $ps4count = Game::where('system_id', 4919)->count();
+        
+        $xboxone = Game::where('system_id', 4920)->get()->random(min(4, $xboxonecount));
+        $ps4     = Game::where('system_id', 4919)->get()->random(min(4, $ps4count));
 
         return view('home', ['xboxone' => $xboxone, 'ps4' => $ps4]);
     }
@@ -91,9 +94,10 @@ class GameController extends Controller
         $systems = System::all()->pluck('name', 'url');
         $categories = Category::all()->pluck('name', 'url');
         $rating = Rating::all()->pluck('name', 'name');
+        $genres = Genre::all()->pluck('name', 'id');
         $premium = ['yes' => 'Only Premium', 'no' => 'Only Standard'];
 
-        return view('game.index', ['games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
+        return view('game.index', ['genres' => $genres, 'games' => $games, 'systems' => $systems, 'ratings' => $rating, 'premium' => $premium, 'categories' => $categories]);
     }
 
     public function search(Request $request)
