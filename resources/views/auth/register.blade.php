@@ -60,11 +60,11 @@ Register for Game Rentals | Plans from &pound3.99 per month | Andach Games
                     <h4 class="card-title">...or Register with Social Media</h4>
 
                     <a class="btn btn-block btn-social btn-facebook" href="/login/facebook/"">
-                        <span class="fa fa-facebook"></span> Register with Facebook
+                        <span class="fab fa-facebook"></span> Register with Facebook
                     </a>
 
                     <a class="btn btn-block btn-social btn-google" href="/login/google/"">
-                        <span class="fa fa-google"></span> Register with Google+
+                        <span class="fab fa-google"></span> Register with Google+
                     </a>
 
                     <p><i>In registering, you confirm you agree with the <a href="{{ route('page.show', 'terms-and-conditions') }}">terms and conditions</a> and <a href="{{ route('page.show', 'privacy-policy') }}">privacy policy</a>.</i></p>

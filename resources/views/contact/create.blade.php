@@ -26,6 +26,10 @@ Contact Us | Excellent Value Game Rental | Andach Games
                 <div class="alert alert-warning">
                     You are not logged in. If you have an account, we strongly recommend that you log in and then you can see your history of past communications in your account. This helps us to give you better customer service. 
                 </div>
+            @else
+                <div class="alert alert-info">
+                    You are currently logged in. We'll log all your communications against your account so that we can provide the best customer service. 
+                </div>
             @endif
 
             <div class="row">

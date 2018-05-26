@@ -60,11 +60,11 @@ Login for Game Rentals and Purchases | Andach Game Rentals | Rent &amp; Buy Vide
                     <h4 class="card-title">...or Login with Social Media</h4>
 
                     <a class="btn btn-block btn-social btn-facebook" href="/login/facebook/"">
-                        <span class="fa fa-facebook"></span> Sign in with Facebook
+                        <span class="fab fa-facebook"></span> Sign in with Facebook
                     </a>
 
                     <a class="btn btn-block btn-social btn-google" href="/login/google/"">
-                        <span class="fa fa-google"></span> Sign in with Google+
+                        <span class="fab fa-google"></span> Sign in with Google+
                     </a>
                 </div>
             </div>
