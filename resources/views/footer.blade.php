@@ -13,8 +13,11 @@
 				<p><b>Legal</b></p>
 				<p><a href="{{ route('page.show', 'cookies') }}">Cookies</a></p>
 				<p><a href="{{ route('page.show', 'delivery-information') }}">Delivery Information</a></p>
+				<p><a href="{{ route('page.show', 'environmental-policy') }}">Environmental Policy</a></p>
 				<p><a href="{{ route('page.show', 'privacy-policy') }}">Privacy Policy</a></p>
+				<p><a href="{{ route('page.show', 'security-policy') }}">Security Policy</a></p>
 				<p><a href="{{ route('page.show', 'terms-and-conditions') }}">Terms and Conditions</a></p>
+				<p><a href="{{ route('page.show', 'transparency-policy') }}">Transparency Policy</a></p>
 			</div>
 			<div class="col-3 col-md-2">
 				<p><b>Supported Systems</b></p>
