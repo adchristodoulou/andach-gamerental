@@ -346,6 +346,11 @@ class Game extends Model
                ->where('link_games_genres.genre_id', $genreID );
     }
 
+    public function scopeNotUpdatedInDays($query, $numberOfDays)
+    {
+        return $query->where('updated_at', '<', date('Y-m-d h:i:s', strtotime('-'.$numberOfDays.' days')));
+    }
+
     public function screenshots()
     {
         return $this->hasMany('App\Screenshot', 'game_id');

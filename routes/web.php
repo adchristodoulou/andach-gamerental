@@ -92,7 +92,7 @@ Route::post('admin/assignment-run', 'AdminController@assignmentRun')->name('admi
 Route::get('admin/competitors', 'AdminController@competitors')->name('admin.competitors');
 Route::post('admin/competitors-post', 'AdminController@competitorsPost')->name('admin.competitorspost');
 Route::post('admin/confirm-assignments', 'AdminController@confirmassignments')->name('admin.confirmassignments');
-Route::get('admin/games', 'AdminController@gameIndex')->name('admin.gameindex');
+Route::get('admin/games/{numberofdays?}/{limit?}', 'AdminController@gameIndex')->name('admin.gameindex');
 Route::post('admin/games-post', 'AdminController@gameIndexPost')->name('admin.gameindexpost');
 Route::get('admin/igdb/{name}', 'AdminController@IGDBSearch')->name('admin.igdbsearch');
 Route::get('admin/printdeliverynote/{id}', 'AdminController@printDeliveryNote')->name('admin.printdeliverynote');
