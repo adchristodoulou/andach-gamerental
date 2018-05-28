@@ -4,20 +4,16 @@
 	@include('user.menu')
 
 	<h2>My Current Subscription</h2>
-	@if (count($user->currentSubscription) > 1)
-		<div class="row">
-			<div class="col-12 alert alert-danger">You appear to have two active subscriptions. This shouldn't happen and may result in you being charged twice. Please contact us to remedy this.</div>
-		</div>
-	@elseif(count($user->currentSubscription) == 0)
+	if(!$user->isSubscribed())
 		<div class="row">
 			<div class="col-12 alert alert-warning">You are not crrently subscribed.</div>
 		</div>
 	@endif
 
 	@foreach ($user->currentSubscription as $sub)
-		@if ($user->subscription('main')->onGracePeriod())
+		@if ($user->isSubscribedOnGracePeriod())
 		<div class="row">
-			<div class="col-12 alert alert-warning">You are on your grace period. Your subscription will end on {{ $user->subscription('main')->ends_at }}</div>
+			<div class="col-12 alert alert-warning">You are on your grace period. Your subscription will end on {{ $user->currentSubscription->ends_at }}</div>
 		</div>
 		@endif
 		<div class="row">
@@ -39,10 +35,10 @@
 			<div class="col-10">Priority Service</div>
 		</div>
 
-		@if ($user->subscription('main')->onGracePeriod())
+		@if ($user->isSubscribedOnGracePeriod())
 			{{ Form::open(['route' => 'user.resumesubscription', 'method' => 'POST']) }}
 			<div class="row">
-				<div class="col-12">{{ Form::submit('Uncancel Subscription', ['class', 'form-control btn btn-danger']) }}</div>
+				<div class="col-12">{{ Form::submit('Uncancel Subscription', ['class', 'form-control btn btn-success']) }}</div>
 			</div>
 			{{ Form::close() }}
 		@else

@@ -225,6 +225,16 @@
     </div>
     @endif
 
+    @if (Session::has('info'))
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-info"><b>Info:</b> {!! Session::get('info') !!}</div>
+        </div>
+      </div>
+    </div>
+    @endif
+
     @if (Session::has('danger'))
     <div class="container">
       <div class="row">

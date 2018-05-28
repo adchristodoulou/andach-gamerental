@@ -41,9 +41,9 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
 
 @if(Auth::check())  
 
-  @if(Auth::user()->subscription('main'))
+  @if(Auth::user()->isSubscribed())
 
-    @if (Auth::user()->currentPlan()->braintree_plan == $plan->braintree_plan)
+    @if (Auth::user()->isOnPlan($plan))
     <div class="row">
       <div class="col-12 alert alert-danger">
         You are already subscribed to this plan. 
@@ -59,12 +59,47 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
   @endif
 
 
+  @if ($showPurchaseForm)
   <h2>Please Pay Below</h2>
   <p>You'll need to wait just a few seconds for the form below to load. Please note that you need to provide your <i>billing</i> post code to the form, not your delivery post code.</p>
-  <form method="post" id="payment-form" action="{{ route('plan.store') }}">
+  <form method="post" id="paymentForm" action="{{ route('plan.store') }}">
       {{ csrf_field() }}
+      {{ Form::hidden('plan_id', $plan->id) }}
+
+      <span id="paymentErrors"></span>
+
+      <div class="row">
+        <div class="col-2">
+          <label>Name on Card</label>
+        </div>
+        <div class="col-10">
+          <input data-worldpay="name" name="name" type="text" class="form-control" />
+        </div>
+        <div class="col-2">
+          <label>Card Number</label>
+        </div>
+        <div class="col-10">
+          <input data-worldpay="number" size="20" type="text" class="form-control" />
+        </div>
+        <div class="col-2">
+          <label>Expiration (MM/YYYY)</label> 
+        </div>
+        <div class="col-10">
+          <input data-worldpay="exp-month" size="2" type="text" class="form-control" /> 
+          <label> / </label>
+          <input data-worldpay="exp-year" size="4" type="text" class="form-control" />
+        </div>
+        <div class="col-2">
+          <label>CVC</label>
+        </div>
+        <div class="col-10">
+          <input data-worldpay="cvc" size="4" type="text" class="form-control" />
+        </div>
+      </div>
       
+      {{ Form::submit('Sign Up!', ['class' => 'form-control btn btn-success']) }}
   </form>
+  @endif
 
 </div>
 @else
@@ -76,5 +111,25 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
 @endsection
 
 @section('javascript')
+<script src="https://cdn.worldpay.com/v1/worldpay.js"></script>
 
+<script type="text/javascript">
+var form = document.getElementById('paymentForm');
+
+Worldpay.useOwnForm({
+  'clientKey': '{{ env('WORLDPAY_CLIENT_KEY') }}',
+  'form': form,
+  'reusable': true,
+  'callback': function(status, response) {
+    document.getElementById('paymentErrors').innerHTML = '';
+    if (response.error) {             
+      Worldpay.handleError(form, document.getElementById('paymentErrors'), response.error); 
+    } else {
+      var token = response.token;
+      Worldpay.formBuilder(form, 'input', 'hidden', 'token', token);
+      form.submit();
+    }
+  }
+});
+</script>
 @endsection

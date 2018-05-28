@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-	protected $fillable = ['user_id', 'name', 'email', 'phone', 'shipping_address1', 'shipping_address2', 'shipping_address3', 'shipping_town', 'shipping_county', 'shipping_postcode', 'billing_address1', 'billing_address2', 'billing_address3', 'billing_town', 'billing_county', 'billing_postcode'];
+	protected $fillable = ['user_id', 'name', 'email', 'phone', 'date_of_invoice', 'shipping_address1', 'shipping_address2', 'shipping_address3', 'shipping_town', 'shipping_county', 'shipping_postcode', 'billing_address1', 'billing_address2', 'billing_address3', 'billing_town', 'billing_county', 'billing_postcode'];
     protected $table = 'invoices';
 
     public function calculateTotals()

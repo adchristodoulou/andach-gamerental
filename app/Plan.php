@@ -18,4 +18,9 @@ class Plan extends Model
 
     	return $this->max_games_per_month;
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscription', 'plan_id');
+    }
 }

@@ -25,7 +25,7 @@ Rent video games from Andach Games with plans available from &pound;3.99 per mon
 @if (!Auth::check())
 <p class="alert alert-warning"><b>You aren't logged in:</b> - You can only subscribe to a plan with an account. Either <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a>, then come back here to get subscribed and play your new games within days!</p>
 @else
-	@if(Auth::user()->subscription('main'))
+	@if(Auth::user()->isSubscribed())
 		<p class="alert alert-warning"><b>You are already subscribed to a plan.</b> Please only pay for a new plan here if you want to switch.</p>
 	@else
 		<p class="alert alert-success">You are currently logged in as <b>{{ Auth::user()->name }}</b> and are not subscribed to a plan. So don't hesitate!</p>

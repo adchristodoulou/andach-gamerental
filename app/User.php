@@ -3,15 +3,14 @@
 namespace App;
 
 use App\Mail\UserAgeLimit;
+use App\Plan;
 use App\Wishlist;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Cashier\Billable;
 use Mail;
 
 class User extends Authenticatable
 {
-    use Billable;
     use Notifiable;
 
     /**
@@ -77,9 +76,101 @@ class User extends Authenticatable
         return $this->hasMany('App\Assignment', 'user_id');
     }
 
+    public function canReceiveGames()
+    {
+        $array['numgames'] = $this->num_games_on_rental;
+        $array['gamesrented'] = $this->games_rented_this_month;
+        $array['currentmax'] = $this->currentMaxGames();
+        $array['currentmaxpermonth'] = $this->currentMaxGamesPerMonth();
+
+        //dd($array);
+
+        return ($this->num_games_on_rental < $this->currentMaxGames()) && 
+            $this->games_rented_this_month < $this->currentMaxGamesPerMonth();
+    }
+
     public function cart()
     {
         return $this->hasMany('App\Cart', 'user_id');
+    }
+
+    public function charge($amount, $lineDescription = '')
+    {
+        if (!$this->worldpay_token)
+        {
+            session()->flash('danger', 'There is no Worldpay Token.');
+            return false;
+        }
+
+        //https://developer.worldpay.com/jsonapi/api#orders
+        $array = array(
+                'token' => $this->worldpay_token,
+                'orderType;' => 'RECURRING', 
+                'amount' => intval($amount * 100),
+                'currencyCode' => 'GBP',
+                'name' => $this->first_name.' '.$this->last_name,
+                'orderDescription' => 'Purchase from Andach Games',
+                'customerOrderCode' => 'XXX',
+                'billingAddress' => array(
+                        "address1"=> $this->billing_address1,
+                        "address2"=> $this->billing_address2,
+                        "address3"=> $this->billing_address3,
+                        "postalCode"=> $this->billing_postcode,
+                        "city"=> $this->billing_town,
+                        "state"=> '',
+                        "countryCode"=> 'GB',
+                    ),
+                'deliveryAddress' => array(
+                        "address1"=> $this->shipping_address1,
+                        "address2"=> $this->shipping_address2,
+                        "address3"=> $this->shipping_address3,
+                        "postalCode"=> $this->shipping_postcode,
+                        "city"=> $this->shipping_town,
+                        "state"=> '',
+                        "countryCode"=> 'GB',
+                    ),
+                'shopperEmailAddress' => $this->email,
+                'shopperIpAddress' => \Request::ip(),
+            );
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.worldpay.com/v1/orders",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($array),
+            CURLOPT_HTTPHEADER => array(
+                // Set Here Your Requesred Headers
+                'Content-Type: application/json',
+                'Authorization: '.env('WORLDPAY_SERVICE_KEY'),
+            ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            dd('There has been a payment error. Please report this immediately to the website owner. Your card has not been charged.');
+        } else {
+            $json = json_decode($response);
+
+            if (!isset($json->paymentStatus))
+            {
+                return false;
+            }
+
+            if ($json->paymentStatus == 'SUCCESS')
+            {
+                $this->createSubscriptionInvoice($amount, $lineDescription);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
     
     public function comments()
@@ -110,17 +201,36 @@ class User extends Authenticatable
         return $this->hasMany('App\Contact', 'user_id');
     }
 
-    public function canReceiveGames()
+    public function createSubscriptionInvoice($amount, $lineDescription = '')
     {
-        $array['numgames'] = $this->num_games_on_rental;
-        $array['gamesrented'] = $this->games_rented_this_month;
-        $array['currentmax'] = $this->currentMaxGames();
-        $array['currentmaxpermonth'] = $this->currentMaxGamesPerMonth();
+        $create['email'] = $this->email;
+        $create['date_of_invoice'] = date('Y-m-d');
 
-        //dd($array);
+        $create['shipping_address1'] = $this->shipping_address1;
+        $create['shipping_address2'] = $this->shipping_address2;
+        $create['shipping_address3'] = $this->shipping_address3;
+        $create['shipping_town'] = $this->shipping_town;
+        $create['shipping_county'] = $this->shipping_county;
+        $create['shipping_postcode'] = $this->shipping_postcode;
 
-        return ($this->num_games_on_rental < $this->currentMaxGames()) && 
-            $this->games_rented_this_month < $this->currentMaxGamesPerMonth();
+        $create['billing_address1'] = $this->billing_address1;
+        $create['billing_address2'] = $this->billing_address2;
+        $create['billing_address3'] = $this->billing_address3;
+        $create['billing_town'] = $this->billing_town;
+        $create['billing_county'] = $this->billing_county;
+        $create['billing_postcode'] = $this->billing_postcode;
+
+        $lineCreate['description'] = $lineDescription;
+        $lineCreate['quantity_invoiced'] = 1;
+        $lineCreate['net'] = $amount;
+        $lineCreate['gross'] = $amount;
+        $lineCreate['net_per_item'] = $amount;
+        $lineCreate['gross_per_item'] = $amount;
+
+        $invoice = $this->invoices()->create($create);
+        $invoice->lines()->create($lineCreate);
+
+        $invoice->finalise();
     }
 
     public function currentMaxGames()
@@ -135,18 +245,14 @@ class User extends Authenticatable
 
     public function currentPlan()
     {
-        if (!count($this->currentSubscription())) return false;
-        
-        $sub = $this->currentSubscription()->first();
+        if (!$this->currentSubscription()) return false;
 
-        $plan = Plan::where('braintree_plan', $sub->braintree_plan)->first();
-
-        return $plan;
+        return $this->currentSubscription()->plan;
     }
 
     public function currentSubscription()
     {
-        return $this->hasMany('App\Subscription', 'user_id');
+        return $this->subscriptions()->current()->first();
     }
 
     public function deleteFromWishlist($gameID, $flash = true)
@@ -221,6 +327,11 @@ class User extends Authenticatable
         return '<div class="alert alert-info">'.e($return).'</div>';
     }
 
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     public function invoices()
     {
         return $this->hasMany('App\Invoice', 'user_id');
@@ -229,6 +340,48 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin;
+    }
+
+    public function isOnPlan($plan)
+    {
+        $currentPlan = $this->currentPlan();
+
+        if (!$currentPlan) 
+        {
+            return false;
+        }
+
+        return $this->currentPlan()->id == $plan->id;
+    }
+
+    //Returns true if the user is subscribed, regardless of whether they are in a free trial period, after which billing will begin automatically, or whether they're on their grace period. 
+    public function isSubscribed()
+    {
+        $sub = $this->currentSubscription();
+        if ($sub) 
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isSubscribedInFreeTrial()
+    {
+        //We don't have free trials at the moment. 
+        return false;
+    }
+
+    public function isSubscribedOnGracePeriod()
+    {
+        $sub = $this->currentSubscription();
+        if ($sub->ends_at) 
+        {
+            //If we have an end date, we must be on our grace period. 
+            return true;
+        }
+
+        return false;
     }
 
     public function pages()
@@ -263,6 +416,68 @@ class User extends Authenticatable
     {
         $this->games_rented_this_month = 0;
         $this->save();
+    }
+
+    public function subscribeTo(Plan $plan)
+    {
+        if ($this->isSubscribed())
+        {
+            session()->flash('info', 'already subscribed');
+            return $this->subscribeToChanged($plan);
+        } else {
+            session()->flash('info', 'not subscribed. new plan needed');
+            return $this->subscribeToNew($plan);
+        }
+    }
+
+    public function subscribeToChanged(Plan $plan)
+    {
+        $sub = $this->currentSubscription();
+        $charge = $sub->calculateChargeToSwitchTo($plan);
+        dd($charge);
+        //Need to work out what to do whtn this is negative. 
+
+        if ($this->charge($charge, 'Additional charge for plan '.$plan->name.' from '.date('Y-m-d').' to '.$sub->next_billing_date))
+        {
+            dd('only the charging for the plan is done. switching plans doesnt work yet');
+        } else {
+            session()->flash('danger', 'We could not put through the charge to switch plans.');
+            return false;
+        }
+    }
+
+    public function subscribeToNew(Plan $plan)
+    {
+        $create['plan_id'] = $plan->id;
+        $create['starts_at'] = date('Y-m-d');
+        $create['next_billing_date'] = date('Y-m-d', strtotime('+1 month'));
+
+        if (!$this->charge($plan->cost, 'Charge for plan '.$plan->name.' from '.$create['starts_at'].' to '.$create['next_billing_date']))
+        {
+            session()->flash('danger', 'We could not put through the charge for the new plan.');
+            return false;
+        } else {
+            $create['plan_id'] = $plan->id;
+            $create['starts_at'] = date('Y-m-d');
+            $create['next_billing_date'] = date('Y-m-d', strtotime('+1 month'));
+
+            $this->subscriptions()->create($create);
+
+            $sub = $this->currentSubscription();
+
+            $addCharge['starts_at'] = $create['starts_at'];
+            $addCharge['ends_at'] = $create['next_billing_date'];
+            $addCharge['charge'] = $plan->cost;
+            $addCharge['date_charge_taken'] = date('Y-m-d');
+            $sub->addSuccessfulCharge($addCharge);
+
+            return true;
+        }
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscription', 'user_id');
     }
 
     public function wishlistGames()
