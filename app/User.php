@@ -76,6 +76,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Assignment', 'user_id');
     }
 
+    public function cancelSubscription()
+    {
+        $sub = $this->currentSubscription();
+        return $sub->cancel();
+    }
+
     public function canReceiveGames()
     {
         $array['numgames'] = $this->num_games_on_rental;
@@ -416,6 +422,12 @@ class User extends Authenticatable
     {
         $this->games_rented_this_month = 0;
         $this->save();
+    }
+
+    public function resumeSubscription()
+    {
+        $sub = $this->currentSubscription();
+        return $sub->resume();
     }
 
     public function subscribeTo(Plan $plan)

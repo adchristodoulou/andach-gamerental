@@ -28,7 +28,7 @@ class SubscriptionResume extends Mailable
      */
     public function build()
     {
-        return $this->from('example@useaquestion.co.uk')
+        return $this->from('noreply@andachgames.co.uk')
                 ->subject('Andach Games: Your subscription has been resumed')
                 ->view('email.subscriptionresume');
     }

@@ -30,7 +30,7 @@ class SubscriptionNew extends Mailable
      */
     public function build()
     {
-        return $this->from('example@useaquestion.co.uk')
+        return $this->from('noreply@andachgames.co.uk')
                 ->subject('Andach Games: You have signed up for a new subscription')
                 ->view('email.subscriptionnew');
     }

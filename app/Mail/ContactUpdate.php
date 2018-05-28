@@ -31,7 +31,7 @@ class ContactUpdate extends Mailable
      */
     public function build()
     {
-        return $this->from('example@useaquestion.co.uk')
+        return $this->from('noreply@andachgames.co.uk')
                 ->subject('Andach Games: Update to your Query "'.$this->contact->title.'"')
                 ->view('email.contactupdate');
     }

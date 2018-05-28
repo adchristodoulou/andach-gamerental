@@ -93,11 +93,11 @@ class UserController extends Controller
     {
         if($request->confirm)
         {
-            Auth::user()->subscription('main')->cancel();
+            Auth::user()->cancelSubscription();
             $request->session()->flash('success', 'You have cancelled your subscription.');
 
             $user = Auth::user();
-            Mail::to($user)->send(new SubscriptionCancel($this->subscription('main')->ends_at));
+            Mail::to($user)->send(new SubscriptionCancel($user->currentSubscription()->ends_at));
 
             return view('user.subscription', ['user' => $user]);
         }
@@ -155,7 +155,7 @@ class UserController extends Controller
 
     public function resumeSubscription(Request $request)
     {
-        Auth::user()->subscription('main')->resume();
+        Auth::user()->resumeSubscription();
 
         $request->session()->flash('success', 'Your subscription has been set to resume.');
         $user = Auth::user();

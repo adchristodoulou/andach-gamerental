@@ -20,6 +20,20 @@ class Subscription extends Model
         return $plan->cost - $this->percentage_of_charge_period_remaining * $this->plan->cost;
     }
 
+    public function cancel()
+    {
+        if (!$this->ends_at)
+        {
+            $this->ends_at = $this->next_billing_date;
+            $this->next_billing_date = NULL;
+            $this->save();
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function charges()
     {
         return $this->hasMany('App\SubscriptionCharge', 'subscription_id');
@@ -72,6 +86,27 @@ class Subscription extends Model
     public function plan()
     {
     	return $this->belongsTo('App\Plan', 'plan_id');
+    }
+
+    public function resume()
+    {
+        if (!$this->ends_at)
+        {
+            //Wasn't cancelled to begin with.
+            return true;
+        }
+
+        if (strtotime($this->ends_at) < strtotime(now()))
+        {
+            //It's already over and needs a new subscription. 
+            return false;
+        }
+
+        $this->next_billing_date = $this->ends_at;
+        $this->ends_at = NULL;
+        $this->save();
+
+        return true;
     }
 
     public function scopeCurrent($query)

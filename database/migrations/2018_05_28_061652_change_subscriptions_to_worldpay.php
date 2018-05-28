@@ -16,7 +16,7 @@ class ChangeSubscriptionsToWorldpay extends Migration
         Schema::table('subscriptions', function ($table) {
             $table->integer('plan_id')->after('user_id');
             $table->date('starts_at')->after('plan_id');
-            $table->date('next_billing_date')->after('ends_at');
+            $table->date('next_billing_date')->after('ends_at')->nullable();
             $table->dropColumn('braintree_id');
             $table->dropColumn('braintree_plan');
             $table->dropColumn('name');

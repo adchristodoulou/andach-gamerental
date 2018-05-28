@@ -30,7 +30,7 @@ class GameDelivered extends Mailable
      */
     public function build()
     {
-        return $this->from('example@useaquestion.co.uk')
+        return $this->from('noreply@andachgames.co.uk')
                 ->subject('Andach Games: '.$this->rental->game->name.' has been sent out')
                 ->view('email.gamedelivered');
     }
