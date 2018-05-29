@@ -13,3 +13,4 @@ yarn-error.log
 /.env.testing
 /nbproject
 /gamerental_testing
+/public/photos
