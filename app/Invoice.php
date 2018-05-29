@@ -94,6 +94,11 @@ class Invoice extends Model
     	return $this->hasMany('App\InvoiceLine', 'invoice_id');
     }
 
+    public static function nextInvoiceID()
+    {
+        return Invoice::max('id') + 1;
+    }
+
     public function setShippingGrossInPounds($price)
     {
         $this->shipping_gross = round($price * 100);

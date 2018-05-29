@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Invoice;
 use App\Mail\UserAgeLimit;
 use App\Plan;
 use App\Wishlist;
@@ -116,7 +117,7 @@ class User extends Authenticatable
                 'currencyCode' => 'GBP',
                 'name' => $this->first_name.' '.$this->last_name,
                 'orderDescription' => 'Purchase from Andach Games',
-                'customerOrderCode' => 'XXX',
+                'customerOrderCode' => Invoice::nextInvoiceID(),
                 'billingAddress' => array(
                         "address1"=> $this->billing_address1,
                         "address2"=> $this->billing_address2,
@@ -269,7 +270,7 @@ class User extends Authenticatable
             $this->wishlists()->where('game_id', $gameID)->delete();
             return true;
         } else {
-            $flashMessage = 'This game wasn\'t on your wishlist in the first place. What do you want us to do, purge it from existance? No, other people might want to rent it.';
+            $flashMessage = 'This game wasn\'t on your wishlist in the first place.';
         }
 
         if ($flash)
