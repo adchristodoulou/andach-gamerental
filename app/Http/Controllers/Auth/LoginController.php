@@ -36,4 +36,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Overwrite this function to redirect to the referring URL if appropriate.
+     * @return type
+     */
+    public function showLoginForm()
+    {
+        if(!session()->has('url.intended'))
+        {
+            session(['url.intended' => url()->previous()]);
+        }
+        return view('auth.login');    
+    }
 }
