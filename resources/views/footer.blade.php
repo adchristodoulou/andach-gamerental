@@ -52,7 +52,6 @@
 				<span class="float-right">
 					<img src="/images/creditcards/visa.svg" alt="Visa" />
 					<img src="/images/creditcards/mastercard.svg" alt="Mastercard" />
-					<img src="/images/creditcards/maestro.svg" alt="Maestro" />
 					<img src="/images/creditcards/amex.svg" alt="American Express" />
 				</span>
 				</p>
