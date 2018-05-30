@@ -68,6 +68,11 @@ Contact Us | Excellent Value Game Rental | Andach Games
                         {!! Form::file('attachment') !!}
                     </div>
 
+                    @if (!Auth::check())
+                        <!-- Showing Captcha -->
+                        {!! NoCaptcha::display() !!}
+                    @endif
+
                     <div class="row">
                         <div class="col-lg-12">
                             {{ Form::submit('Contact Us', ['class' => 'btn btn-primary']) }}
@@ -97,4 +102,8 @@ Contact Us | Excellent Value Game Rental | Andach Games
         </div>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+{!! NoCaptcha::renderJs() !!}
 @endsection

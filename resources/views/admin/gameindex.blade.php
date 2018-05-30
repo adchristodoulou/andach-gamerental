@@ -10,6 +10,8 @@
 			<b>To only show games that haven't been updated in the last x days, and limit to y queries, change the URL to /admin/games/x/y</b>
 		</div>
 
+		<div class="col-12">Showing {{ $games->count() }} of {{ $count }} total games.</div>
+
 
 		<div class="col-1">{!! Form::checkbox('selectall', null, null, ['id' => 'selectall']) !!}</div>
 		<div class="col-3">Game</div>

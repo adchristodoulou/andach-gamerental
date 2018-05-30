@@ -44,6 +44,7 @@ class PHPUnitTestSeeder extends Seeder
             'num_in_stock' => 1,
             'num_available' => 1,
             'pegi_rating' => 4,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -53,6 +54,7 @@ class PHPUnitTestSeeder extends Seeder
             'num_in_stock' => 0,
             'num_available' => 0,
             'pegi_rating' => 1,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -61,6 +63,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4920,
             'num_in_stock' => 2,
             'num_available' => 2,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -69,6 +72,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4920,
             'num_in_stock' => 1,
             'num_available' => 1,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -77,6 +81,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4920,
             'num_in_stock' => 2,
             'num_available' => 2,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -85,6 +90,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4919,
             'num_in_stock' => 0,
             'num_available' => 0,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -93,6 +99,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4919,
             'num_in_stock' => 0,
             'num_available' => 0,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('games')->insert([
@@ -101,6 +108,7 @@ class PHPUnitTestSeeder extends Seeder
             'system_id' => 4919,
             'num_in_stock' => 0,
             'num_available' => 0,
+            'updated_at' => '2018-01-01',
         ]);
 
         DB::table('pages')->insert([
@@ -201,22 +209,20 @@ class PHPUnitTestSeeder extends Seeder
 
         DB::table('subscriptions')->insert([
             'user_id' => 1,
-            'name' => 'main',
-            'braintree_id' => '123456',
-            'braintree_plan' => 'test-braintree-1permonth',
-            'quantity' => 1,
+            'plan_id' => 2,
             'created_at' => '2018-01-01',
             'updated_at' => '2018-01-01',
+            'starts_at' => '2018-01-01',
+            'next_billing_date' => '2018-02-01'
         ]);
 
         DB::table('subscriptions')->insert([
             'user_id' => 2,
-            'name' => 'main',
-            'braintree_id' => 'abcdef',
-            'braintree_plan' => 'test-braintree-2priority',
-            'quantity' => 1,
+            'plan_id' => 3,
             'created_at' => '2018-01-01',
             'updated_at' => '2018-01-01',
+            'starts_at' => '2018-01-01',
+            'next_billing_date' => '2018-02-01'
         ]);
 
         DB::table('users')->insert([

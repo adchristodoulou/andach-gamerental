@@ -23,6 +23,16 @@ class ContactTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Contact Andach');
+        $response->assertSee('<!-- Showing Captcha -->');
+
+        $user = User::first();
+        $this->be($user);
+
+        $response = $this->get('/contact');
+
+        $response->assertStatus(200);
+        $response->assertSee('Contact Andach');
+        $response->assertDontSee('<!-- Showing Captcha -->');
     }
 
     public function test_show()
@@ -39,6 +49,16 @@ class ContactTest extends TestCase
 
     public function test_store()
     {
+        // prevent validation error on captcha
+        NoCaptcha::shouldReceive('verifyResponse')
+            ->once()
+            ->andReturn(true);
+
+        // provide hidden input for your 'required' validation
+        NoCaptcha::shouldReceive('display')
+            ->zeroOrMoreTimes()
+            ->andReturn('<input type="hidden" name="g-recaptcha-response" value="1" />');
+    
     	$response = $this->followingRedirects()->post('/contact/send', [
     		'title' => 'CONTACTINSERT TITLE',
     		'category_id' => 1,

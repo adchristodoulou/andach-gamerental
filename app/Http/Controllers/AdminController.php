@@ -98,11 +98,12 @@ class AdminController extends Controller
         return redirect()->route('admin.sendgames');
     }
 
-    public function gameIndex($numberOfDays = 999, $limit = 999)
+    public function gameIndex($numberOfDays = 0, $limit = 999)
     {
         $games = Game::notUpdatedInDays($numberOfDays)->paginate($limit);
+        $count = Game::count();
 
-        return view('admin.gameindex', ['games' => $games]);
+        return view('admin.gameindex', ['games' => $games, 'count' => $count]);
     }
 
     public function gameIndexPost(Request $request)

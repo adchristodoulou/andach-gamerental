@@ -11,6 +11,7 @@
     "require": {
         "php": ">=7.0.0",
         "andach/igad": "dev-master",
+        "anhskohbo/no-captcha": "^3.0",
         "atayahmet/laravel-nestable": "^0.8.4",
         "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "doctrine/dbal": "^2.7",

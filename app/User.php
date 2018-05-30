@@ -334,11 +334,6 @@ class User extends Authenticatable
         return '<div class="alert alert-info">'.e($return).'</div>';
     }
 
-    public function getNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
     public function invoices()
     {
         return $this->hasMany('App\Invoice', 'user_id');

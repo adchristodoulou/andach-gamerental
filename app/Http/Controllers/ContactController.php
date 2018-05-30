@@ -54,6 +54,16 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+        if (!Auth::check())
+        {
+            $request->validate([
+                'email' => 'required',
+                'title' => 'required',
+                'full_text' => 'required',
+                'g-recaptcha-response' => 'required|captcha'
+            ]);
+        }
+
     	$contact = Contact::create($request->all());
         $contact->user_id = Auth::id();
     	$contact->save();
@@ -68,7 +78,7 @@ class ContactController extends Controller
         {
             return redirect()->route('contact.show', $contact->id);
         } else {
-            return redirect()->route('home');
+            return redirect()->route('contact.create');
         }
     }
 
