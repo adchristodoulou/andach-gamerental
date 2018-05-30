@@ -14,13 +14,16 @@ class ChangeSubscriptionsToWorldpay extends Migration
     public function up()
     {
         Schema::table('subscriptions', function ($table) {
-            $table->integer('plan_id')->after('user_id');
-            $table->date('starts_at')->after('plan_id');
+            $table->integer('plan_id')->after('user_id')->nullable();
+        });
+        Schema::table('subscriptions', function ($table) {
+            $table->date('starts_at')->after('plan_id')->nullable();
+        });
+        Schema::table('subscriptions', function ($table) {
             $table->date('next_billing_date')->after('ends_at')->nullable();
-            $table->dropColumn('braintree_id');
-            $table->dropColumn('braintree_plan');
-            $table->dropColumn('name');
-            $table->dropColumn('quantity');
+        });
+        Schema::table('subscriptions', function ($table) {
+            $table->dropColumn(['braintree_id', 'braintree_plan', 'name', 'quantity']);
         });
 
         Schema::create('subscriptions_charges', function (Blueprint $table) {
@@ -44,11 +47,7 @@ class ChangeSubscriptionsToWorldpay extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('braintree_id');
-            $table->dropColumn('paypal_email');
-            $table->dropColumn('card_brand');
-            $table->dropColumn('card_last_four');
-            $table->dropColumn('trial_ends_at');
+            $table->dropColumn(['braintree_id', 'paypal_email', 'card_brand', 'card_last_four', 'trial_ends_at']);
             $table->string('worldpay_token')->after('remember_token')->nullable();
         });
 
@@ -83,9 +82,7 @@ class ChangeSubscriptionsToWorldpay extends Migration
     public function down()
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropColumn('starts_at');
-            $table->dropColumn('next_billing_date');
-            $table->dropColumn('plan_id');
+            $table->dropColumn(['starts_at', 'next_billing_date', 'plan_id']);
             $table->string('name')->after('user_id');
             $table->string('quantity')->after('name');
             $table->string('braintree_id')->after('name');
