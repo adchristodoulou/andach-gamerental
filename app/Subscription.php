@@ -111,6 +111,9 @@ class Subscription extends Model
         $this->ends_at = NULL;
         $this->save();
 
+        //Now delete any subscriptions for this user that are in the future. 
+        $futureSub = Subscription::where('user_id', $this->id)->future()->delete();
+
         return true;
     }
 
@@ -121,6 +124,12 @@ class Subscription extends Model
                 $query->whereNull('ends_at')->
                 	orWhere('ends_at', '>=', date('Y-m-d'));
             });
+    }
+
+    //Note that this scope is strict. Starting today is current. Starting tomorrow is future. 
+    public function scopeFuture($query)
+    {
+        return $query->where('starts_at', '>', date('Y-m-d'));
     }
 
     public function user()

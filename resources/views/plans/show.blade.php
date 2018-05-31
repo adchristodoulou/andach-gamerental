@@ -23,21 +23,7 @@ The {{ $plan->name }} game rental service. | Andach Game Rentals | Rent &amp; Bu
 @section('content')
 <div class="container">
 
-  <div class="row">
-    <div class="col-12"><h2>Game Plan - {{ $plan->name }}</h2></div>
-  </div>
-  <div class="row">
-    <div class="col-2">{{ $plan->max_games_simultaneously }}</div>
-    <div class="col-10">Simultaneous Games</div>
-  </div>
-  <div class="row">
-    <div class="col-2">@if ($plan->is_priority) Yes @else No @endif</div>
-    <div class="col-10">Priority Service</div>
-  </div>
-  <div class="row">
-    <div class="col-2">&pound;{{ number_format($plan->cost, 2) }}</div>
-    <div class="col-10">Price Per Month</div>
-  </div>
+  {!! $plan->box !!}
 
 @if(Auth::check())  
 

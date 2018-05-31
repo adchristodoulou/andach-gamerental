@@ -357,6 +357,18 @@ class User extends Authenticatable
         return $this->currentPlan()->id == $plan->id;
     }
 
+    //Returns true if the user has a subscription in the future - which will be because they're downgrading. In this case, a number of things change throughout the site. 
+    public function isChangingPlan()
+    {
+        $sub = $this->upcomingSubscription();
+        if ($sub) 
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     //Returns true if the user is subscribed, regardless of whether they are in a free trial period, after which billing will begin automatically, or whether they're on their grace period. 
     public function isSubscribed()
     {
@@ -529,6 +541,11 @@ class User extends Authenticatable
     public function subscriptions()
     {
         return $this->hasMany('App\Subscription', 'user_id');
+    }
+
+    public function upcomingSubscription()
+    {
+        return $this->subscriptions()->future()->first();
     }
 
     public function wishlistGames()
