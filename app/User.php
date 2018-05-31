@@ -6,6 +6,7 @@ use App\Invoice;
 use App\Mail\UserAgeLimit;
 use App\Plan;
 use App\Wishlist;
+use DateTime;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Mail;
@@ -430,28 +431,36 @@ class User extends Authenticatable
     {
         if ($this->isSubscribed())
         {
-            session()->flash('info', 'already subscribed');
-            return $this->subscribeToChanged($plan);
+            $sub = $this->currentSubscription();
+            $charge = $sub->calculateChargeToSwitchTo($plan);
+
+            if ($charge > 0)
+            {
+                return $this->subscribeToUpgrade($plan);
+            } else {
+                return $this->subscribeToDowngrade($plan);
+            }
         } else {
             session()->flash('info', 'not subscribed. new plan needed');
             return $this->subscribeToNew($plan);
         }
     }
 
-    public function subscribeToChanged(Plan $plan)
+    public function subscribeToDowngrade(Plan $plan)
     {
         $sub = $this->currentSubscription();
-        $charge = $sub->calculateChargeToSwitchTo($plan);
-        dd($charge);
-        //Need to work out what to do whtn this is negative. 
 
-        if ($this->charge($charge, 'Additional charge for plan '.$plan->name.' from '.date('Y-m-d').' to '.$sub->next_billing_date))
-        {
-            dd('only the charging for the plan is done. switching plans doesnt work yet');
-        } else {
-            session()->flash('danger', 'We could not put through the charge to switch plans.');
-            return false;
-        }
+        $startDate = new DateTime($sub->next_billing_date);
+        $startDate->modify('+1 day');
+
+        $create['plan_id'] = $plan->id;
+        $create['starts_at'] = $startDate->format('Y-m-d');
+        $create['next_billing_date'] = $startDate->format('Y-m-d');
+
+        $sub->cancel();
+        $this->subscriptions()->create($create);
+
+        return true;
     }
 
     public function subscribeToNew(Plan $plan)
@@ -465,9 +474,9 @@ class User extends Authenticatable
             session()->flash('danger', 'We could not put through the charge for the new plan.');
             return false;
         } else {
-            $create['plan_id'] = $plan->id;
-            $create['starts_at'] = date('Y-m-d');
-            $create['next_billing_date'] = date('Y-m-d', strtotime('+1 month'));
+            //$create['plan_id'] = $plan->id;
+            //$create['starts_at'] = date('Y-m-d');
+            //$create['next_billing_date'] = date('Y-m-d', strtotime('+1 month'));
 
             $this->subscriptions()->create($create);
 
@@ -480,6 +489,40 @@ class User extends Authenticatable
             $sub->addSuccessfulCharge($addCharge);
 
             return true;
+        }
+    }
+
+    public function subscribeToUpgrade(Plan $plan)
+    {
+        session()->flash('info', 'upgrading');
+        $sub = $this->currentSubscription();
+        $charge = $sub->calculateChargeToSwitchTo($plan); 
+
+        if ($this->charge($charge, 'Additional charge for plan '.$plan->name.' from '.date('Y-m-d').' to '.$sub->next_billing_date))
+        {
+            $sub->ends_at = date('Y-m-d', strtotime('yesterday'));
+            $sub->save();
+
+            $create['plan_id'] = $plan->id;
+            $create['starts_at'] = date('Y-m-d');
+            $create['next_billing_date'] = date('Y-m-d', strtotime('+1 month'));
+
+            $this->subscriptions()->create($create);
+
+            $sub = $this->currentSubscription();
+
+            $addCharge['starts_at'] = $create['starts_at'];
+            $addCharge['ends_at'] = $create['next_billing_date'];
+            $addCharge['charge'] = $charge;
+            $addCharge['date_charge_taken'] = date('Y-m-d');
+            $sub->addSuccessfulCharge($addCharge);
+
+            $this->resetMonthlyRentalCount();
+
+            return true;
+        } else {
+            session()->flash('danger', 'We could not put through the charge to switch plans.');
+            return false;
         }
     }
 

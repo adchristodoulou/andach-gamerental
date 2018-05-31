@@ -20,11 +20,16 @@ class Subscription extends Model
         return $plan->cost - $this->percentage_of_charge_period_remaining * $this->plan->cost;
     }
 
-    public function cancel()
+    public function cancel($overrideEndDate = null)
     {
         if (!$this->ends_at)
         {
-            $this->ends_at = $this->next_billing_date;
+            if ($overrideEndDate)
+            {
+                $this->ends_at = $overrideEndDate;
+            } else {
+                $this->ends_at = $this->next_billing_date;
+            }
             $this->next_billing_date = NULL;
             $this->save();
 
