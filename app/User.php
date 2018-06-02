@@ -335,6 +335,16 @@ class User extends Authenticatable
         return '<div class="alert alert-info">'.e($return).'</div>';
     }
 
+    public function getCurrentPlanBox()
+    {
+        if ($this->currentPlan())
+        {
+            return $this->currentPlan()->box;
+        }
+
+        return '';
+    }
+
     public function invoices()
     {
         return $this->hasMany('App\Invoice', 'user_id');
@@ -390,10 +400,13 @@ class User extends Authenticatable
     public function isSubscribedOnGracePeriod()
     {
         $sub = $this->currentSubscription();
-        if ($sub->ends_at) 
+        if ($sub)
         {
-            //If we have an end date, we must be on our grace period. 
-            return true;
+            if ($sub->ends_at) 
+            {
+                //If we have an end date, we must be on our grace period. 
+                return true;
+            }
         }
 
         return false;
@@ -541,6 +554,16 @@ class User extends Authenticatable
     public function subscriptions()
     {
         return $this->hasMany('App\Subscription', 'user_id');
+    }
+
+    public function upcomingPlan()
+    {
+        if ($this->upcomingSubscription())
+        {
+            return $this->upcomingSubscription()->plan;
+        }
+
+        return false;
     }
 
     public function upcomingSubscription()
