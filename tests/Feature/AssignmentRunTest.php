@@ -17,11 +17,10 @@ class AssignmentRunTest extends TestCase
 
     public function test_feature()
     {
-        /*
         $user1 = User::find(1);
         $user2 = User::find(2);
 
-        //User 1 adds games to their list. 
+        //User 1 (without priority) adds games to their list. 
         $this->be($user1);
         $response = $this->followingRedirects()->post('/game/addtowishlist', ['id' => 1]);
         $response = $this->followingRedirects()->post('/game/addtowishlist', ['id' => 3]);
@@ -34,7 +33,7 @@ class AssignmentRunTest extends TestCase
         $response = $this->get('/user/subscription');
         $response->assertSee('TEST PLAN 1PERMONTH');
 
-        //User 2 adds games to their list.
+        //User 2 (with priority) adds games to their list.
         $this->be($user2);
         $response = $this->followingRedirects()->post('/game/addtowishlist', ['id' => 1]);
         $response = $this->followingRedirects()->post('/game/addtowishlist', ['id' => 2]);
@@ -102,6 +101,5 @@ class AssignmentRunTest extends TestCase
         $response->assertSee('<!-- Normal User gets TEST GAME XboxOne 3 -->');
         $response->assertSee('<!-- Normal User on run #1 -->');
         $response->assertDontSee('<!-- Admin User on run #2 -->');
-        */
     }
 }

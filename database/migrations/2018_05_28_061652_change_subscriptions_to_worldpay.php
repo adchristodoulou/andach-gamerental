@@ -48,6 +48,9 @@ class ChangeSubscriptionsToWorldpay extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['braintree_id', 'paypal_email', 'card_brand', 'card_last_four', 'trial_ends_at']);
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->string('worldpay_token')->after('remember_token')->nullable();
         });
 

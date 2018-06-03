@@ -62,7 +62,7 @@ class PlanController extends Controller
             // redirect to home after a successful subscription
             return redirect()->route('plan.thanks')->with('data', ['plan' => $plan->name, 'user' => $request->user()->firstname]);
         } else {
-            session()->flash('danger', 'There was an unidentified error');
+            //session()->flash('danger', 'There was an unidentified error');
             return redirect()->route('plan.show', $plan->slug);
         }
 

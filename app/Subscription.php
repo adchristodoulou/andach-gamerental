@@ -98,12 +98,14 @@ class Subscription extends Model
         if (!$this->ends_at)
         {
             //Wasn't cancelled to begin with.
+            session()->flash('danger', 'Trying to resume a plan that wasn\'t cancelled to begin with.');
             return true;
         }
 
         if (strtotime($this->ends_at) < strtotime(now()))
         {
             //It's already over and needs a new subscription. 
+            session()->flash('danger', 'Trying to resume a plan that is expired.');
             return false;
         }
 
@@ -112,7 +114,7 @@ class Subscription extends Model
         $this->save();
 
         //Now delete any subscriptions for this user that are in the future. 
-        $futureSub = Subscription::where('user_id', $this->id)->future()->delete();
+        $futureSub = Subscription::where('user_id', $this->user_id)->future()->delete();
 
         return true;
     }

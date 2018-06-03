@@ -33,8 +33,8 @@ class AssignmentRun extends Model
     //Priority should be 1 or 0. 
     public function getUsersNeedingAssignment($priority)
     {
-        $plans = Plan::where('is_priority', $priority)->pluck('braintree_plan');
-        $subscriptions = Subscription::whereIn('braintree_plan', $plans)->pluck('user_id');
+        $plans = Plan::where('is_priority', $priority)->pluck('id');
+        $subscriptions = Subscription::whereIn('plan_id', $plans)->pluck('user_id');
         $users = User::whereIn('id', $subscriptions)->with(['wishlistGames.stock' => function ($query) {
                 $query->where('currently_in_stock', 1);
             }])->get();
@@ -45,12 +45,16 @@ class AssignmentRun extends Model
     public function makeAssignments()
     {
         $numAssignments = 0;
+        $count = 1;
+        $return = '';
 
         foreach (array(1, 0) as $priority)
         {
             do {
                 $numAssignmentsThisRound = 0;
                 $users = $this->getUsersNeedingAssignment($priority);
+
+                $return .= 'On assignment round #'.$count++.' we were on priority level '.$priority.' and assigned to '.print_r($users->pluck('id'), 1);
 
                 foreach ($users as $user)
                 {
@@ -68,6 +72,9 @@ class AssignmentRun extends Model
                 }
             } while ($numAssignmentsThisRound > 0);
         }
+
+        //Helpful for debug information. Unnecessary when Unit/Functional Tests work. 
+        //session()->flash('info', $return);
 
     	return $numAssignments;
     }

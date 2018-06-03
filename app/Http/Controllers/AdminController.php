@@ -77,24 +77,30 @@ class AdminController extends Controller
 
     public function confirmAssignments(Request $request)
     {
-        if (count($request->assign))
+        if (isset($request->assign))
         {
-            foreach ($request->assign as $assign)
+            if (count($request->assign))
             {
-                $assignment = Assignment::find($assign);
-                $assignment->makeIntoRental();
+                foreach ($request->assign as $assign)
+                {
+                    $assignment = Assignment::find($assign);
+                    $assignment->makeIntoRental();
+                }
             }
         }
-
-        if (count($request->deliver))
+        
+        if (isset($request->deliver))
         {
-            foreach ($request->deliver as $delivery)
+            if (count($request->deliver))
             {
-                $assignment = Assignment::find($delivery);
-                $assignment->deliver();
+                foreach ($request->deliver as $delivery)
+                {
+                    $assignment = Assignment::find($delivery);
+                    $assignment->deliver();
+                }
             }
         }
-
+        
         return redirect()->route('admin.sendgames');
     }
 

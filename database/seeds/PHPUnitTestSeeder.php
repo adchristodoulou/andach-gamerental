@@ -130,6 +130,13 @@ class PHPUnitTestSeeder extends Seeder
             'slug' => 'test-second-page',
         ]);
 
+        /*
+            PLANS ARE:
+            1 - 1 per month, non-priority. 
+            2 - 1 at a time, unlimited per month, non-priority. 
+            3 - 2 at a time, unlimited per month, priority. 
+            4 - 3 at a time, unlimited per month, non-priority. 
+        */
         DB::table('plans')->insert([
             'name' => 'TEST PLAN 1PERMONTH',
             'is_visible' => 1,
@@ -137,7 +144,6 @@ class PHPUnitTestSeeder extends Seeder
             'max_games_simultaneously' => 1,
             'is_priority' => 0,
             'slug' => 'test-plan-1permonth',
-            'braintree_plan' => 'test-braintree-1permonth',
             'cost' => 1,
         ]);
 
@@ -148,7 +154,6 @@ class PHPUnitTestSeeder extends Seeder
             'max_games_simultaneously' => 1,
             'is_priority' => 0,
             'slug' => 'test-plan-1unlimited',
-            'braintree_plan' => 'test-braintree-1unlimited',
             'cost' => 2,
         ]);
 
@@ -159,7 +164,6 @@ class PHPUnitTestSeeder extends Seeder
             'max_games_simultaneously' => 2,
             'is_priority' => 1,
             'slug' => 'test-plan-2priority',
-            'braintree_plan' => 'test-braintree-2priority',
             'cost' => 3,
         ]);
 
@@ -168,8 +172,8 @@ class PHPUnitTestSeeder extends Seeder
             'is_visible' => 1,
             'max_games_per_month' => 99,
             'max_games_simultaneously' => 3,
+            'is_priority' => 0,
             'slug' => 'test-plan-3unlimited',
-            'braintree_plan' => 'test-braintree-3unlimited',
             'cost' => 4,
         ]);
 
@@ -209,7 +213,7 @@ class PHPUnitTestSeeder extends Seeder
 
         DB::table('subscriptions')->insert([
             'user_id' => 1,
-            'plan_id' => 2,
+            'plan_id' => 1,
             'created_at' => '2018-01-01',
             'updated_at' => '2018-01-01',
             'starts_at' => '2018-01-01',
@@ -241,11 +245,18 @@ class PHPUnitTestSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-        	'id' => 3,
-        	'name' => 'Age Limited User',
-        	'email' => 'child@example.com',
-        	'password' =>  bcrypt('userpass'),
+            'id' => 3,
+            'name' => 'Age Limited User',
+            'email' => 'child@example.com',
+            'password' =>  bcrypt('userpass'),
             'maximum_age' => 12,
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 4,
+            'name' => 'Subscription Test User',
+            'email' => 'subscription@example.com',
+            'password' =>  bcrypt('userpass'),
         ]);
     }
 }
