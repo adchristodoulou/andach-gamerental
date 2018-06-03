@@ -57,7 +57,7 @@ class ContactController extends Controller
         if (!Auth::check())
         {
             $request->validate([
-                'email' => 'required',
+                'email' => 'required|email',
                 'title' => 'required',
                 'full_text' => 'required',
                 'g-recaptcha-response' => 'required|captcha'

@@ -6,6 +6,7 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use NoCaptcha;
 
 class ContactTest extends TestCase
 {
@@ -24,6 +25,7 @@ class ContactTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Contact Andach');
         $response->assertSee('<!-- Showing Captcha -->');
+        $response->assertDontSee('You are currently logged in');
 
         $user = User::first();
         $this->be($user);
@@ -33,6 +35,7 @@ class ContactTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Contact Andach');
         $response->assertDontSee('<!-- Showing Captcha -->');
+        $response->assertSee('You are currently logged in');
     }
 
     public function test_show()
@@ -53,19 +56,51 @@ class ContactTest extends TestCase
         NoCaptcha::shouldReceive('verifyResponse')
             ->once()
             ->andReturn(true);
-
-        // provide hidden input for your 'required' validation
-        NoCaptcha::shouldReceive('display')
-            ->zeroOrMoreTimes()
-            ->andReturn('<input type="hidden" name="g-recaptcha-response" value="1" />');
     
     	$response = $this->followingRedirects()->post('/contact/send', [
-    		'title' => 'CONTACTINSERT TITLE',
+            'title' => 'CONTACTINSERT TITLE',
     		'category_id' => 1,
     		'full_text' => 'CONTACTINSERT FULL TEXT',
     		]);
+        $response->assertSee('email field is required');
 
-    	$response->assertSee('Thankyou, we have received your comments');
+        $response = $this->followingRedirects()->post('/contact/send', [
+            'email' => 'invalid',
+            'category_id' => 1,
+            ]);
+        $response->assertSee('email must be a valid email address');
+        $response->assertSee('title field is required');
+        $response->assertSee('full text field is required');
+        $response->assertSee('g-recaptcha-response field is required');
+
+        $response = $this->followingRedirects()->post('/contact/send', [
+            'title' => 'CONTACTINSERT TITLE',
+            'email' => 'test@example.com',
+            'category_id' => 1,
+            'g-recaptcha-response' => '1',
+            'full_text' => 'CONTACTINSERT FULL TEXT',
+            ]);
+        $response->assertSee('Thankyou, we have received your comments');
+    }
+
+    public function test_store_logged_in()
+    {
+        //Now check these all work when logged in. 
+        $user = User::first();
+        $this->be($user);
+
+        $response = $this->followingRedirects()->post('/contact/send', [
+            'category_id' => 1,
+            ]);
+        $response->assertSee('title field is required');
+        $response->assertSee('full text field is required');
+
+        $response = $this->followingRedirects()->post('/contact/send', [
+            'title' => 'CONTACTINSERT TITLE',
+            'category_id' => 1,
+            'full_text' => 'CONTACTINSERT FULL TEXT',
+            ]);
+        $response->assertSee('Thankyou, we have received your comments');
     }
 
     public function test_update()
